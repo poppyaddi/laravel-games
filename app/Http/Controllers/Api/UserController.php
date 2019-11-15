@@ -2,35 +2,52 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\AuthController as Controller;
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDOException;
+use App\Models\Config;
 
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-        parent::__construct();
-    }
+
 
     //
 
 
     public function store(Request $request)
     {
-        $password           = '123456'; # 密码后期从数据库里查询
-        $data               = $request->all();
-        $data['password']   = $password;
+        $data['name']               = $request->name;
+        $data['role_id']            = $request->role_id;
+        $configs                    = Config::pluck('value', 'key');
+        $data['password']           = $configs['password'];
+        $userInfo['pay_pass']       = $configs['pay_pass'];
+        $t                          = time() + $configs['expire_time'] * 3600 * 24;
+        $userInfo['expire_time'] = date('Y-m-d H:i:s', $t);
+        $userInfo['save_device']    = $configs['save_device'];
+        $userInfo['admin']          = $configs['admin'];
+        $userInfo['pass_store']     = $configs['pass_store'];
+        $userInfo['charge_status']  = $configs['charge_status'];
+        $userInfo['nickname']       = $configs['nickname_prefix'] . random_int(1, 999999);
+//        return $userInfo;
+//
+//        try {
+//            DB::transaction(function() use ($data){
+//                $userInfo['user_id'] = User::insertGetId($data);
+//                UserInfo::create($userInfo);
+//            });
+//        } catch (PDOException $e) {
+//            return error('', 400, '添加失败,查看用户名是否重复');
+//        }
 
-        try {
-            $info = User::create($data);
-        } catch (PDOException $e) {
-            return error('', 400, '添加失败,查看用户名是否重复');
-        }
-        return success($info, 201, '添加成功');
+        DB::transaction(function() use ($data, $userInfo){
+            $userInfo['user_id'] = User::insertGetId($data);
+            UserInfo::create($userInfo);
+        });
+        return success('', 201, '添加成功');
     }
 
     /**
@@ -86,7 +103,7 @@ class UserController extends Controller
     public function reset_password(Request $request)
     {
         # 后期从数据库取数据
-        $password       = '123456';
+        $password       = Config::get_value('password');
         $user           = User::find($request->id);
         $user->password = $password;
         $info           = $user->save();

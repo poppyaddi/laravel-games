@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('v1/auth/login', 'Api\AuthController@login')->name('auth.login');
 Route::get('v1/auth/refresh', 'Api\AuthController@refresh')->name('auth.refresh');
 
-Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->group(function (){
+Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (){
 
     Route::prefix('auth')->group(function(){
         Route::get('me', 'AuthController@me')->name('auth.me');
@@ -56,6 +56,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
         Route::post('update', 'MenuController@update')->name('menu.update');
         Route::get('tree', 'MenuController@tree')->name('menu.tree');
         Route::get('user_menu', 'MenuController@user_menu')->name('menu.user_menu');
+        Route::get('element', 'MenuController@element')->name('menu.element');
     });
 
     # 角色菜单路由
@@ -81,6 +82,32 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
     Route::prefix('role_perm')->group(function(){
         Route::get('index', 'RolePermController@index')->name('role_perm.index');
         Route::post('store', 'RolePermController@store')->name('role_perm.store');
+    });
+
+    # 配置路由
+    Route::prefix('config')->group(function(){
+        Route::post('store', 'ConfigController@store')->name('config.store');
+        Route::get('index', 'ConfigController@index')->name('config.index');
+        Route::get('detail', 'ConfigController@detail')->name('config.detail');
+        Route::post('update', 'ConfigController@update')->name('config.update');
+
+    });
+
+    # 用户详情
+    Route::prefix('info')->group(function() {
+        Route::get('index', 'UserInfoController@index')->name('info.index');
+        Route::get('detail', 'UserInfoController@detail')->name('info.detail');
+        Route::post('update', 'UserInfoController@update')->name('info.update');
+    });
+
+    # 子账户路由
+    Route::prefix('son')->group(function(){
+        Route::post('store', 'SonController@store')->name('son.store');
+        Route::get('index', 'SonController@index')->name('son.store');
+        Route::get('detail', 'SonController@detail')->name('son.detail');
+        Route::post('update', 'SonController@update')->name('son.update');
+        Route::delete('delete', 'SonController@delete')->name('son.delete');
+        Route::post('status', 'SonController@status')->name('son.status');
     });
 
 

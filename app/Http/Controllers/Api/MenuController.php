@@ -16,6 +16,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $info = Menu::create($request->all());
+
         return success($info, 201, '添加成功');
 
     }
@@ -86,8 +87,7 @@ class MenuController extends Controller
      */
     public function tree()
     {
-        $data   = Menu::where('type', 'm')
-                ->select('id', 'title', 'parent_id')
+        $data   = Menu::select('id', 'title', 'parent_id')
                 ->get();
         $tree   = get_tree($data);
         return success($tree, 200);
@@ -101,7 +101,7 @@ class MenuController extends Controller
     {
         # 获取用户角色, 然后获取该角色对应菜单
         $role_id        = Role::get_role_id();
-        $menu_id        = RoleMenu::where('role_id', $role_id)->first()->menu_id;
+        $menu_id        = RoleMenu::where('role_id', $role_id)->first()                 ->menu_id;
         $menu_id        = explode(',', $menu_id);
         $all_menu_id    = Menu::get_all_menus($menu_id);
 
@@ -111,6 +111,20 @@ class MenuController extends Controller
                         ->select('id', 'icon', 'title', 'path', 'parent_id')
                         ->get();
         $data           = get_tree($data);
+        return success($data);
+    }
+
+    public function element()
+    {
+        # 获取用户角色, 然后获取该角色对应菜单
+        $role_id        = Role::get_role_id();
+        $menu_id        = RoleMenu::where('role_id', $role_id)->first()                 ->menu_id;
+        $menu_id        = explode(',', $menu_id);
+        $all_menu_id    = Menu::get_all_menus($menu_id);
+
+        $data           = Menu::where('type', 'e')
+            ->whereIn('id', $all_menu_id)
+            ->pluck('slug');
         return success($data);
     }
 }

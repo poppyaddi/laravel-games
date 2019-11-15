@@ -31,6 +31,7 @@ class Menu extends Model
         switch ($value){
             case 'm':
                 return '菜单';
+                break;
             case 'e':
                 return '页面元素';
         }
@@ -40,10 +41,13 @@ class Menu extends Model
     {
         switch ($value){
             case '菜单':
-                return 'm';
+                $this->attributes['type'] =  'm';
                 break;
             case '页面元素':
-                return 'e';
+                $this->attributes['type'] =  'e';
+                break;
+            default:
+                $this->attributes['type'] = $value;
         }
     }
 
@@ -66,9 +70,13 @@ class Menu extends Model
 
     public static function get_all_menus($data)
     {
-        $parent_id = self::whereIn('id', $data)->where('type', 'm')->pluck('parent_id')->toArray();
+        $parent_id = self::whereIn('id', $data)->pluck('parent_id')->toArray();
         $menu_ids = array_merge($data, $parent_id);
-        # 先转为证书
+
+        $parent_id = self::whereIn('id', $menu_ids)->pluck('parent_id')->toArray();
+
+        $menu_ids = array_merge($menu_ids, $parent_id);
+        # 先转为整数
         $temp = array_map(function($value){
             return (int) $value;
         }, $menu_ids);
