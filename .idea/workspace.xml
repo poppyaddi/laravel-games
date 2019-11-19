@@ -2,21 +2,62 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="917c7854-436d-4d0a-8248-70b07f54d653" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ConfigController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SonController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Config.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Son.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/UserInfo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_13_135935_create_config_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_14_060334_create_userinfo_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_14_143955_create_son_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GameController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PriceController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/AuthController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/BaseController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/GameController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/Rsa1024Controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TestController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TokenEncController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Game.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/InoutLog.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Price.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Store.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/rsa_key.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_18_064302_create_game_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_18_085754_create_price_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_19_085742_create_store_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_19_101427_create_inout_log_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/rsa_key/client_private_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/rsa_key/client_public_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/rsa_key/server_private_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/rsa_key/server_public_key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/MenuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MenuController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SonController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SonController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Api/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Api/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Cors.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Son.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Son.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/helpers/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/helpers/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cms.sql" beforeDir="false" afterPath="$PROJECT_DIR$/cms.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/pagination.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/pagination.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/passwords.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/passwords.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/public/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/app/public/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/sessions/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/testing/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/testing/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,10 +75,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
@@ -146,7 +187,13 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.PHP" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -160,11 +207,19 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHP Script.MenuController.php">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="MenuController.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/app/Http/Controllers/Api/MenuController.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHP Script.MenuController.php" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -190,6 +245,17 @@
       <workItem from="1573540154229" duration="3680000" />
       <workItem from="1573550980718" duration="26011000" />
       <workItem from="1573650525849" duration="44156000" />
+      <workItem from="1573892936660" duration="294000" />
+      <workItem from="1573915676211" duration="2159000" />
+      <workItem from="1573971215607" duration="211000" />
+      <workItem from="1573975052001" duration="162000" />
+      <workItem from="1573975238867" duration="1769000" />
+      <workItem from="1573978052149" duration="3662000" />
+      <workItem from="1573983646942" duration="5235000" />
+      <workItem from="1574052279824" duration="3860000" />
+      <workItem from="1574062016681" duration="22344000" />
+      <workItem from="1574097199099" duration="12666000" />
+      <workItem from="1574158330928" duration="23292000" />
     </task>
     <servers />
   </component>

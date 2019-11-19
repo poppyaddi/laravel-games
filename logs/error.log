@@ -1,0 +1,376 @@
+2019/11/16 22:43:15 [error] 3703#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 127.0.0.1, server: www.game.com, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "www.game.com"
+2019/11/16 22:43:15 [error] 3703#0: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 127.0.0.1, server: www.game.com, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "www.game.com", referrer: "http://www.game.com/"
+2019/11/16 22:44:03 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:44:06 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:44:07 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:44:10 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:44:21 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:44:43 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:21 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:31 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:33 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:34 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:34 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:34 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:35 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:45:35 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:30 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:30 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:30 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:31 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:31 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:31 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:32 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:32 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:46:32 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:13 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:14 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:14 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:14 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:15 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:15 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:15 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/16 22:47:22 [error] 4123#0: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(51): Illuminate\View\Compilers\BladeCompiler...
+PHP message: PHP Fatal error:  Uncaught ErrorException: file_put_contents(/usr/local/nginx/html/laravel-games/storage/framework/views/7c61fe99eb329a4c462e945bda25d0482e481e66.php): failed to open stream: Permission denied in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:122
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'file_put_conten...', '/usr/local/ngin...', 122, Array)
+#1 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(122): file_put_contents('/usr/local/ngin...', '<?php $__env->s...', 0)
+#2 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(140): Illuminate\Filesystem\Filesystem->put('/usr/local/ngin...', '<?php $__env->s...')
+#3 /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/View/Engines/Co
+2019/11/18 16:01:53 [error] 949#0: *69 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 127.0.0.1, server: www.game.com, request: "POST / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "www.game.com"
+2019/11/18 16:03:47 [error] 949#0: *72 upstream timed out (110: Connection timed out) while reading response header from upstream, client: 127.0.0.1, server: www.game.com, request: "POST /api/v1/auth/login HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "www.game.com"

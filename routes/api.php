@@ -110,6 +110,37 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('status', 'SonController@status')->name('son.status');
     });
 
+    # 游戏路由
+    Route::prefix('game')->group(function(){
+        Route::post('store', 'GameController@store')->name('game.store');
+        Route::get('index', 'GameController@index')->name('game.index');
+        Route::delete('delete', 'GameController@delete')->name('game.delete');
+        Route::get('detail', 'GameController@detail')->name('game.detail');
+        Route::post('update', 'GameController@update')->name('game.update');
+        Route::post('status', 'GameController@status')->name('game.status');
+    });
+
+    # 面值路由
+    Route::prefix('price')->group(function(){
+        Route::post('store', 'PriceController@store')->name('price.store');
+        Route::get('index', 'PriceController@index')->name('price.index');
+        Route::delete('delete', 'PriceController@delete')->name('price.delete');
+        Route::get('select', 'PriceController@select')->name('price.select');
+        Route::get('detail', 'PriceController@detail')->name('price.detail');
+        Route::post('update', 'PriceController@update')->name('price.update');
+        Route::post('status', 'PriceController@status')->name('price.status');
+        Route::post('pass', 'PriceController@pass')->name('price.pass');
+
+    });
 
 
+
+});
+
+
+Route::namespace('Port')->prefix('v1/port')->group(function(){
+    Route::post('auth/revenir', 'AuthController@login');
+
+    Route::get('test', 'TestController@test');
+    Route::get('gtest', 'GameController@test');
 });

@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         # 2. 验证账户
         $credentials = request(['name', 'password']);
-
+        $credentials['status'] = 1;
 
         if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['message' => '登录失败, 请检查用户名和密码'], 400);

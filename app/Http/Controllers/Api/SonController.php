@@ -21,7 +21,7 @@ class SonController extends Controller
         }
 
         $data = $request->all();
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = auth('api')->user()->id;
         try{
             $info = Son::create($data);
         } catch (\PDOException $e){
@@ -30,6 +30,10 @@ class SonController extends Controller
         return success($info, 200, '添加成功');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
         $name           = $request->name;
@@ -43,7 +47,7 @@ class SonController extends Controller
 
         # 判断权限
         $user_id        = null;
-        $role_id = auth()->user()->role_id;
+        $role_id        = auth()->user()->role_id;
         if($role_id != 1){
             $user_id = auth()->user()->id;
         }
@@ -60,7 +64,7 @@ class SonController extends Controller
                             return $query->where('sons.user_id', $user_id);
         });
         $data['total'] = $query->count();
-        $data['data']   = $query
+        $data['data']  = $query
                         ->orderBy('sons.' . $sort_field, $order)
                         ->offset($offset)
                         ->limit($pagesize)

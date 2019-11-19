@@ -118,7 +118,7 @@ class MenuController extends Controller
     {
         # 获取用户角色, 然后获取该角色对应菜单
         $role_id        = Role::get_role_id();
-        $menu_id        = RoleMenu::where('role_id', $role_id)->first()                 ->menu_id;
+        $menu_id        = RoleMenu::where('role_id', $role_id)->first()                         ->menu_id;
         $menu_id        = explode(',', $menu_id);
         $all_menu_id    = Menu::get_all_menus($menu_id);
 

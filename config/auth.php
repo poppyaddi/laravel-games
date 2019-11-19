@@ -46,6 +46,12 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'port' => [
+            'driver' => 'jwt',
+            'provider' => 'sons',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -71,10 +77,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'sons' => [
+             'driver' => 'eloquent',
+             'model' => App\Models\Son::class,
+         ],
     ],
 
     /*
