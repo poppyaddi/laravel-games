@@ -27,35 +27,47 @@ class TransactionController extends Rsa1024Controller
         }
 
         // 获取游戏
+//        $map = [
+//            'status'=> 1, # 过滤禁用的游戏
+//            'productIdentifier'=> $productIdentifier,
+//        ];
+
         $map = [
-            'status'=> 1, # 过滤禁用的面值
-            'productIdentifier'=> $productIdentifier,
+            ['status', '=', 1],
+            ['productIdentifier', '=', $productIdentifier]
         ];
 
         $game = Game::where($map)->first();
 
         if (!$game)
         {
-            return $this->RSA_private_encrypt(err('不支持这个游戏入库'));
+            return $this->RSA_private_encrypt(err('不支持该游戏入库'));
         }
 
         // 获取支持面值
+//        $map = [
+//            'status'=> 1,
+//            'game_id'=> $game['id'],
+//        ];
+
         $map = [
-            'status'=> 1,
-            'game_id'=> $game['id'],
+            ['status', '=', 1],
+            ['game_id', '=', $game['id']]
         ];
 
-        $sort = 'money';
+//        $sort = 'money';
 
 //        $price = Price::where($map)->orderBy($sort)->select();
 
-        $data= Price::where($map)->withCount(['store' => function($query){
+        $data = Price::where($map)->withCount(['store' => function($query){
                     $map = [
                         ['owner_user_id', '=', auth('port')->user()->id],
                         ['user_type', '=', 2]
                     ];
                     $query->whereIn('status', [1, 5])->where($map);
-                }])->get();
+                }])
+                ->orderBy('money')
+                ->get();
 
 //        $data = [];
 //
@@ -109,11 +121,6 @@ class TransactionController extends Rsa1024Controller
 
          $currency =  $this->param('currency');
 
-        # 验证币种
-        if(in_array($currency, $this->currency())){
-            return $this->RSA_private_encrypt(err('币种不符合要求'));
-        }
-
         $encrypt = new TokenEncController();
 
 
@@ -164,6 +171,16 @@ class TransactionController extends Rsa1024Controller
         if (empty($productIdentifier))
         {
             return $this->RSA_private_encrypt(err('productIdentifier length is 0'));
+        }
+
+        if (empty($encrypt))
+        {
+            return $this->RSA_private_encrypt(err('encrypt length is 0'));
+        }
+
+        # 验证币种
+        if(in_array($currency, $this->currency())){
+            return $this->RSA_private_encrypt(err('币种不符合要求'));
         }
 
         # 验证游戏类型是否支持
@@ -292,10 +309,10 @@ class TransactionController extends Rsa1024Controller
 
         if (empty($title))
         {
-            return $this->RSA_private_encrypt(error('title length is 0'));
+            return $this->RSA_private_encrypt(err('title length is 0'));
         }
 
-        // 获取支持面值
+        // 获取支持面值https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID=2389823426926982977&skey=%40crypt_1c47700b_bb2bfc52613f53ac3add81b55edef0f5
 //        $map = [
 //            'status'=> 1,
 //            'title'=> $title,
@@ -310,7 +327,7 @@ class TransactionController extends Rsa1024Controller
 
         if (!$price)
         {
-            return $this->RSA_private_encrypt(error('面值未开放'));
+            return $this->RSA_private_encrypt(err('面值未开放'));
         }
 
         // 获取凭证
@@ -322,7 +339,8 @@ class TransactionController extends Rsa1024Controller
 //
         $map = [
             ['price_id', '=', $price['id']],
-            ['user_id', '=', auth('port')->user()->id],
+            ['owner_user_id', '=', auth('port')->user()->id],
+            ['user_type', '=', 2]
         ];
 
         // 是否跳过使用过的凭证
@@ -477,8 +495,9 @@ class TransactionController extends Rsa1024Controller
 
         $map = [
             ['price_id', '=', $price['id']],
-            ['user_id', '=', auth('port')->user()->id],
-            ['status', '=', '6']
+            ['owner_user_id', '=', auth('port')->user()->id],
+            ['status', '=', '6'],
+            ['user_type', '=', 2]
         ];
 
         $store = Store::where($map)->orderBy('id', 'asc')->first();
@@ -486,7 +505,8 @@ class TransactionController extends Rsa1024Controller
         if(!$store){
             $map = [
                 ['price_id', '=', $price['id']],
-                ['user_id', '=', auth('port')->user()->id],
+                ['owner_user_id', '=', auth('port')->user()->id],
+                ['user_type', '=', 2]
             ];
             $in = [1, 5];
 
@@ -521,7 +541,7 @@ class TransactionController extends Rsa1024Controller
 //        $pid = db('user')->where(['id'=>$son_id])->find()['pid'];
 //        $p_user = db('user')->where(['id'=>$pid])->find();
 //        if($p_user['money'] - $fee < 0){
-//            return $this->RSA_private_encrypt(error('余额不足'));
+//            return $this->RSA_private_encrypt(err('余额不足'));
 //        }
 //
 //        //db()->startTrans();
@@ -587,164 +607,6 @@ class TransactionController extends Rsa1024Controller
         return $this->RSA_private_encrypt(succ($data));
     }
 
-    public function vendre_info_one_moling_bak()
-    {
-
-        $title = $this->param('title'); // 面值名
-
-        if (empty($title))
-        {
-            return $this->RSA_private_encrypt(error('title length is 0'));
-        }
-
-        // 判断是否为魔灵
-        $bundleIdentifier = $this->param('bundleIdentifier');
-        if (empty($bundleIdentifier) || $bundleIdentifier != 'com.com2us.smon.normal.freefull.apple.kr.ios.universal')
-        {
-            return $this->RSA_private_encrypt(error('game is not allowed'));
-        }
-
-
-
-
-
-        // 获取支持面值
-        $map = [
-            'status'=> 1,
-            'title'=> $title,
-        ];
-
-
-        $price = $this->games_price_model->where($map)->find();
-
-        if (empty($price))
-        {
-            return $this->RSA_private_encrypt(error('面值未开放'));
-        }
-
-        // 获取凭证
-        $map = [
-            'is_goods'=> 0,
-            'price_id'=> $price['id'],
-            'user_id'=> $this->user_id,
-        ];
-
-        // 跳过使用过的凭证
-        // $userInfo = $this->userInfo();
-
-        //    if ($userInfo['pass_store'] == 1)
-        //    {
-        //      $map['status'] = ['in', [1,5]];
-        //    }
-        //   else {
-        //       $map['status'] = ['in', [1, 5, 6]];
-        //   }
-
-        // 1. 首先出库手机端已获取
-
-        $map['status'] = ['in', [6]];
-
-        $store = $this->store_model->where($map)->order('id asc')->limit(1)->select();
-
-        if (empty($store))
-        {
-            $map['status'] = ['in', [1,5]];
-            $store = $this->store_model->where($map)->order('id asc')->limit(1)->select();
-        }
-
-
-
-        if (empty($store))
-        {
-            return $this->RSA_private_encrypt(error('凭证不存在'));
-        }
-
-        $store = $store[0];
-
-        //扣除手续费
-        // 查询凭证的价格
-        $money = db('games_price')->where(['id'=>$store['price_id']])->find()['money'];
-        $percent = db('config')->where(['key'=>'info_one'])->find()['value'];
-        $fee = $money * $percent;
-
-        $son_id = $this->user_id;
-        $pid = db('user')->where(['id'=>$son_id])->find()['pid'];
-        $p_user = db('user')->where(['id'=>$pid])->find();
-        if($p_user['money'] - $fee < 0){
-            return $this->RSA_private_encrypt(error('余额不足'));
-        }
-
-        //db()->startTrans();
-        $info = db('user')->where(['id'=>$pid])->update(['money'=>$p_user['money']-$fee]);
-        $money_total = db('config')->where(['key'=>'money'])->find()['value'];
-        $info2 = db('config')->where(['key'=>'money'])->update(['value'=>$money_total+$fee]);
-
-        $info3 = $this->store_model->where(['id'=> $store['id']])->update(['status'=> 6, 'use_time'=> $this->date]);
-
-        // if($info && $info2 && $info3){
-        //		db()->commit();
-        // } else{
-        // db()->rollback();
-        //		return $this->RSA_private_encrypt(error('出库失败'));
-        // }
-
-
-
-        // 标记凭证已经使用
-
-
-        // 记录日志
-        $data = [
-            'desc'=> '用户获取凭证',
-            'user_id'=> $this->user_id,
-            'store_id'=> $store['id'],
-        ];
-
-        $this->store_log_model->insert($data);
-
-        // 返回凭证
-        $data = [
-            "id"=> $store['id'],
-            "price"=> $store['price'],
-            "desc"=> $store['desc'],
-            "status"=> $store['status'],
-            "start_time"=> $store['start_time'],
-            "end_time"=> $store['end_time'],
-            "identifier"=> $store['identifier'],
-            // "receipt"=> $store['receipt'],
-            // "new_receipt"=> $store['new_receipt'],
-            "receipt"=> $this->token_public_decrypt($store['receipt']),
-            "new_receipt"=> $this->token_public_decrypt($store['new_receipt']),
-        ];
-
-
-        // 兼容老版本插件入库的凭证
-        //...
-        if (empty($data['receipt']) && !empty($data['new_receipt']))
-        {
-            if (mb_strlen($data['new_receipt']) > 3)
-            {
-                if (strtolower(mb_substr(trim($data['new_receipt'], 'utf8'),0,3)) == 'ewo') {
-                    $data['receipt'] = $data['new_receipt'];
-                }
-            }
-        }
-
-        if (empty($data['new_receipt']) && !empty($data['receipt']))
-        {
-            if (mb_strlen($data['receipt']) > 3)
-            {
-                if (strtolower(mb_substr(trim($data['receipt'], 'utf8'),0,3)) == 'mii') {
-                    $data['new_receipt'] = $data['receipt'];
-                }
-            }
-        }
-        //...
-
-
-        return $this->RSA_private_encrypt(succ($data));
-    }
-
     /**
      * 出库-标记成功
      * @return string
@@ -768,8 +630,8 @@ class TransactionController extends Rsa1024Controller
         # 只根据凭证id就可以找到该凭证
         $map = [
             ['id', '=', $id],
-//            ['owner_user_id', '=', auth('port')->user()->id],
-//            ['user_type', '=', 2]
+            ['owner_user_id', '=', auth('port')->user()->id],
+            ['user_type', '=', 2]
         ];
 
         $store = Store::where($map)->first();
@@ -802,7 +664,8 @@ class TransactionController extends Rsa1024Controller
 
             $map = [
                 ['price_id', '=', $store['price_id']],
-                ['owner_user_id', '=', auth('port')->user()->id]
+                ['owner_user_id', '=', auth('port')->user()->id],
+                ['user_type', '=', 2]
             ];
 
             $count = Store::whereIn('status', [1, 5])->where($map)->count();
@@ -908,7 +771,9 @@ class TransactionController extends Rsa1024Controller
     }
 
     protected function currency(){
-        return explode(',', Config::get_value('currency'));
+        $currency = Config::get_value('currency');
+
+        return $currency ? explode(',', $currency) : [];
 
     }
 }

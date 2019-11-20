@@ -13,7 +13,7 @@ class Role extends Model
 
     public function user()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\Models\User', 'role_id', 'id');
     }
 
     public static function get_role_id()

@@ -130,16 +130,33 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('update', 'PriceController@update')->name('price.update');
         Route::post('status', 'PriceController@status')->name('price.status');
         Route::post('pass', 'PriceController@pass')->name('price.pass');
+    });
 
+    # 设备路由
+    Route::prefix('device')->group(function(){
+        Route::get('index', 'DeviceController@index')->name('device.index');
+        Route::delete('delete', 'DeviceController@delete')->name('device.delete');
+        Route::post('status', 'DeviceController@status')->name('device.status');
+        Route::get('select', 'DeviceController@select')->name('device.select');
     });
 
 
 
 });
 
+Route::post('v1/port/auth/login', 'Port\AuthController@login');
 
-Route::namespace('Port')->prefix('v1/port')->group(function(){
-    Route::post('auth/revenir', 'AuthController@login');
+Route::namespace('Port')->prefix('v1/port')->middleware(['port'])->group(function(){
+    Route::post('auth/logout', 'AuthController@logout');
+    Route::get('game/price', 'GameController@price');
+    Route::get('game/addGame', 'GameController@addGame');
+    Route::get('game/support', 'GameController@support');
+    Route::get('transaction/table', 'TransactionController@table');
+    Route::post('transaction/desmise_input', 'TransactionController@desmise_input');
+    Route::get('transaction/vendre_info_one', 'TransactionController@vendre_info_one');
+    Route::get('transaction/vendre_info_one_moling', 'TransactionController@vendre_info_one_moling');
+    Route::post('transaction/consumption', 'TransactionController@consumption');
+    Route::post('transaction/invalid', 'TransactionController@invlid');
 
     Route::get('test', 'TestController@test');
     Route::get('gtest', 'GameController@test');

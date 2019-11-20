@@ -123,8 +123,8 @@ class MenuController extends Controller
         $all_menu_id    = Menu::get_all_menus($menu_id);
 
         $data           = Menu::where('type', 'e')
-            ->whereIn('id', $all_menu_id)
-            ->pluck('slug');
+                        ->whereIn('id', $all_menu_id)
+                        ->pluck('slug');
         return success($data);
     }
 }

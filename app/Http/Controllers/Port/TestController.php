@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Port;
 
 use App\Http\Controllers\Controller;
 use App\Models\Config;
+use App\Models\CzGame;
+use App\Models\Device;
 use App\Models\Game;
 use App\Models\Price;
 use App\Models\Role;
@@ -163,8 +165,78 @@ class TestController extends BaseController
 //        $in = $this->parent()->userinfo->pass_store == 1 ? [1, 5] : [1, 5, 6];
 //        return $in;
 
-        $game = Game::where('id', '>', 2)->first();
-        return $game['name'];
+//        $game = Game::where('id', '>', 2)->first();
+//        return $game['name'];
+
+//        $key =  DB::connection("temp")
+//            ->table("ciphertext")
+//            ->where('key_name', $key)
+//            ->first();
+        /**
+         *
+        $data = CzGame::with('price')->get();
+        $count = 0;
+        echo date('Y-m-d H:i:s');
+        foreach ($data as $val){
+            $game['name'] = $val['gs_name'];
+            $game['productIdentifier'] = $val['productIdentifier'];
+            $game['description'] = '数据复制添加';
+            $game_id = Game::insertGetId($game);
+//            dump($game);
+            foreach ($val->price as $value){
+                $price['gold'] = $value['gold'];
+                $price['money'] = $value['money'];
+                $price['title'] = $value['title'];
+                $price['game_id'] = $game_id;
+                Price::create($price);
+            }
+            echo '.........完成第' . $count++ . '行.........';
+            echo '<br>';
+        }
+        echo '.........完成插入..........';
+        echo date('Y-m-d H:i:s');
+         *
+         */
+//        return auth('port')->user();
+//        $credentials = request()->only('name', 'password');
+////        return $credentials;
+//        if (! $token = auth('port')->attempt($credentials)) {
+//            return 3;
+//        }
+//        return auth('port')->user();
+//        $data = CzGame::get();
+////        return $data;
+//        $count = 0;
+//        foreach ($data as $val){
+//            $device['device'] = $val['device'];
+//            $device['son_id'] = 5;
+//            $device['status'] = '1';
+//            Device::create($device);
+//            echo '.............' . $count++ . '...........';
+//            echo '<br>';
+//        }
+//        echo 'finished';
+
+//        return $this->parent()->userinfo->save_device;
+
+//        $data = [
+//            'device' => 'fsdfsaf',
+//            'son_id' => 3,
+//            'status' => 1
+//        ];
+//
+//        $info = Device::create($data);
+//        return $info->id;
+//        return $this->parent();
+        return $this->parent();
+            $expire_time = $this->parent()->userinfo->expire_time;
+        if(strtotime($expire_time) < time()){
+            return '账号过期';
+        } else{
+            return '不过期';
+        }
+        return $this->parent();
+
     }
 
 

@@ -25,22 +25,32 @@ class GameController extends Rsa1024Controller
         }
 
         // 获取游戏
+//        $map = [
+//            'status'=> 1,
+//            'productIdentifier'=> $productIdentifier,
+//        ];
+
         $map = [
-            'status'=> 1,
-            'productIdentifier'=> $productIdentifier,
+            ['status', '=', 1],
+            ['productIdentifier', '=', $productIdentifier]
         ];
 
         $game = Game::where($map)->first();
 
         if (!$game)
         {
-            return $this->RSA_private_encrypt(err('不支持这个游戏入库'));
+            return $this->RSA_private_encrypt(err('不支持该游戏入库'));
         }
 
         // 获取支持面值
+//        $map = [
+//            'status'=> 1,
+//            'game_id'=> $game['id'],
+//        ];
+
         $map = [
-            'status'=> 1,
-            'game_id'=> $game['id'],
+            ['status', '=', 1],
+            ['game_id', '=', $game['id']]
         ];
 
         # 获取该游戏下支持的面值
@@ -82,8 +92,12 @@ class GameController extends Rsa1024Controller
         }
 
         // 验证游戏是否已经存在
+//        $map = [
+//            'productIdentifier'=> $productIdentifier,
+//        ];
+
         $map = [
-            'productIdentifier'=> $productIdentifier,
+            ['productIdentifier', '=', $productIdentifier]
         ];
 
         $game = Game::where($map)->first();
@@ -108,8 +122,12 @@ class GameController extends Rsa1024Controller
         }
 
         // 验证面值是否已经存在
+//        $map = [
+//            'title'=> $title,
+//        ];
+
         $map = [
-            'title'=> $title,
+            ['title', '=', $title]
         ];
 
         $price = Price::where($map)->first();
@@ -152,12 +170,17 @@ class GameController extends Rsa1024Controller
         }
 
         // 获取游戏
+//        $map = [
+//            'status'=> 1,
+//            'productIdentifier'=> $productIdentifier,
+//        ];
+
         $map = [
-            'status'=> 1,
-            'productIdentifier'=> $productIdentifier,
+            ['status', '=', 1],
+            ['productIdentifier', '=', $productIdentifier]
         ];
 
-        $game = $this->games_model->where($map)->first();
+        $game = Game::where($map)->first();
 
         if ($game)
         {

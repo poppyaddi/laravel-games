@@ -14,9 +14,9 @@ class Rsa1024Controller extends BaseController
     //
     public function __construct()
     {
-//        $this->rsa_path = public_path() . DIRECTORY_SEPARATOR;
-//        $this->get_raw();
-//        parent::__construct();
+        $this->rsa_path = public_path() . DIRECTORY_SEPARATOR;
+        $this->get_raw();
+        parent::__construct();
     }
 
     public function index()
