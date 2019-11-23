@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Son;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -131,5 +132,40 @@ class UserController extends Controller
                         ->count();
         $data['total'] = User::count();
         return success($data, 200);
+    }
+
+    public function select(Request $request)
+    {
+        $user_type = $request->user_type;
+        $user = auth('api')->user();
+        # 判断请求账户类型
+        if($user_type == 'user'){
+            # 此时为主账户
+            $map = '';
+            if($user->role_id != 1){
+                # 非管理员
+                $map = [
+                    ['id', '=', $user->id]
+                ];
+            }
+            $data = User::when($map, function ($query, $map){
+                return $query->where($map);
+            })->select('id', 'name')->get();
+        } elseif($user_type == 'son'){
+            $map = '';
+            if($user->role_id == 1){
+                # 不是管理员, 只允许查看自己账户下的子账户
+
+                $in = User::pluck('id');
+
+
+            } else{
+                $in = [$user->id];
+            }
+            $data = Son::whereIn('user_id', $in)->select('id', 'name')->get();
+        } else{
+            $data = null;
+        }
+        return success($data);
     }
 }

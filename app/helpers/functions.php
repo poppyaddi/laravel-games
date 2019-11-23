@@ -148,4 +148,17 @@ function curl_request($url,$ret='',$file=''){
     return $data;
 }
 
+function apple_verify($receipt){
+    $url = 'https://buy.itunes.apple.com/verifyReceipt';
+
+    $post = [
+        'receipt-data' => $receipt,
+    ];
+
+    $post = json_encode($post);
+    $buy = curl_request($url, $post);
+
+    return json_decode($buy);
+}
+
 

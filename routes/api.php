@@ -44,6 +44,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('detail', 'UserController@detail')->name('user.detail');
         Route::post('update', 'UserController@update')->name('user.update');
         Route::get('tag_data', 'UserController@tag_data')->name('user.tag_data');
+        Route::get('select', 'UserController@select')->name('user.select');
     });
 
     # 菜单路由
@@ -118,6 +119,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('detail', 'GameController@detail')->name('game.detail');
         Route::post('update', 'GameController@update')->name('game.update');
         Route::post('status', 'GameController@status')->name('game.status');
+        Route::get('select', 'GameController@select')->name('game.select');
     });
 
     # 面值路由
@@ -125,11 +127,11 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('store', 'PriceController@store')->name('price.store');
         Route::get('index', 'PriceController@index')->name('price.index');
         Route::delete('delete', 'PriceController@delete')->name('price.delete');
-        Route::get('select', 'PriceController@select')->name('price.select');
         Route::get('detail', 'PriceController@detail')->name('price.detail');
         Route::post('update', 'PriceController@update')->name('price.update');
         Route::post('status', 'PriceController@status')->name('price.status');
         Route::post('pass', 'PriceController@pass')->name('price.pass');
+        Route::get('select', 'PriceController@select')->name('price.select');
     });
 
     # 设备路由
@@ -140,13 +142,21 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('select', 'DeviceController@select')->name('device.select');
     });
 
+    # 库存路由
+    Route::prefix('stock')->group(function(){
+        Route::get('index', 'StoreController@index')->name('stock.index');
+        Route::get('detail', 'StoreController@detail')->name('stock.detail');
+        Route::post('status', 'StoreController@status')->name('stock.status');
+        Route::get('in_index', 'StoreController@in_index')->name('stock.in_index');
+    });
+
 
 
 });
 
 Route::post('v1/port/auth/login', 'Port\AuthController@login');
 
-Route::namespace('Port')->prefix('v1/port')->middleware(['port'])->group(function(){
+Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function(){
     Route::post('auth/logout', 'AuthController@logout');
     Route::get('game/price', 'GameController@price');
     Route::get('game/addGame', 'GameController@addGame');

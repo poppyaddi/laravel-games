@@ -75,5 +75,10 @@ class GameController extends Controller
         return success($info, 200, '修改成功');
     }
 
+    public function select()
+    {
+        $data = Game::select('id', 'name')->get();
+        return success($data);
+    }
 
 }

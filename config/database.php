@@ -56,7 +56,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => 'zh_',
             'prefix_indexes' => true,
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -86,10 +86,10 @@ return [
         'temp' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => '114.67.95.175',
+            'host' => '127.0.0.1',
             'port' => env('DB_PORT', '3306'),
-            'database' => 'game',
-            'username' => 'game',
+            'database' => 'sync',
+            'username' => 'root',
             'password' => '123456',
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',

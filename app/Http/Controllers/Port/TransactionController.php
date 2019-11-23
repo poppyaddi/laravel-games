@@ -206,9 +206,13 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('不支持该面值'));
         }
 
-        $info = Store::where('identifier', $transactionIdentifier)
-                ->orWhere('receipt', $transactionReceipt)
-                ->first();
+        # 验证凭证重复 用md5($receipt)验证
+        $enc = md5($receipt);
+        $info = Store::where('enc', $enc)->first();
+
+//        $info = Store::where('identifier', $transactionIdentifier)
+//                ->orWhere('receipt', $transactionReceipt)
+//                ->first();
         if ($info)
         {
             return $this->RSA_private_encrypt(err('凭证重复'));
@@ -264,6 +268,7 @@ class TransactionController extends Rsa1024Controller
             'input_user_id' => $this->parent()->id,  # 入库账号的父账号id
             'owner_user_id' => auth('port')->user()->id,
             'currency'      => $currency,
+            'end'           => $enc
 
         ];
 
@@ -757,7 +762,7 @@ class TransactionController extends Rsa1024Controller
      * @param $receipt
      * @return mixed
      */
-    protected function apple_verify($receipt){
+    public function apple_verify($receipt){
         $url = 'https://buy.itunes.apple.com/verifyReceipt';
 
         $post = [

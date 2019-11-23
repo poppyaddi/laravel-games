@@ -76,13 +76,6 @@ class PriceController extends Controller
     }
 
 
-
-    public function select()
-    {
-        $data = Game::select('id', 'name')->get();
-        return success($data);
-    }
-
     public function status(Request $request)
     {
         $price = Price::find($request->id);
@@ -102,5 +95,13 @@ class PriceController extends Controller
         $info = $pass->save();
         return success($info, 200, '修改成功');
 
+    }
+
+    public function select(Request $request)
+    {
+        $data = Price::where('game_id', $request->game_id)
+                ->select('id', 'gold')
+                ->get();
+        return success($data);
     }
 }

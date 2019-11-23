@@ -9,6 +9,7 @@ use App\Models\Device;
 use App\Models\Game;
 use App\Models\Price;
 use App\Models\Role;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -172,31 +173,71 @@ class TestController extends BaseController
 //            ->table("ciphertext")
 //            ->where('key_name', $key)
 //            ->first();
-        /**
-         *
-        $data = CzGame::with('price')->get();
-        $count = 0;
-        echo date('Y-m-d H:i:s');
-        foreach ($data as $val){
-            $game['name'] = $val['gs_name'];
-            $game['productIdentifier'] = $val['productIdentifier'];
-            $game['description'] = '数据复制添加';
-            $game_id = Game::insertGetId($game);
-//            dump($game);
-            foreach ($val->price as $value){
-                $price['gold'] = $value['gold'];
-                $price['money'] = $value['money'];
-                $price['title'] = $value['title'];
-                $price['game_id'] = $game_id;
-                Price::create($price);
-            }
-            echo '.........完成第' . $count++ . '行.........';
-            echo '<br>';
-        }
-        echo '.........完成插入..........';
-        echo date('Y-m-d H:i:s');
-         *
-         */
+
+//        $page = 1;
+//        $pageSize = 10;
+////        $count = CzGame::count();
+//
+//        $user_id = auth('port')->user()->id;
+//
+////        for($i=1; $i<=30; $i++){
+//
+//            $data = CzGame::with(['price'=>function($query){
+//                return $query->with('store');
+//            }])
+//                ->offset(30 * $pageSize)
+//                ->limit($pageSize)
+//                ->get();
+//
+//
+//            $count = 0;
+//            echo date('Y-m-d H:i:s');
+//            foreach ($data as $val){
+//                $game['name'] = $val['gs_name'];
+//                $game['productIdentifier'] = $val['productIdentifier'];
+//                $game['description'] = '数据复制添加';
+//                $game_id = Game::insertGetId($game);
+//                foreach ($val->price as $value){
+//                    $price['gold'] = $value['gold'];
+//                    $price['money'] = $value['money'];
+//                    $price['title'] = $value['title'];
+//                    $price['game_id'] = $game_id;
+//                    $price_id = Price::insertGetId($price);
+//
+//                    foreach ($value->store as $sss){
+//                        $store['price'] = $sss->price;
+//                        $store['identifier'] = $sss->identifier;
+//                        $store['receipt'] = $sss->receipt;
+//                        $store['new_receipt'] = $sss->new_receipt;
+//                        $store['currency'] = 'CNY';
+//                        $store['game_id'] = $game_id;
+//                        $store['price_id'] = $price_id;
+//                        $store['description'] = '同步数据';
+//                        $store['start_time'] = now();
+//                        $store['status'] = $sss->status;
+//                        $store['input_user_id'] = $user_id;
+//                        $store['owner_user_id'] = $user_id;
+//                        Store::create($store);
+//                    }
+//                }
+//                echo '<br>';
+//                echo '.........完成第' . $count++ . '行.........';
+//                echo '<br>';
+//            }
+//            echo '.........完成插入..........';
+//
+//            echo date('Y-m-d H:i:s');
+//            echo '<br>';
+
+
+
+//        }
+
+//        return $data;
+
+//        die;
+
+
 //        return auth('port')->user();
 //        $credentials = request()->only('name', 'password');
 ////        return $credentials;
@@ -228,16 +269,37 @@ class TestController extends BaseController
 //        $info = Device::create($data);
 //        return $info->id;
 //        return $this->parent();
-        return $this->parent();
-            $expire_time = $this->parent()->userinfo->expire_time;
-        if(strtotime($expire_time) < time()){
-            return '账号过期';
-        } else{
-            return '不过期';
-        }
-        return $this->parent();
+//        return $this->parent();
+//            $expire_time = $this->parent()->userinfo->expire_time;
+//        if(strtotime($expire_time) < time()){
+//            return '账号过期';
+//        } else{
+//            return '不过期';
+//        }
+//        return $this->parent();
 
+//        $data = CzGame::with('price')->get();
+
+//        return CzGame::with('price')->select('gs_id')->get();
+//
+//        return $data;
+
+//        $a = md5('hello world');
+//        echo $a;
+
+//        Store::update();
+        $lists = Store::select('id', 'receipt')->get();
+
+        foreach($lists as $list){
+            try{
+                Store::where('id', $list->id)->update(['enc'=>md5($list->receipt)]);
+            } catch (\PDOException $e){
+                continue;
+            }
+        }
+        echo 'finished';
     }
+
 
 
     public function apple_verity($receipt)

@@ -13,6 +13,7 @@ class Price extends Model
     {
         return $this->belongsTo('App\Models\Game');
     }
+    
 
     public function getStatusAttribute($value)
     {
