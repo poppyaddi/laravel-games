@@ -148,6 +148,12 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('detail', 'StoreController@detail')->name('stock.detail');
         Route::post('status', 'StoreController@status')->name('stock.status');
         Route::get('in_index', 'StoreController@in_index')->name('stock.in_index');
+        Route::get('out_index', 'StoreController@out_index')->name('stock.out_index');
+        Route::get('statistic', 'StoreController@statistic')->name('stock.statistic');
+        Route::get('dist_index', 'StoreController@dist_index')->name('stock.dist_index');
+        Route::post('dist', 'StoreController@dist')->name('stock.dist');
+        Route::get('son_statistic', 'StoreController@son_statistic')->name('stock.son_statistic');
+
     });
 
 

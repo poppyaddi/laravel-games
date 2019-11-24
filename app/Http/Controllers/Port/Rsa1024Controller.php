@@ -80,7 +80,6 @@ class Rsa1024Controller extends BaseController
 
     /*
      * RSA 私钥加密[默认,服务端]
-     * 2018/06/07
      * */
     public function RSA_private_encrypt($data, $type=1)
     {
@@ -99,7 +98,6 @@ class Rsa1024Controller extends BaseController
 
     /*
      * RSA 公钥解密[默认,客户端]
-     * 2018/06/07
      * */
     protected function RSA_public_decrypt($data, $type=2)
     {
