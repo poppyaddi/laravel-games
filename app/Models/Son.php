@@ -42,6 +42,11 @@ class Son extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
+    public function store()
+    {
+        return $this->hasMany('App\Models\Store', 'owner_user_id', 'id');
+    }
+
 
     public static function get_account_nums()
     {

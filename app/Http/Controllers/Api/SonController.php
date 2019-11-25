@@ -56,19 +56,28 @@ class SonController extends Controller
 
         $query          = Son::when($son, function ($query, $son) {
                             return $query->where('sons.name', $son);
-                        })->join('users', 'users.id', '=', 'sons.user_id')->when($name, function($query, $name){
-                            return $query->where('users.name', $name);
-                        })->when($status, function ($query, $status){
-                            return $query->whereIn('sons.status', $status);
-                        })->when($user_id, function($query, $user_id){
-                            return $query->where('sons.user_id', $user_id);
-        });
+                        })
+                        ->join('users', 'users.id', '=', 'sons.user_id')
+                        ->when($name, function($query, $name){
+                                        return $query->where('users.name', $name);
+                                    })
+                        ->when($status, function ($query, $status){
+                                        return $query->whereIn('sons.status', $status);
+                                    })
+                        ->when($user_id, function($query, $user_id){
+                                        return $query->where('sons.user_id', $user_id);
+                        })
+                        ->select('sons.id', 'sons.name', 'sons.type', 'sons.status', 'sons.created_at', 'users.name as user')
+                        ->withCount(['store'=>function($query){
+                            return $query
+                                    ->where('user_type', 2)
+                                    ->whereIn('status', [1, 5]);  # 正常有效, 后台恢复才显示库存
+                        }]);
         $data['total'] = $query->count();
         $data['data']  = $query
                         ->orderBy('sons.' . $sort_field, $order)
                         ->offset($offset)
                         ->limit($pagesize)
-                        ->select('sons.id', 'sons.name', 'sons.type', 'sons.status', 'sons.created_at', 'users.name as user')
                         ->get();
 
         return success($data, 200);

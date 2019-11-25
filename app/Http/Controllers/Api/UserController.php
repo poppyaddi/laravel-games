@@ -24,7 +24,7 @@ class UserController extends Controller
         $data['name']               = $request->name;
         $data['role_id']            = $request->role_id;
         $configs                    = Config::pluck('value', 'key');
-        $data['password']           = $configs['password'];
+        $data['password']           = md5($configs['password']);
         $userInfo['pay_pass']       = $configs['pay_pass'];
         $t                          = time() + $configs['expire_time'] * 3600 * 24;
         $userInfo['expire_time'] = date('Y-m-d H:i:s', $t);

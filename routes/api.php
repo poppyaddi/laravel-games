@@ -153,6 +153,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('dist_index', 'StoreController@dist_index')->name('stock.dist_index');
         Route::post('dist', 'StoreController@dist')->name('stock.dist');
         Route::get('son_statistic', 'StoreController@son_statistic')->name('stock.son_statistic');
+        Route::post('son_to_user', 'StoreController@son_to_user')->name('stock.son_to_user');
 
     });
 
@@ -164,13 +165,13 @@ Route::post('v1/port/auth/login', 'Port\AuthController@login');
 
 Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function(){
     Route::post('auth/logout', 'AuthController@logout');
-    Route::get('game/price', 'GameController@price');
-    Route::get('game/addGame', 'GameController@addGame');
-    Route::get('game/support', 'GameController@support');
-    Route::get('transaction/table', 'TransactionController@table');
+    Route::post('game/price', 'GameController@price');
+    Route::post('game/addGame', 'GameController@addGame');
+    Route::post('game/support', 'GameController@support');
+    Route::post('transaction/table', 'TransactionController@table');
     Route::post('transaction/desmise_input', 'TransactionController@desmise_input');
-    Route::get('transaction/vendre_info_one', 'TransactionController@vendre_info_one');
-    Route::get('transaction/vendre_info_one_moling', 'TransactionController@vendre_info_one_moling');
+    Route::post('transaction/vendre_info_one', 'TransactionController@vendre_info_one');
+    Route::post('transaction/vendre_info_one_moling', 'TransactionController@vendre_info_one_moling');
     Route::post('transaction/consumption', 'TransactionController@consumption');
     Route::post('transaction/invalid', 'TransactionController@invlid');
 

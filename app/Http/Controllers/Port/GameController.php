@@ -166,7 +166,7 @@ class GameController extends Rsa1024Controller
 
         if (empty($productIdentifier))
         {
-            return $this->RSA_private_encrypt(error('productIdentifier length is 0'));
+            return $this->RSA_private_encrypt(err('productIdentifier length is 0'));
         }
 
         // 获取游戏
