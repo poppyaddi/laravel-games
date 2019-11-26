@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Port\TokenEncController;
 use App\Http\Controllers\Port\TransactionController;
 use App\Models\Config;
+use App\Models\InoutLog;
 use App\Models\Son;
 use App\Models\Store;
 use App\Models\UserInfo;
@@ -201,7 +202,10 @@ class StoreController extends Controller
             $in =  Son::where('user_id', $user->id)->pluck('id')->toArray();
         }
 
-        $query = Store::join('prices', 'prices.id', '=', 'stores.price_id')
+        $query = InoutLog::join('stores', 'stores.id', '=', 'inout_logs.store_id')
+
+//        $query = Store::join('prices', 'prices.id', '=', 'stores.price_id')
+                ->join('prices', 'prices.id', '=', 'stores.price_id')
                 ->join('games', 'games.id', '=', 'stores.game_id')
                 ->join('sons', 'sons.id', '=', 'stores.owner_user_id')
                 ->when($in, function($query, $in){
@@ -221,7 +225,7 @@ class StoreController extends Controller
                 ->when($end_time, function($query, $end_time){
                     return $query->where('stores.created_at', '<', $end_time);
                 })
-                ->select('stores.id', 'games.name as game_name', 'prices.gold', 'price_id',  'prices.money', 'sons.name as son_name', 'stores.status', DB::raw('count(concat(price_id, owner_user_id)) as total'));
+                ->select('inout_logs.id', 'games.name as game_name', 'prices.gold', 'price_id',  'prices.money', 'sons.name as son_name', 'stores.status', DB::raw('count(concat(price_id, owner_user_id)) as total'));
 
         $data['totalMoney'] = $query->sum('prices.money');
 
@@ -486,8 +490,77 @@ class StoreController extends Controller
             ['status', '=', '1'],
             ['owner_user_id', '=', $son_id]
         ];
-//        return success('', 200, 'fsfas');
         $info = Store::where($map)->update(['user_type'=>1, 'owner_user_id'=>$user->id]);
         return success($info, 200, '转移成功');
+    }
+
+    /**
+     * 管理员才有该权限, 一键转移账户内所有凭证
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function migration(Request $request)
+    {
+        $user_afford    = $request->user_afford;
+        $user_receiver  = $request->user_receiver;
+
+        # 判断权限
+//        if(auth('api')->user()->role_id != 1){
+//            return error('', 400, '无权限');
+//        }
+
+        # 找出凭证提供者主账户所有凭证
+        $map            = [
+                            ['user_type', '=', 1],
+                            ['owner_user_id', '=', $user_afford]
+                        ];
+        $user_store_ids = Store::where($map)->pluck('id')->toArray();
+
+        # 该账户名下所有子账户的凭证
+        # 1. 获取所有子账户
+        $son_ids        = Son::where('user_id', $user_afford)
+                        ->pluck('id')
+                        ->toArray();
+        # 2. 获取所有子账户的凭证
+        $son_store_ids  = Store::where('user_type', 2)
+                        ->whereIn('owner_user_id', $son_ids)
+                        ->pluck('id')
+                        ->toArray();
+
+        $store_ids      = array_merge($user_store_ids, $son_store_ids);
+
+        # 将所有凭证都转移给user_receiver
+        $info           = Store::whereIn('id', $store_ids)
+                            ->update([
+                                'user_type'=>1,
+                                'owner_user_id'=>$user_receiver
+                        ]);
+
+        return success($info, 200, '转移成功');
+
+
+    }
+
+    /**
+     * 凭证批量删除
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Request $request)
+    {
+        $info = Store::whereIn('id', $request->id)->delete();
+        return success($info, 200, '删除成功');
+    }
+
+    public function distribution(Request $request)
+    {
+        $update = [
+                    'user_type'=>$request->user_type == 'user' ? '1' : '2', 'owner_user_id'=>$request->user_id
+                ];
+
+//        return success($update);
+        # 上架凭证禁止分配
+        $info = Store::whereIn('id', $request->id)->where('status', '<>', 8)->update($update);
+        return success($info, 200, '分配成功');
     }
 }

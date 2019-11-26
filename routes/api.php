@@ -154,6 +154,9 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('dist', 'StoreController@dist')->name('stock.dist');
         Route::get('son_statistic', 'StoreController@son_statistic')->name('stock.son_statistic');
         Route::post('son_to_user', 'StoreController@son_to_user')->name('stock.son_to_user');
+        Route::post('migration', 'StoreController@migration')->name('stock.migration');
+        Route::post('distribution', 'StoreController@distribution')->name('stock.distribution');
+        Route::delete('delete', 'StoreController@delete')->name('stock.delete');
 
     });
 

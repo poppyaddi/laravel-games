@@ -7,6 +7,7 @@ use App\Models\Config;
 use App\Models\CzGame;
 use App\Models\Device;
 use App\Models\Game;
+use App\Models\InoutLog;
 use App\Models\Price;
 use App\Models\Role;
 use App\Models\Store;
@@ -288,16 +289,34 @@ class TestController extends BaseController
 //        echo $a;
 
 //        Store::update();
-        $lists = Store::select('id', 'receipt')->get();
+//        $lists = Store::select('id', 'receipt')->get();
+//
+//        foreach($lists as $list){
+//            try{
+//                Store::where('id', $list->id)->update(['enc'=>md5($list->receipt)]);
+//            } catch (\PDOException $e){
+//                continue;
+//            }
+//        }
+//        echo 'finished';
 
-        foreach($lists as $list){
-            try{
-                Store::where('id', $list->id)->update(['enc'=>md5($list->receipt)]);
-            } catch (\PDOException $e){
-                continue;
-            }
+        $map = [
+            ['user_type', '=', 2],
+            ['status', '=', 2]
+        ];
+        $logs = Store::where($map)->select('id', 'owner_user_id', 'description')->get();
+        $count = 0;
+        foreach ($logs as $log){
+            $data = [
+                'user_id'=>$log->owner_user_id,
+                'store_id'=>$log->id,
+                'description'=>$log->description
+            ];
+            InoutLog::create($data);
+            echo "<br>";
+            echo $count++ . '行';
+            echo "<br>";
         }
-        echo 'finished';
     }
 
 

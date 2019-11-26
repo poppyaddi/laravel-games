@@ -1,0 +1,2 @@
+webpackJsonp([21],{ddPH:function(e,n){},npFY:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n    this is dashboard\n")])},staticRenderFns:[]};var s=t("VU/8")({},r,!1,function(e){t("ddPH")},null,null);n.default=s.exports}});
+//# sourceMappingURL=21.7cab4081da32ea8dba8d.js.map

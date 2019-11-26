@@ -1507,3 +1507,27 @@ PHP message: PHP  45. Illuminate\Support\Collection->map() /usr/local/nginx/html
 PHP message: PHP  46. array_map() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Support/Collection.php:638
 PHP message: PHP  47. Illuminate\Database\Query\Grammars\MySqlGrammar->Illuminate\Database\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Database/Grammar.php:97-101}() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Support/Collection.php:638
 PHP message: PHP  48. Illuminate\Database\Query\Grammars\MySqlGrammar->wrapTable() /usr/local
+2019/11/25 22:38:23 [error] 1022#0: *811 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php on line 356
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /usr/local/nginx/html/laravel-games/public/index.php:0
+PHP message: PHP   2. App\Http\Kernel->handle() /usr/local/nginx/html/laravel-games/public/index.php:55
+PHP message: PHP   3. App\Http\Kernel->sendRequestThroughRouter() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:116
+PHP message: PHP   4. Illuminate\Routing\Pipeline->then() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:151
+PHP message: PHP   5. Illuminate\Routing\Pipeline->Illuminate\Pipeline\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:147-180}() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:105
+PHP message: PHP   6. App\Http\Middleware\TrustProxies->handle() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:171
+PHP message: PHP   7. Illuminate\Routing\Pipeline->Illuminate\Pipeline\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:147-180}() /usr/local/nginx/html/laravel-games/vendor/fideloper/proxy/src/TrustProxies.php:57
+PHP message: PHP   8. App\Http\Middleware\CheckForMaintenanceMode->handle() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:171
+PHP message: PHP   9. Illuminate\Routing\Pipeline->Illuminate\Pipeline\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:147-180}() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMa
+2019/11/25 22:38:23 [error] 1022#0: *811 FastCGI sent in stderr: "luminate\Routing\Pipeline->Illuminate\Pipeline\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:128-136}() /usr/local/nginx/html/laravel-games/app/Http/Middleware/Cors.php:18
+PHP message: PHP  18. App\Http\Kernel->Illuminate\Foundation\Http\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:173-177}() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:130
+PHP message: PHP  19. Illuminate\Routing\Router->dispatch() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php:176
+PHP message: PHP  20. Illuminate\Routing\Router->dispatchToRoute() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Routing/Router.php:612
+PHP message: PHP  21. Illuminate\Routing\Router->runRoute() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Routing/Router.php:623
+PHP message: PHP  22. Illuminate\Routing\Router->runRouteWithinStack() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Routing/Router.php:657
+PHP message: PHP  23. Illuminate\Routing\Pipeline->then() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Routing/Router.php:682
+PHP message: PHP  24. Illuminate\Routing\Pipeline->Illuminate\Pipeline\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:147-180}() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:105
+PHP message: PHP  25. Illuminate\Routing\Middleware\ThrottleRequests->handle() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php:171
+PHP message: PHP  26. Illuminate\Routing\Pipeline->Illuminate\Pipeline\{closure:/usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Pipeline/P
+2019/11/25 22:38:23 [error] 1022#0: *811 FastCGI sent in stderr: "ntrollers/Port/TestController.php:312
+PHP message: PHP  37. App\Models\Store->getAttribute() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1523
+PHP message: PHP  38. App\Models\Store->getAttributeValue() /usr/local/nginx/html/laravel-games/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php:323" while reading upstream, client: 127.0.0.1, server: www.game.com, request: "GET /api/v1/port/test HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "www.game.com"

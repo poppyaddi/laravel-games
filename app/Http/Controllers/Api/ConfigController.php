@@ -49,6 +49,6 @@ class ConfigController extends Controller
     public function update(Request $request)
     {
         $info = Config::where('id', $request->id)->update($request->all());
-        return success($info);
+        return success($info, 200, '修改成功');
     }
 }

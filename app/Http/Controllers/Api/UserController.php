@@ -150,7 +150,7 @@ class UserController extends Controller
             }
             $data = User::when($map, function ($query, $map){
                 return $query->where($map);
-            })->select('id', 'name')->get();
+            })->where('id', '<>', 1)->select('id', 'name')->get();
         } elseif($user_type == 'son'){
             $map = '';
             if($user->role_id == 1){
@@ -168,4 +168,5 @@ class UserController extends Controller
         }
         return success($data);
     }
+
 }
