@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -62,6 +63,13 @@ class UserInfoController extends Controller
         Arr::pull($data, 'name');
         $info = UserInfo::where('id', $data['id'])->update($data);
         return success($info, 200, '修改成功');
-
     }
+
+    public function pay_reset_password(Request $request)
+    {
+        $info = UserInfo::where('id', $request->id)
+            ->update(['pay_pass'=>sha1(Config::get_value('pay_pass'))]);
+        return success($info, 200, '重置成功');
+    }
+
 }

@@ -186,7 +186,7 @@ Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function () {
     Route::post('transaction/consumption', 'TransactionController@consumption');
     Route::post('transaction/invalid', 'TransactionController@invlid');
 
-    Route::get('test', 'TestController@test');
+    Route::get('test', 'TestController.bak@test');
     Route::get('gtest', 'GameController@test');
 });
 

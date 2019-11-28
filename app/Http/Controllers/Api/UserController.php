@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDOException;
 use App\Models\Config;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class UserController extends Controller
@@ -23,8 +24,9 @@ class UserController extends Controller
     {
         $data['name']               = $request->name;
         $data['role_id']            = $request->role_id;
+        $data['created_at']         = now();
         $configs                    = Config::pluck('value', 'key');
-        $data['password']           = md5($configs['password']);
+        $data['password']           = sha1($configs['password']);
         $userInfo['pay_pass']       = $configs['pay_pass'];
         $t                          = time() + $configs['expire_time'] * 3600 * 24;
         $userInfo['expire_time'] = date('Y-m-d H:i:s', $t);
@@ -169,4 +171,57 @@ class UserController extends Controller
         return success($data);
     }
 
+    public function info(Request $request)
+    {
+
+        $data = User::where('id', auth('api')->user()->id)
+                ->with(['userinfo'=>function($query){
+                    return $query->select('user_id', 'nickname', 'money', 'fro_money', 'charge_status');
+                }])
+                ->with(['role'=>function($query){
+                    return $query->select('id', 'name');
+                }])
+                ->select('name', 'role_id', 'id', 'created_at', 'last_login_ip', 'last_login_time')
+                ->first();
+
+        return success($data);
+    }
+
+    public function user_reset_password(Request $request)
+    {
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+
+        # 检查原始密码
+        $user = auth('api')->user();
+        $credentials = ['name'=>$user->name, 'password'=>$old_password];
+
+        if($token = auth('api')->attempt($credentials)){
+            # 验证通过
+            $user = User::find($user->id);
+            $user->password = $new_password;
+            $user->save();
+        } else{
+            return error('', 400, '原密码错误');
+        }
+        return success($token, 200, '修改成功');
+    }
+
+    public function pay_update_password(Request $request)
+    {
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+
+        # 检查原始密码
+        $user = auth('api')->user();
+        $user_info = UserInfo::where('user_id', $user->id)->first();
+
+
+        if($user_info->pay_pass != sha1($old_password)){
+            return error('', 400, '原密码错误');
+        }
+        $info = UserInfo::where('user_id', $user->id)->update(['pay_pass'=>sha1($new_password)]);
+
+        return success($info, 200, '修改成功');
+    }
 }

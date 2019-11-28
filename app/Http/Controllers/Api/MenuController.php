@@ -31,7 +31,7 @@ class MenuController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $query          = Menu::when($title, function ($query, $title) {
-                            return $query->where('title', $title);
+                            return $query->where('title','like', '%' . $title . '%');
                         });
         $data['total'] = $query->count();
         $data['data']   = $query->with(['parent'=> function($query){

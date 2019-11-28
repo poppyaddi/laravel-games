@@ -24,6 +24,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
 
     Route::prefix('auth')->group(function(){
         Route::get('me', 'AuthController@me')->name('auth.me');
+        Route::post('logout', 'AuthController@logout')->name('auth.logout');
     });
 
     # 角色路由
@@ -45,6 +46,9 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('update', 'UserController@update')->name('user.update');
         Route::get('tag_data', 'UserController@tag_data')->name('user.tag_data');
         Route::get('select', 'UserController@select')->name('user.select');
+        Route::get('info', 'UserController@info')->name('user.info');
+        Route::post('user_reset_password', 'UserController@user_reset_password')->name('user.user_reset_password');
+        Route::post('pay_update_password', 'UserController@pay_update_password')->name('user.pay_update_password');
     });
 
     # 菜单路由
@@ -99,6 +103,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('index', 'UserInfoController@index')->name('info.index');
         Route::get('detail', 'UserInfoController@detail')->name('info.detail');
         Route::post('update', 'UserInfoController@update')->name('info.update');
+        Route::post('pay_reset_password', 'UserInfoController@pay_reset_password');
     });
 
     # 子账户路由
@@ -157,6 +162,9 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('migration', 'StoreController@migration')->name('stock.migration');
         Route::post('distribution', 'StoreController@distribution')->name('stock.distribution');
         Route::delete('delete', 'StoreController@delete')->name('stock.delete');
+        Route::post('migration_dist', 'StoreController@migration_dist')->name('stock.migration_dist');
+        Route::post('get_count', 'StoreController@get_count')->name('stock.get_count');
+        Route::get('store_log', 'StoreController@store_log')->name('stock.store_logst');
 
     });
 
@@ -178,6 +186,7 @@ Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function(){
     Route::post('transaction/consumption', 'TransactionController@consumption');
     Route::post('transaction/invalid', 'TransactionController@invlid');
 
-    Route::get('test', 'TestController@test');
+    Route::post('support', 'TestController@support');
+    Route::get('decrypt', 'TestController@decrypt');
     Route::get('gtest', 'GameController@test');
 });

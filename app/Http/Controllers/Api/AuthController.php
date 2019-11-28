@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -31,6 +33,15 @@ class AuthController extends Controller
             return response()->json(['message' => '登录失败, 请检查用户名和密码或账户状态'], 400);
         }
 
+        $user = User::find(auth('api')->user()->id);
+        $brower = $_SERVER['HTTP_USER_AGENT'];
+        $m_token =  'Bearer ' . $token;
+        $user->last_login_ip =request()->getClientIp();
+        $user->last_login_time = now();
+        $user->remember_token = sha1($brower . $m_token);
+        $user->save();
+        UserInfo::where('user_id', $user->id)->increment('loginnum', 1);
+
         return $this->respondWithToken($token);
     }
 
@@ -56,9 +67,9 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth('api')->logout();
+        $info = auth('api')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return success($info, 200, '退出成功');
     }
 
     /**

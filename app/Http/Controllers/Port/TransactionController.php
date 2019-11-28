@@ -26,12 +26,6 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('productIdentifier length is 0'));
         }
 
-        // 获取游戏
-//        $map = [
-//            'status'=> 1, # 过滤禁用的游戏
-//            'productIdentifier'=> $productIdentifier,
-//        ];
-
         $map = [
             ['status', '=', 1],
             ['productIdentifier', '=', $productIdentifier]
@@ -44,20 +38,10 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('不支持该游戏入库'));
         }
 
-        // 获取支持面值
-//        $map = [
-//            'status'=> 1,
-//            'game_id'=> $game['id'],
-//        ];
-
         $map = [
             ['status', '=', 1],
             ['game_id', '=', $game['id']]
         ];
-
-//        $sort = 'money';
-
-//        $price = Price::where($map)->orderBy($sort)->select();
 
         $data = Price::where($map)->withCount(['store' => function($query){
                     $map = [
@@ -68,29 +52,6 @@ class TransactionController extends Rsa1024Controller
                 }])
                 ->orderBy('money')
                 ->get();
-
-//        $data = [];
-//
-//        foreach ($price as $key=> $value)
-//        {
-//            $map = [
-//                'status'=> ['in', [1,5]],
-//                'is_goods'=> 0,
-//                'price_id'=> $value['id'],
-//                'user_id'=> $this->user_id,
-//            ];
-//
-//            $num = $this->store_model->where($map)->count();
-//
-//            $item = [];
-//            $item['id'] = $value['id'];
-//            $item['title'] = $value['title'];
-//            $item['money'] = number_format($value['money']) . '元';
-//            $item['gold'] = $value['gold'];
-//            $item['num'] = $num;
-//
-//            $data[] = $item;
-//        }
 
         return $this->RSA_private_encrypt(succ($data));
     }
@@ -107,10 +68,192 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('没有入库权限'));
         }
 
+        $encrypt = new TokenEncController();
+
+        # 1. 先接受凭证
+        $transactionReceipt = $this->param('transactionReceipt'); // 凭证
+
+        $localizedTitle = $this->param('localizedTitle') ?? ''; // 用于判断是否进行内购验证
+
+        # 只有凭证是必须的
+        if (empty($transactionReceipt))
+        {
+            return $this->RSA_private_encrypt(err('transactionReceipt length is 0'));
+        }
+        else
+        {
+            $receipt = $transactionReceipt;  # 苹果内购验证备用
+            $transactionReceipt = $encrypt->token_private_encrypt($transactionReceipt); # 入库使用
+        }
+
+        # 2. 验证凭证重复 用md5($receipt)验证
+        $enc = md5($receipt);
+        $info = Store::where('enc', $enc)->first();
+
+        if ($info)
+        {
+            return $this->RSA_private_encrypt(err('凭证重复'));
+        }
+
+        # 3. 验证凭证, 并获取苹果内购验证
+        # 3.1 获取不需验证的面值
+        $passed_price_title = Price::where('pass', 1)->pluck('title')->toArray();
+        # 不是跳过的凭证则需要进行苹果内购验证
+        $res = (object) [];
+        if(!in_array($localizedTitle, $passed_price_title)){
+            $res = $this->apple_verify($receipt);
+
+            if($res->status != 0 || $res->status == 21002){
+                return $this->RSA_private_encrypt(err('0001'));  # 凭证验证失败
+                die;
+            }
+
+            $str = substr($receipt, 0, 3);
+            if($str == 'ewo'){
+                $buyTime = $res->receipt->purchase_date_ms;
+                # return $buyTime;  # 1569118165963  精确到毫秒
+            } elseif($str == 'MII'){
+                $buyTime = $res->receipt->in_app[0]->purchase_date_ms;
+                # return $buyTime;  # 1569118165000
+            } else{
+                return $this->RSA_private_encrypt(err('0002')); # 未知错误
+            }
+
+            $buyTime = substr($buyTime, 0, 10);  // 真实购买时间
+            $offset =  time() - $buyTime;
+
+            $expire_time = Config::get_value('receipt_expire_time');
+            if($offset > $expire_time){
+//            $t = date('Y-m-d H:i:s', $buyTime);
+//            $message = "购买时间过期：" . $t;
+                return $this->RSA_private_encrypt(err('0003')); # 凭证过期
+            }
+        }
+
+
+        # 4. 处理其他参数
+        $transactionIdentifier = $this->param('transactionIdentifier', true) ?? $res->receipt->transaction_id; // 订单号
+        $transactionDate = $this->param('transactionDate', true) ?? $res->receipt->transaction_id ?? date('Y-m-d H:i:s',     substr($res->receipt->original_purchase_date_ms, 0, 10)); // 生成日期
+
+        $newTransactionReceipt = $this->param('newTransactionReceipt', true); // 新凭证
+
+        $localizedPrice = $this->param('localizedPrice', true) ?? $res->receipt->product_id; // 面值
+
+        $localizedDescription = $this->param('localizedDescription', true) ?? '无描述'; // 描述
+
+        $productIdentifier = $this->param('productIdentifier', true) ?? $res->receipt->bid; // 包名
+
+         $currency =  $this->param('currency') ?? '没有币种';
+
+        # 验证币种
+        if(in_array($currency, $this->currency())){
+            return $this->RSA_private_encrypt(err('币种不符合要求'));
+        }
+
+        # 验证游戏类型是否支持
+        $map = [
+            ['productIdentifier', '=', $productIdentifier ?? $res->receipt->bid],
+        ];
+
+        $game = Game::where($map)->first();
+        if (!$game)
+        {
+            return $this->RSA_private_encrypt(err('不支持该类型游戏'));
+        }
+
+        # 验证游戏面值是否支持
+        $map = [
+            ['title', '=', $localizedTitle]
+        ];
+
+        $price = Price::where($map)->first();
+
+        if (!$price)
+        {
+            return $this->RSA_private_encrypt(err('不支持该面值'));
+        }
+
+        # $localizedTitle 识别单个面值标识
+
+        # return $this->RSA_private_encrypt(error($localizedTitle));
+
+        // 保存凭证到库存
+        $data = [
+            'price'         => $localizedPrice != '---null---' ? $localizedPrice : $price['money'],
+            'description'   => $localizedDescription != '---null---' ? $localizedDescription : $price['gold'],
+            'game_id'       => $game['id'],
+            'price_id'      => $price['id'],
+            'status'        => 1,
+            'start_time'    => $transactionDate,
+            'identifier'    => $transactionIdentifier,
+            'receipt'       => $transactionReceipt,
+            'input_user_id' => $this->parent()->id,  # 入库账号的父账号id
+            'owner_user_id' => auth('port')->user()->id,
+            'currency'      => $currency,
+            'enc'           => $enc,
+            'created_at'    => now()
+
+        ];
+
+        if (!empty($newTransactionReceipt))
+        {
+            $data['new_receipt'] = $newTransactionReceipt;
+        }
+
+        $store_id = Store::insertGetId($data);
+
+        if ($store_id)
+        {
+            // 记录凭证
+            $data = [
+                'description'=> '手机用户入库',
+                'user_id'=> auth('port')->user()->id,
+                'store_id'=> $store_id,
+                'type' => 1
+            ];
+
+            # 插入日志
+            InoutLog::create($data);
+
+            return $this->RSA_private_encrypt(succ('入库成功'));
+        }
+        else {
+            return $this->RSA_private_encrypt(err('入库失败, 请稍后再试'));
+        }
+    }
+
+    public function desmise_input_bak()
+    {
+        # 判断操作账户类型(中间件中判断账户是否过期)
+
+        if(auth('port')->user()->type == '出库'){
+            return $this->RSA_private_encrypt(err('没有入库权限'));
+        }
+
+        $encrypt = new TokenEncController();
+
+        # 1. 先接受凭证
+        $transactionReceipt = $this->param('transactionReceipt'); // 凭证
+
+        # 只有凭证是必须的
+        if (empty($transactionReceipt))
+        {
+            return $this->RSA_private_encrypt(err('transactionReceipt length is 0'));
+        }
+        else
+        {
+            $receipt = $transactionReceipt;  # 苹果内购验证备用
+            $transactionReceipt = $encrypt->token_private_encrypt($transactionReceipt); # 入库使用
+        }
+
+        # 2. 判断
+
+
+
         # 处理参数
         $transactionIdentifier = $this->param('transactionIdentifier'); // 订单号
         $transactionDate = $this->param('transactionDate'); // 生成日期
-        $transactionReceipt = $this->param('transactionReceipt'); // 凭证
+
         $newTransactionReceipt = $this->param('newTransactionReceipt'); // 新凭证
 
         $localizedPrice = $this->param('localizedPrice'); // 面值
@@ -119,64 +262,56 @@ class TransactionController extends Rsa1024Controller
 
         $productIdentifier = $this->param('productIdentifier'); // 包名
 
-         $currency =  $this->param('currency');
-
-        $encrypt = new TokenEncController();
+        $currency =  $this->param('currency') ?? '没有币种';
 
 
-        if (empty($transactionIdentifier))
-        {
-            return $this->RSA_private_encrypt(err('transactionIdentifier length is 0'));
-        }
 
-        if (empty($transactionDate))
-        {
-            return $this->RSA_private_encrypt(err('transactionDate length is 0'));
-        }
 
-        if (empty($transactionReceipt))
-        {
-            return $this->RSA_private_encrypt(err('transactionReceipt length is 0'));
-        }
-        else
-        {
-            $receipt = $transactionReceipt;  # 苹果内购验证备用
-            $transactionReceipt = $encrypt->token_private_encrypt($transactionReceipt);
-        }
+//        if (empty($transactionIdentifier))
+//        {
+//            return $this->RSA_private_encrypt(err('transactionIdentifier length is 0'));
+//        }
+//
+//        if (empty($transactionDate))
+//        {
+//            return $this->RSA_private_encrypt(err('transactionDate length is 0'));
+//        }
 
-        if (empty($newTransactionReceipt))
-        {
-            return $this->RSA_private_encrypt(err('newTransactionReceipt length is 0'));
-        }
-        else
-        {
-            $newTransactionReceipt = $encrypt->token_private_encrypt($newTransactionReceipt);
-        }
 
-        if (empty($localizedPrice))
-        {
-            return $this->RSA_private_encrypt(err('price length is 0'));
-        }
 
-        if (empty($localizedTitle))
-        {
-            return $this->RSA_private_encrypt(err('localizedTitle length is 0'));
-        }
-
-        if (empty($localizedDescription))
-        {
-            return $this->RSA_private_encrypt(err('localizedDescription length is 0'));
-        }
-
-        if (empty($productIdentifier))
-        {
-            return $this->RSA_private_encrypt(err('productIdentifier length is 0'));
-        }
-
-        if (empty($encrypt))
-        {
-            return $this->RSA_private_encrypt(err('encrypt length is 0'));
-        }
+//        if (empty($newTransactionReceipt))
+//        {
+//            return $this->RSA_private_encrypt(err('newTransactionReceipt length is 0'));
+//        }
+//        else
+//        {
+//            $newTransactionReceipt = $encrypt->token_private_encrypt($newTransactionReceipt);
+//        }
+//
+//        if (empty($localizedPrice))
+//        {
+//            return $this->RSA_private_encrypt(err('price length is 0'));
+//        }
+//
+//        if (empty($localizedTitle))
+//        {
+//            return $this->RSA_private_encrypt(err('localizedTitle length is 0'));
+//        }
+//
+//        if (empty($localizedDescription))
+//        {
+//            return $this->RSA_private_encrypt(err('localizedDescription length is 0'));
+//        }
+//
+//        if (empty($productIdentifier))
+//        {
+//            return $this->RSA_private_encrypt(err('productIdentifier length is 0'));
+//        }
+//
+//        if (empty($encrypt))
+//        {
+//            return $this->RSA_private_encrypt(err('encrypt length is 0'));
+//        }
 
         # 验证币种
         if(in_array($currency, $this->currency())){
@@ -265,7 +400,8 @@ class TransactionController extends Rsa1024Controller
             'start_time'    => $transactionDate,
             'identifier'    => $transactionIdentifier,
             'receipt'       => $transactionReceipt,
-            'input_user_id' => $this->parent()->id,  # 入库账号的父账号id
+            'input_user_id' => auth('port')->user()->id,  # 入库账号的父账号id
+            'input_parent_id' => $this->parent()->id,  # 入库账号的父账号id
             'owner_user_id' => auth('port')->user()->id,
             'currency'      => $currency,
             'end'           => $enc
@@ -395,9 +531,10 @@ class TransactionController extends Rsa1024Controller
 
         // 记录日志
         $data = [
-            'description'=> '用户获取凭证',
+            'description'=> '用户手机端获取凭证',
             'user_id'=> auth('port')->user()->id,
             'store_id'=> $store['id'],
+            'type' => 2
         ];
 
         InoutLog::create($data);
@@ -442,6 +579,8 @@ class TransactionController extends Rsa1024Controller
             }
         }
         //...
+
+
 
 
         return $this->RSA_private_encrypt(succ($data));
@@ -563,6 +702,7 @@ class TransactionController extends Rsa1024Controller
             'description'=> '用户获取凭证',
             'user_id'=> auth('port')->user()->id,
             'store_id'=> $store['id'],
+            'type' => 2
         ];
 
         InoutLog::create($data);
@@ -680,6 +820,7 @@ class TransactionController extends Rsa1024Controller
                 'description'=> '标记凭证出库成功',
                 'user_id'=> auth('port')->user()->id,
                 'store_id'=> $store['id'],
+                'type' => 2
             ];
 
             InoutLog::create($data);
@@ -745,6 +886,7 @@ class TransactionController extends Rsa1024Controller
                 'description'=> '标记凭证出库失败',
                 'user_id'=> auth('port')->user()->id,
                 'store_id'=> $store['id'],
+                'type' => 2
             ];
 
             InoutLog::create($data);

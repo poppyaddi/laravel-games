@@ -13,7 +13,7 @@ class Price extends Model
     {
         return $this->belongsTo('App\Models\Game');
     }
-    
+
 
     public function getStatusAttribute($value)
     {
@@ -43,5 +43,10 @@ class Price extends Model
             default:
                 return $value;
         }
+    }
+
+    public function store()
+    {
+        return $this->hasMany('App\Models\Store', 'price_id', 'id');
     }
 }

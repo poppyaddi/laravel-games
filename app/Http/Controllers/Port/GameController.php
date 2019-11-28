@@ -169,12 +169,6 @@ class GameController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('productIdentifier length is 0'));
         }
 
-        // 获取游戏
-//        $map = [
-//            'status'=> 1,
-//            'productIdentifier'=> $productIdentifier,
-//        ];
-
         $map = [
             ['status', '=', 1],
             ['productIdentifier', '=', $productIdentifier]
@@ -184,12 +178,7 @@ class GameController extends Rsa1024Controller
 
         if ($game)
         {
-//            $data = [
-//                'message'=> '支持这个游戏',
-//                'receipt_type'=> $game['receipt_type'],
-//            ];
-//
-//            return $this->RSA_private_encrypt(succ($data));
+
             $data = [
                 'code'=> 200,
                 'auth'=> true,
@@ -198,7 +187,7 @@ class GameController extends Rsa1024Controller
 //                'receipt_type'=> $game['receipt_type'],
             ];
 
-            return $this->RSA_private_encrypt(($data));
+            return $this->RSA_private_encrypt(succ($data));
         }
         else {
             return $this->RSA_private_encrypt(err('不支持这个游戏'));

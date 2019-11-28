@@ -32,7 +32,7 @@ class User extends Authenticatable implements JWTSubject
 
     //
     protected $guarded = [];
-    protected $hidden = ['created_at', 'updated_at', 'password', 'remember_token'];
+    protected $hidden = ['updated_at', 'password', 'remember_token'];
 
 
     public function getStatusAttribute($value)

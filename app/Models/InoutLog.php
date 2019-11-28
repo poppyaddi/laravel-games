@@ -9,4 +9,26 @@ class InoutLog extends Model
     //
     protected $table = 'inout_logs';
     protected $guarded = [];
+
+    public function son()
+    {
+        return $this->belongsTo('App\Models\Son', 'user_id');
+    }
+
+    public function store()
+    {
+        return $this->belongsTo('App\Models\Store', 'store_id');
+    }
+
+    public function getTypeAttribute($value)
+    {
+        switch ($value){
+            case 1:
+                return '入库';
+                break;
+            case 2:
+                return '出库';
+                break;
+        }
+    }
 }

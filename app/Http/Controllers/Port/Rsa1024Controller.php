@@ -16,7 +16,6 @@ class Rsa1024Controller extends BaseController
     {
         $this->rsa_path = public_path() . DIRECTORY_SEPARATOR;
         $this->get_raw();
-        parent::__construct();
     }
 
     public function index()
@@ -36,7 +35,7 @@ class Rsa1024Controller extends BaseController
         {
             if ($allow_null == true)
             {
-                return '';
+                return null;
             }
 
             echo $this->RSA_private_encrypt(err($name . ' is null'));

@@ -107,6 +107,8 @@ class StoreController extends Controller
 //        return success($apple_verify);
 
         $data           = ['receipt'=>$receipt, 'buy_time'=>date('Y-m-d H:i:s',     substr($apple_verify->receipt->original_purchase_date_ms, 0, 10))];
+
+
         return success($data);
     }
 
@@ -202,9 +204,8 @@ class StoreController extends Controller
             $in =  Son::where('user_id', $user->id)->pluck('id')->toArray();
         }
 
-        $query = InoutLog::join('stores', 'stores.id', '=', 'inout_logs.store_id')
-
-//        $query = Store::join('prices', 'prices.id', '=', 'stores.price_id')
+        $query = InoutLog::where('inout_logs.type', 2)
+                ->join('stores', 'stores.id', '=', 'inout_logs.store_id')
                 ->join('prices', 'prices.id', '=', 'stores.price_id')
                 ->join('games', 'games.id', '=', 'stores.game_id')
                 ->join('sons', 'sons.id', '=', 'stores.owner_user_id')
@@ -481,7 +482,7 @@ class StoreController extends Controller
         # 查看支付密码是否正确
         $user_info = UserInfo::where('user_id', $user->id)->first();
 
-        if(md5($pay_pass) != $user_info->pay_pass){
+        if(sha1($pay_pass) != $user_info->pay_pass){
             return error('', 400, '支付密码错误');
         }
 
@@ -562,5 +563,160 @@ class StoreController extends Controller
         # 上架凭证禁止分配
         $info = Store::whereIn('id', $request->id)->where('status', '<>', 8)->update($update);
         return success($info, 200, '分配成功');
+    }
+
+    public function migration_dist(Request $request)
+    {
+        $provider_user_id = $request->provider_user_id;
+        $provider_user_type = $request->provider_user_type;
+        $game_id = $request->game_id;
+        $price_id = $request->price_id;
+        $receiver_user_type = $request->receiver_user_type;
+        $receiver_user_id = $request->receiver_user_id;
+        $dis_num = $request->dis_num;
+
+        # 1. 再次判断数量是否足够
+        # 判断账户类型 user 1 son 2
+        $provider_type = $provider_user_type == 'son' ? 2 : 1;
+        $receiver_type = $receiver_user_type == 'son' ? 2 : 1;
+        $provider_map = [
+            ['user_type', '=', $provider_type],
+            ['owner_user_id', '=', $provider_user_id],
+            ['status', '=', 1]
+        ];
+        $count = Store::where($provider_map)
+            ->when($game_id, function($query,$game_id){
+                return $query->where('game_id', $game_id);
+            })
+            ->when($price_id, function ($query, $price_id){
+                return $query->where('price_id', $price_id);
+            })
+            ->count();
+
+        if($count < $dis_num){
+            return error('', 400, '剩余凭证不足');
+        }
+
+        # 取出同等数量的凭证
+        $ids = Store::where($provider_map)
+            ->when($game_id, function($query,$game_id){
+                return $query->where('game_id', $game_id);
+            })
+            ->when($price_id, function ($query, $price_id){
+                return $query->where('price_id', $price_id);
+            })
+            ->pluck('id')
+            ->toArray();
+        $dis_ids = array_slice($ids, 0, $dis_num);
+
+        # 更新凭证所有人
+        $info = Store::where($provider_map)
+            ->when($game_id, function($query,$game_id){
+                return $query->where('game_id', $game_id);
+            })
+            ->when($price_id, function ($query, $price_id){
+                return $query->where('price_id', $price_id);
+            })
+            ->whereIn('id', $dis_ids)
+            ->update(['owner_user_id'=>$receiver_user_id, 'user_type'=>$receiver_type]);
+
+        return success($info, 200, '分配成功');
+
+
+
+    }
+
+    public function get_count(Request $request)
+    {
+        $provider_user_id = $request->provider_user_id;
+        $provider_user_type = $request->provider_user_type;
+        $game_id = $request->game_id;
+        $price_id = $request->price_id;
+
+        # 没有选择用户，则可分配数量为0
+        if(!$provider_user_id){
+            return success('hello world');
+        }
+
+        # 判断账户类型 user 1 son 2
+        $type = $provider_user_type == 'son' ? 2 : 1;
+
+        # 获取该账户下凭证数量
+        $map = [
+            ['user_type', '=', $type],
+            ['owner_user_id', '=', $provider_user_id],
+            ['status', '=', 1]
+        ];
+        $count = Store::where($map)
+            ->when($game_id, function($query,$game_id){
+                return $query->where('game_id', $game_id);
+            })
+            ->when($price_id, function ($query, $price_id){
+                return $query->where('price_id', $price_id);
+            })
+            ->count();
+        return success($count);
+    }
+
+    public function store_log(Request $request)
+    {
+        $type = $request->type;
+        $user_id = $request->user_id;
+        $start_time = $request->start_time;
+        $end_time = $request->end_time;
+
+        $page           = $request->page ?? 1;
+        $pagesize       = $request->pageSize ?? 15;
+        $offset         = $pagesize * ($page - 1);
+        $sort_field     = $request->sortField ?? 'id';
+        $order          = get_real_order($request->sortOrder);
+
+        # 默认显示该账户下所有子账户日志
+
+        $user = auth('api')->user();
+        # 管理员显示所有人
+        $in = [];
+        if($user->role_id != 1){
+            $in = Son::where('user_id', $user->id)
+                ->pluck('id')
+                ->toArray();
+        }
+        $query = InoutLog
+                ::when($in, function($query, $in){
+                    return $query->whereIn('user_id', $in);
+                })
+                ->when($type, function($query, $type){
+                    return $query->where('type', $type);
+                })
+                ->when($user_id, function($query, $user_id){
+                    return $query->where('user_id', $user_id);
+                })
+                ->when($start_time, function($query, $start_time){
+                    return $query->whereDate('created_at', '>', $start_time);
+                })
+                ->when($end_time, function($query, $end_time){
+                    return $query->whereDate('created_at', '<', $end_time);
+                })
+                ->with(['son'=>function($query){
+                    return $query->select('id', 'name');
+                }])
+                ->with(['store'=>function($query){
+                    return $query->with(['price'=>function($query){
+                        return $query->with(['game'=>function($query){
+                            return $query->select('id', 'name');
+                        }])
+                            ->select('id', 'gold', 'game_id');
+                    }])
+                        ->select('id', 'price_id');
+                }])
+                ->select('id', 'user_id', 'description', 'created_at', 'type', 'store_id');
+
+        $data['total'] = $query->count();
+        $data['data']   = $query
+            ->orderBy($sort_field, $order)
+            ->offset($offset)
+            ->limit($pagesize)
+            ->get();
+        return success($data);
     }
 }
