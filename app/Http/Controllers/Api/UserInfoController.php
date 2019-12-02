@@ -39,7 +39,7 @@ class UserInfoController extends Controller
                         ->orderBy('userinfo.'. $sort_field, $order)
                         ->offset($offset)
                         ->limit($pagesize)
-                        ->select('userinfo.id', 'userinfo.user_id', 'users.name', 'userinfo.charge_status', 'userinfo.save_device', 'userinfo.expire_time', 'users.status', 'userinfo.money', 'userinfo.nickname')
+                        ->select('userinfo.id', 'userinfo.user_id', 'users.name', 'userinfo.charge_status', 'userinfo.save_device', 'userinfo.expire_time', 'users.status', 'userinfo.money', 'userinfo.nickname', 'pass_store')
                         ->get();
 
         return success($data);

@@ -108,6 +108,7 @@ class GameController extends Rsa1024Controller
                 'name'=> $gs_name,
                 'description'=> '手机添加，用户主账户名称: ' . $this->parent()->name,
                 'productIdentifier'=> $productIdentifier,
+                'created_at' => now()
             ];
 
             $game_id = Game::insertGetId($data);

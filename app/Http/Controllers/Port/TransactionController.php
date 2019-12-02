@@ -133,9 +133,9 @@ class TransactionController extends Rsa1024Controller
 
         # 4. 处理其他参数
         $transactionIdentifier = $this->param('transactionIdentifier', true) ?? $res->receipt->transaction_id; // 订单号
-        $transactionDate = $this->param('transactionDate', true) ?? $res->receipt->transaction_id ?? date('Y-m-d H:i:s',     substr($res->receipt->original_purchase_date_ms, 0, 10)); // 生成日期
+        $transactionDate = $this->param('transactionDate', true) ?? date('Y-m-d H:i:s',     substr($res->receipt->original_purchase_date_ms, 0, 10)); // 生成日期
 
-        $newTransactionReceipt = $this->param('newTransactionReceipt', true); // 新凭证
+        $newTransactionReceipt = $this->param('newTransactionReceipt'); // 新凭证
 
         $localizedPrice = $this->param('localizedPrice', true) ?? $res->receipt->product_id; // 面值
 
@@ -197,7 +197,7 @@ class TransactionController extends Rsa1024Controller
 
         if (!empty($newTransactionReceipt))
         {
-            $data['new_receipt'] = $newTransactionReceipt;
+            $data['new_receipt'] = $encrypt->token_private_encrypt($newTransactionReceipt);
         }
 
         $store_id = Store::insertGetId($data);
@@ -471,13 +471,6 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('面值未开放'));
         }
 
-        // 获取凭证
-//        $map = [
-//            'is_goods'=> 0,
-//            'price_id'=> $price['id'],
-//            'user_id'=> auth('port')->user()->id,
-//        ];
-//
         $map = [
             ['price_id', '=', $price['id']],
             ['owner_user_id', '=', auth('port')->user()->id],
@@ -486,15 +479,6 @@ class TransactionController extends Rsa1024Controller
 
         // 是否跳过使用过的凭证
         $in = $this->parent()->userinfo->pass_store == 1 ? [1, 5] : [1, 5, 6];
-
-
-//        if ($userInfo['pass_store'] == 1)
-//        {
-//            $map['status'] = ['in', [1,5]];
-//        }
-//        else {
-//            $map['status'] = ['in', [1, 5, 6]];
-//        }
 
         $store = Store::whereIn('status', $in)->where($map)->orderBy('id', 'asc')->first();
 
@@ -527,6 +511,8 @@ class TransactionController extends Rsa1024Controller
 //        $info3 = $this->store_model->where(['id'=> $store['id']])->update(['status'=> 6, 'use_time'=> $this->date]);
 
         // 标记凭证已经使用
+
+        # 将出库次数加1
 
 
         // 记录日志
@@ -579,6 +565,11 @@ class TransactionController extends Rsa1024Controller
             }
         }
         //...
+
+        # 标记凭证出库
+        Store::where('id', $store['id'])->update(['status'=>6, 'use_time'=>now()]);
+        # 出库次数加1，判断出库是否收费
+        Store::where('id', $store['id'])->increment('consump_num', 1);
 
 
 
@@ -781,7 +772,7 @@ class TransactionController extends Rsa1024Controller
 
         $store = Store::where($map)->first();
 
-        if ($store['status'] != 1 && $store['status'] != 5 && $store['status'] != 6)
+        if ($store['status'] != '手机端已获取')
         {
             return $this->RSA_private_encrypt(err('凭证状态错误'));
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserInfo;
+use App\Models\UserLog;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -29,7 +30,17 @@ class AuthController extends Controller
         $credentials = request(['name', 'password']);
         $credentials['status'] = 1;
 
+        # 3. 登录失败插入日志
+        $data = [
+            'login_ip' => request()->getClientIp(),
+            'type' => 1
+        ];
+
         if (! $token = auth('api')->attempt($credentials)) {
+            # 插入日志
+            $data['description'] = '登陆失败, 用户名"' . json_encode($credentials);
+            UserLog::create($data);
+
             return response()->json(['message' => '登录失败, 请检查用户名和密码或账户状态'], 400);
         }
 
@@ -41,6 +52,11 @@ class AuthController extends Controller
         $user->remember_token = sha1($brower . $m_token);
         $user->save();
         UserInfo::where('user_id', $user->id)->increment('loginnum', 1);
+
+        # 4. 登陆成功插入日志
+        $data['description'] = '登陆成功, 用户名"' . json_encode($credentials);
+        $data['user_id'] = auth('api')->user()->id;
+        UserLog::create($data);
 
         return $this->respondWithToken($token);
     }

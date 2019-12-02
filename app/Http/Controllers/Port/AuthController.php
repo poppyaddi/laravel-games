@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Port;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Models\UserLog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Port\Rsa1024Controller;
 
@@ -57,7 +58,17 @@ class AuthController extends Rsa1024Controller
 
         $credentials = ['name'=>$username, 'password'=>$password, 'status'=>1];
 
+        # 插入日志
+        $data = [
+            'login_ip' => request()->getClientIp(),
+            'type' => 2
+        ];
+
         if (! $token = auth('port')->attempt($credentials)) {
+            # 插入日志
+            $data['description'] = '子账户登陆失败, 用户名"' . json_encode($credentials);
+            UserLog::create($data);
+
             return $this->RSA_private_encrypt(err('请检查用户名或密码或账户状态'));
         }
 
@@ -103,6 +114,10 @@ class AuthController extends Rsa1024Controller
         if($this->parent()->userinfo->save_device == '需启用' && $device['status'] != '启用'){
             return $this->RSA_private_encrypt(err('设备ID: ' . $device->id . ' 未授权, 请登录后台授权'));
         }
+
+        $data['description'] = '子账户登陆成功, 用户名"' . json_encode($credentials);
+        $data['user_id'] = auth('api')->user()->id;
+        UserLog::create($data);
 
         # 中间件中检查账户是否过期(月租用户永不过期)
         $data = $this->respondWithToken($token);

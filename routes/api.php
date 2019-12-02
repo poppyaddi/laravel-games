@@ -168,6 +168,19 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
 
     });
 
+    Route::prefix('log')->group(function(){
+        Route::get('user', 'LogController@user');
+    });
+
+    Route::prefix('money')->group(function(){
+        Route::post('upload', 'MoneyController@upload');
+        Route::get('pic', 'MoneyController@pic');
+        Route::post('apply', 'MoneyController@apply');
+        Route::get('index', 'MoneyController@index');
+        Route::post('status', 'MoneyController@status');
+
+    });
+
 
 
 });
