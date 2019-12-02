@@ -104,6 +104,8 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('detail', 'UserInfoController@detail')->name('info.detail');
         Route::post('update', 'UserInfoController@update')->name('info.update');
         Route::post('pay_reset_password', 'UserInfoController@pay_reset_password');
+        Route::get('select', 'UserInfoController@select');
+
     });
 
     # 子账户路由
@@ -178,7 +180,16 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('apply', 'MoneyController@apply');
         Route::get('index', 'MoneyController@index');
         Route::post('status', 'MoneyController@status');
+    });
 
+    Route::prefix('sale')->group(function(){
+        Route::get('index', 'SaleController@index');
+        Route::get('me', 'SaleController@me');
+        Route::post('store', 'SaleController@store');
+        Route::get('remain', 'SaleController@remain');
+        Route::post('down', 'SaleController@down');
+        Route::post('buy', 'SaleController@buy');
+        Route::post('update', 'SaleController@update');
     });
 
 

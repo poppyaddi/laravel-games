@@ -72,4 +72,10 @@ class UserInfoController extends Controller
         return success($info, 200, '重置成功');
     }
 
+    public function select()
+    {
+        $data = UserInfo::select('user_id', 'nickname')->get();
+        return success($data);
+    }
+
 }

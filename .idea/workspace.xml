@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="917c7854-436d-4d0a-8248-70b07f54d653" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/LogController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MoneyController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Money.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/UserLog.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_28_095822_create_money_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Sale.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_02_092521_create_sale_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/GameController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -219,7 +212,7 @@
       <workItem from="1574682419595" duration="56586000" />
       <workItem from="1574917669683" duration="27347000" />
       <workItem from="1575040750958" duration="615000" />
-      <workItem from="1575047091687" duration="12011000" />
+      <workItem from="1575047091687" duration="29487000" />
     </task>
     <servers />
   </component>
