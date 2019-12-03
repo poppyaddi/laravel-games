@@ -192,6 +192,21 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('update', 'SaleController@update');
     });
 
+    Route::prefix('buy')->group(function(){
+        Route::post('store', 'BuyController@store');
+        Route::post('update', 'BuyController@update');
+        Route::post('down', 'BuyController@down');
+        Route::post('afford', 'BuyController@afford');
+        Route::get('index', 'BuyController@index');
+    });
+
+    Route::prefix('afford')->group(function(){
+        Route::post('afford', 'AffordController@afford');
+        Route::get('index', 'AffordController@index');
+        Route::post('finish', 'AffordController@finish');
+        Route::post('done', 'AffordController@done');
+    });
+
 
 
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Config;
 use App\Models\Sale;
+use App\Models\SaleLog;
 use App\Models\Store;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -84,16 +85,17 @@ class SaleController extends Controller
                         ['game_id', '=', $request->game_id],
                         ['price_id', '=', $request->price_id]
                   ];
-        $store_ids          = Store::where($where)
-                            ->limit($request->unit)
-                            ->pluck('id')
-                            ->toArray();
+            $store_ids          = Store::where($where)
+                                ->limit($request->unit)
+                                ->pluck('id')
+                                ->toArray();
         # 2.1 将这些凭证的状态改为上架
-        $data['store_id']   = implode(',', $store_ids);
+        $data['store_id']       = implode(',', $store_ids);
 
         # 3. 生成订单号
-        $order_num          = $this->get_order();
-        $data['order_num']  = $order_num;
+        $order_num              = $this->get_order();
+        $data['order_num']      = $order_num;
+        $data['default_unit']   = $request->unit;
 
         # 4. 保存数据库
         DB::transaction(function () use ($data, $store_ids) {
@@ -180,11 +182,9 @@ class SaleController extends Controller
         # 3. 修改订单状态
         $left       = array_values(array_diff($store_ids, $buyed));
         $left_count = count($left);
-        if(count($left) == 0){
-            $status = 3;
-        } else{
-            $status = 2;
-        }
+
+        $status = count($left) == 0 ? 3 : 2;
+
         $left       = implode(',', $left);
 
         DB::beginTransaction();
@@ -198,13 +198,19 @@ class SaleController extends Controller
         # 3. 扣钱
         $tans_fee   = Config::get_value('trans_fee');
         $info3      = UserInfo::where('user_id', $user->id)
-                    ->decrement('money', (1 + $tans_fee) * $unit * $sale->unit_price);
+                    ->decrement('money', $unit * $sale->unit_price);
 
         # 4. 加钱
         $info4      = UserInfo::where('user_id', $sale->user_id)
-                    ->increment('money', $unit * $sale->unit_price);
+                    ->increment('money', $unit * $sale->unit_price * (1 - $tans_fee));
 
         # 5. 添加购买日志
+        $log['user_id']     = $user->id;
+        $log['sale_id']     = $id;
+        $log['store_id']    = implode(',', $buyed);
+        $log['description'] = '购买订单';
+        $log['price']       = $sale->unit_price;
+        $info5              = SaleLog::create($log);
 
         if($info1 && $info2 && $info3 && $info4){
             DB::commit();
@@ -220,6 +226,13 @@ class SaleController extends Controller
         $id         = $request->id;
 
         $user       = auth('api')->user();
+
+        $sale   = Sale::find($id);
+
+        # 只有自己或管理员才能修改
+        if($user->id != $sale->user_id && $user->role_id != 1){
+            return error('', 400, '无权限');
+        }
 
         # 0. 验证交易密码
         $user_info  = UserInfo::where('user_id', $user->id)->first();
