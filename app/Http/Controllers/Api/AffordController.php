@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Afford;
 use App\Models\Buy;
 use App\Models\Config;
+use App\Models\Fee;
 use App\Models\Store;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -79,6 +80,7 @@ class AffordController extends Controller
         $data['user_id'] = $user->id;
         $data['buy_id'] = $id;
         $data['unit'] = $unit;
+        $data['default_unit'] = $unit;
         $data['unit_price'] = $buy->unit_price;
         $data['fro_buy_money'] = $earn;
         $data['fro_self_money'] = $earn * Config::get_value('pre_afford_fee');
@@ -140,26 +142,42 @@ class AffordController extends Controller
 
         # 3. 转移凭证并算账
         DB::beginTransaction();
+        $pre_store_fee = Config::get_value('pre_store_fee');
         $transfer_user_id = Buy::where('id', $afford->buy_id)->first()->user_id;
         $info1 = Store::whereIn('id', $transfer_store_ids)->update(['owner_user_id'=>$transfer_user_id]);  # 转移凭证
 
         # 3.2 减去保证金并减去预购者的预付款
-        $info2 = Afford::where('id', $request->id)->update(['fro_buy_money'=>$afford->fro_buy_money - $afford->unit_price * count($transfer_store_ids), 'fro_self_money'=>$afford->fro_self_money - Config::get_value('pre_afford_fee') * $afford->unit_price * count($transfer_store_ids), 'status'=>$status, 'unit'=>$afford->unit - count($transfer_store_ids) ]);
+        $info2 = Afford::where('id', $request->id)->update(['fro_buy_money'=>$afford->fro_buy_money - $afford->unit_price * count($transfer_store_ids), 'fro_self_money'=>$afford->fro_self_money - $pre_store_fee * $afford->unit_price * count($transfer_store_ids), 'status'=>$status, 'unit'=>$afford->unit - count($transfer_store_ids) ]);
 
         # 3.3 将减去的保证金给资金账户, 将供货者扣除手续费之后的钱给供货者账户
-        $bond =  Config::get_value('pre_store_fee') * $afford->unit_price * count($transfer_store_ids);  # 减去的保证金
+        $bond =  $pre_store_fee * $afford->unit_price * count($transfer_store_ids);  # 减去的保证金
 
-        $info3 = UserInfo::where('user_id', $user->id)->increment('money', $afford->unit_price * count($transfer_store_ids) * (1 - Config::get_value('pre_store_fee')) + $bond);
+        $info3 = UserInfo::where('user_id', $user->id)->increment('money', $afford->unit_price * count($transfer_store_ids) * (1 - $pre_store_fee) + $bond);
 
         # 3.4 求购者用户冻结金额的手续费减去
 
         $info4 = UserInfo::where('user_id', $transfer_user_id)->decrement('fro_money', $bond);
 
-        $info1 && $info2 && $info3 ? DB::commit() : DB::rollBack();
+        # 3.5 添加求购者手续费日志
+        $fee['user_id'] = $transfer_user_id;
+        $fee['money'] = $afford->unit_price * count($transfer_store_ids) * $pre_store_fee;
+        $fee['description'] = '用户发布预购，提供凭证时扣除发布者手续费';
+        $info5 = Fee::create($fee);
 
+        # 3.6 提供凭证者添加手续费日志
+        $fee['user_id'] = $user->id;
+        $fee['money'] = $afford->unit_price * count($transfer_store_ids) * $pre_store_fee;
+        $fee['description'] = '用户发布预购，提供凭证时扣除凭证提供者手续费';
+        $info6 = Fee::create($fee);
 
+        if($info1 && $info2 && $info3 && $info4 && $info5 && $info6){
+            DB::commit();
+            return success('', 200, '供货成功');
+        } else{
+            DB::rollBack();
+            return error('', 400, '供货失败');
+        }
 
-        return success('', 200, '供货成功');
     }
 
 

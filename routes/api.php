@@ -172,6 +172,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
 
     Route::prefix('log')->group(function(){
         Route::get('user', 'LogController@user');
+        Route::get('fee', 'LogController@fee');
     });
 
     Route::prefix('money')->group(function(){
@@ -190,6 +191,8 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('down', 'SaleController@down');
         Route::post('buy', 'SaleController@buy');
         Route::post('update', 'SaleController@update');
+        Route::get('buy_user', 'SaleController@buy_user');
+        Route::get('buy_me', 'SaleController@buy_me');
     });
 
     Route::prefix('buy')->group(function(){
@@ -198,6 +201,11 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('down', 'BuyController@down');
         Route::post('afford', 'BuyController@afford');
         Route::get('index', 'BuyController@index');
+        Route::get('qiugou_me', 'BuyController@qiugou_me');
+        Route::get('me_pre', 'BuyController@me_pre');
+        Route::get('afford_user', 'BuyController@afford_user');
+        Route::get('afford_user_prompt', 'BuyController@afford_user_prompt');
+        Route::post('punish', 'BuyController@punish');
     });
 
     Route::prefix('afford')->group(function(){

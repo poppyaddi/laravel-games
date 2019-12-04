@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Config;
+use App\Models\Fee;
 use App\Models\Money;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -216,6 +217,15 @@ class MoneyController extends Controller
             # 1. 通过提现申请
             if($request->status == 2){
                 $info = Money::where('id', $request->id)->update(['status' => $request->status, 'fro_money'=>0]);
+                # 1.1 添加手续费日志
+                $withdraw_fee = Config::get_value('withdraw_fee');
+                $original_money = $money->fro_money/(1 + $withdraw_fee);
+                $bond = $original_money * $withdraw_fee;  #收取的手续费
+                $fee['user_id'] = $money->user_id;
+                $fee['money'] = $bond;
+                $fee['description'] = '用户提现通过，手续费用为' . $bond;
+                Fee::create($fee);
+
             } elseif ($request->status == 3){
                 # 2. 拒绝申请, 将冻结金额还给原账户
                 $fro_money = $money->fro_money;
