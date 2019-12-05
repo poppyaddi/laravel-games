@@ -54,7 +54,7 @@ class AuthController extends Controller
         UserInfo::where('user_id', $user->id)->increment('loginnum', 1);
 
         # 4. 登陆成功插入日志
-        $data['description'] = '登陆成功, 用户名"' . json_encode($credentials);
+        $data['description'] = '用户登陆成功';
         $data['user_id'] = auth('api')->user()->id;
         UserLog::create($data);
 

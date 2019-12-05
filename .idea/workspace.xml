@@ -2,19 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="917c7854-436d-4d0a-8248-70b07f54d653" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/FeeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Fee.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/PromptAfford.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_04_142156_create_prompt_afford_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_04_154240_create_fee_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/DashController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ErrorStore.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/TransFee.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/WithdrawFee.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_05_080240_create_withdraw_fee_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_05_090317_create_trans_fee_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_05_103955_create_error_store_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AffordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AffordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/BuyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/BuyController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/LogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/LogController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/MoneyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MoneyController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SaleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Afford.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Afford.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/SaleLog.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SaleLog.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
@@ -223,6 +226,7 @@
       <workItem from="1575047091687" duration="31239000" />
       <workItem from="1575366171567" duration="24523000" />
       <workItem from="1575439942339" duration="30885000" />
+      <workItem from="1575521869648" duration="28758000" />
     </task>
     <servers />
   </component>

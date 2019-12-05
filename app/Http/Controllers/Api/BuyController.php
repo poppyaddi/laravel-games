@@ -9,6 +9,7 @@ use App\Models\Config;
 use App\Models\Fee;
 use App\Models\PromptAfford;
 use App\Models\Store;
+use App\Models\TransFee;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -264,17 +265,20 @@ class BuyController extends Controller
         $prompt['unit_price'] = $buy->unit_price;
         $info5 = PromptAfford::create($prompt);
 
-        # 添加卖家手续费日志
+        # 添加买家手续费日志
         $fee['user_id'] = $buy->user_id;
         $fee['money'] = $trans_fee * $unit * $buy->unit_price;
-        $fee['description'] = '用户求购凭证，扣除求购者手续费';
-        $info6 = Fee::create($fee);
+        $fee['description'] = '用户求购凭证，直接提供凭证扣除求购者手续费';
+        $fee['order_num'] = $buy->order_num;
+        $fee['status'] = 2;
+        $info6 = TransFee::create($fee);
 
         # 添加供货者手续费日志
         $fee['user_id'] = $user->id;
         $fee['money'] = $trans_fee * $unit * $buy->unit_price;
-        $fee['description'] = '用户求购凭证，扣除提供凭证用户的手续费';
-        $info7 = Fee::create($fee);
+        $fee['description'] = '用户求购凭证，直接提供凭证扣除提供凭证用户手续费';
+        $fee['status'] = 3;
+        $info7 = TransFee::create($fee);
 
 
         if($info1 && $info2 && $info3 && $info4 && $info5 && $info6 && $info7){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Port;
 
 use App\Http\Controllers\Controller;
 use App\Models\Config;
+use App\Models\ErrorStore;
 use App\Models\Game;
 use App\Models\InoutLog;
 use App\Models\Price;
@@ -64,7 +65,9 @@ class TransactionController extends Rsa1024Controller
     {
         # 判断操作账户类型(中间件中判断账户是否过期)
 
-        if(auth('port')->user()->type == '出库'){
+        $user = auth('port')->user();
+
+        if($user->type == '出库'){
             return $this->RSA_private_encrypt(err('没有入库权限'));
         }
 
@@ -90,8 +93,17 @@ class TransactionController extends Rsa1024Controller
         $enc = md5($receipt);
         $info = Store::where('enc', $enc)->first();
 
+        # 2.1 错误日志
+        $error['receipt'] = $receipt;
+        $error['gold'] = $localizedTitle;
+        $error['user_id'] = $user->id;  # 子账户id
+        $error['parent_id'] = $this->parent()->id;
+
         if ($info)
         {
+            $error['description'] = '凭证重复';
+            ErrorStore::create($error);
+
             return $this->RSA_private_encrypt(err('凭证重复'));
         }
 
@@ -104,6 +116,11 @@ class TransactionController extends Rsa1024Controller
             $res = $this->apple_verify($receipt);
 
             if($res->status != 0 || $res->status == 21002){
+                # 记录错误凭证
+
+                $error['description'] = '凭证验证失败';
+                ErrorStore::create($error);
+
                 return $this->RSA_private_encrypt(err('0001'));  # 凭证验证失败
                 die;
             }
@@ -116,6 +133,9 @@ class TransactionController extends Rsa1024Controller
                 $buyTime = $res->receipt->in_app[0]->purchase_date_ms;
                 # return $buyTime;  # 1569118165000
             } else{
+                $error['description'] = '未知错误，凭证更新?';
+                ErrorStore::create($error);
+
                 return $this->RSA_private_encrypt(err('0002')); # 未知错误
             }
 
@@ -126,6 +146,9 @@ class TransactionController extends Rsa1024Controller
             if($offset > $expire_time){
 //            $t = date('Y-m-d H:i:s', $buyTime);
 //            $message = "购买时间过期：" . $t;
+                $error['description'] = '凭证过期';
+                ErrorStore::create($error);
+
                 return $this->RSA_private_encrypt(err('0003')); # 凭证过期
             }
         }
@@ -143,10 +166,13 @@ class TransactionController extends Rsa1024Controller
 
         $productIdentifier = $this->param('productIdentifier', true) ?? $res->receipt->bid; // 包名
 
-         $currency =  $this->param('currency') ?? '没有币种';
+         $currency =  $this->param('currency', true) ?? '没有币种';
 
         # 验证币种
         if(in_array($currency, $this->currency())){
+            $error['description'] = '币种不符合要求';
+            ErrorStore::create($error);
+
             return $this->RSA_private_encrypt(err('币种不符合要求'));
         }
 
@@ -187,11 +213,12 @@ class TransactionController extends Rsa1024Controller
             'start_time'    => $transactionDate,
             'identifier'    => $transactionIdentifier,
             'receipt'       => $transactionReceipt,
-            'input_user_id' => $this->parent()->id,  # 入库账号的父账号id
-            'owner_user_id' => auth('port')->user()->id,
+            'input_user_id' => $user->id,
+            'owner_user_id' => $user->id,
             'currency'      => $currency,
             'enc'           => $enc,
-            'created_at'    => now()
+            'created_at'    => now(),
+            'input_parent_id' => $this->parent()->id # 入库账号的父账号id
 
         ];
 
@@ -441,8 +468,10 @@ class TransactionController extends Rsa1024Controller
     public function vendre_info_one()
     {
 
+        $user = auth('port')->user();
+
         # 验证账号出库权限
-        if(auth('port')->user()->type == '入库'){
+        if($user->type == '入库'){
             return $this->RSA_private_encrypt(err('没有出库权限'));
         }
 
@@ -452,12 +481,6 @@ class TransactionController extends Rsa1024Controller
         {
             return $this->RSA_private_encrypt(err('title length is 0'));
         }
-
-        // 获取支持面值https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID=2389823426926982977&skey=%40crypt_1c47700b_bb2bfc52613f53ac3add81b55edef0f5
-//        $map = [
-//            'status'=> 1,
-//            'title'=> $title,
-//        ];
 
         $map = [
             ['status', '=', 1],
@@ -473,7 +496,7 @@ class TransactionController extends Rsa1024Controller
 
         $map = [
             ['price_id', '=', $price['id']],
-            ['owner_user_id', '=', auth('port')->user()->id],
+            ['owner_user_id', '=', $user->id],
             ['user_type', '=', 2]
         ];
 
@@ -518,7 +541,7 @@ class TransactionController extends Rsa1024Controller
         // 记录日志
         $data = [
             'description'=> '用户手机端获取凭证',
-            'user_id'=> auth('port')->user()->id,
+            'user_id'=> $user->id,
             'store_id'=> $store['id'],
             'type' => 2
         ];
@@ -534,14 +557,10 @@ class TransactionController extends Rsa1024Controller
             "desc"=> $store['description'],
             "status"=> $store['status'],  # 出库时判断状态吗？
             "start_time"=> $store['start_time'],
-//            "end_time"=> $store['end_time'],
             "identifier"=> $store['identifier'],
-            // "receipt"=> $store['receipt'],
-            // "new_receipt"=> $store['new_receipt'],
             "receipt"=> $encrypt->token_public_decrypt($store['receipt']),
             "new_receipt"=> $encrypt->token_public_decrypt($store['new_receipt']),
         ];
-
 
         # 兼容老版本插件入库的凭证
         //...
@@ -567,12 +586,7 @@ class TransactionController extends Rsa1024Controller
         //...
 
         # 标记凭证出库
-        Store::where('id', $store['id'])->update(['status'=>6, 'use_time'=>now()]);
-        # 出库次数加1，判断出库是否收费
-        Store::where('id', $store['id'])->increment('consump_num', 1);
-
-
-
+        Store::where('id', $store['id'])->update(['status'=>6, 'use_time'=>now(), 'consump_num'=>$store['consump_num'] + 1]);
 
         return $this->RSA_private_encrypt(succ($data));
     }
@@ -603,12 +617,6 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('game is not allowed'));
         }
 
-        // 获取支持面值
-//        $map = [
-//            'status'=> 1,
-//            'title'=> $title,
-//        ];
-
         $map = [
             ['status', '=', 1],
             ['title', '=', $title]
@@ -620,13 +628,6 @@ class TransactionController extends Rsa1024Controller
         {
             return $this->RSA_private_encrypt(err('面值未开放'));
         }
-
-        // 获取凭证
-//        $map = [
-////            'is_goods'=> 0,
-//            'price_id'=> $price['id'],
-//            'user_id'=> $this->user_id,
-//        ];
 
         $map = [
             ['price_id', '=', $price['id']],
@@ -648,15 +649,6 @@ class TransactionController extends Rsa1024Controller
             $store = Store::whereIn('status', $in)->where($map)->orderBy('id', 'asc')->first();
         }
 
-        // 跳过使用过的凭证
-
-//        if ($userInfo['pass_store'] == 1)
-//        {
-//            $map['status'] = ['in', [1,5]];
-//        }
-//        else {
-//            $map['status'] = ['in', [1, 5, 6]];
-//        }
 
         if (!$store)
         {
@@ -686,7 +678,8 @@ class TransactionController extends Rsa1024Controller
 //
 //        $info3 = $this->store_model->where(['id'=> $store['id']])->update(['status'=> 6, 'use_time'=> $this->date]);
 
-        // 标记凭证已经使用
+        # 标记凭证出库
+        Store::where('id', $store['id'])->update(['status'=>6, 'use_time'=>now(), 'consump_num'=>$store['consump_num'] + 1]);
 
         // 记录日志
         $data = [
@@ -707,10 +700,7 @@ class TransactionController extends Rsa1024Controller
             "desc"=> $store['description'],
             "status"=> $store['status'],  # 出库时判断状态吗？
             "start_time"=> $store['start_time'],
-//            "end_time"=> $store['end_time'],
             "identifier"=> $store['identifier'],
-            // "receipt"=> $store['receipt'],
-            // "new_receipt"=> $store['new_receipt'],
             "receipt"=> $encrypt->token_public_decrypt($store['receipt']),
             "new_receipt"=> $encrypt->token_public_decrypt($store['new_receipt']),
         ];

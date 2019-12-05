@@ -8,6 +8,7 @@ use App\Models\Fee;
 use App\Models\Sale;
 use App\Models\SaleLog;
 use App\Models\Store;
+use App\Models\TransFee;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -228,8 +229,10 @@ class SaleController extends Controller
         # 5. 添加手续费日志
         $fee['user_id'] = $sale->user_id;
         $fee['money'] = $unit * $sale->unit_price * $tans_fee;
-        $fee['description'] = '用户卖货收取手续费，买家为' . $user->name . ', 其用户id为' . $user->id;
-        $info5 = Fee::create($fee);
+        $fee['description'] = '用户卖货收取手续费';
+        $fee['order_num'] = $sale->order_num;
+        $fee['status'] = 1;
+        $info5 = TransFee::create($fee);
 
 
             # 5. 添加购买日志

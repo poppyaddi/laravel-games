@@ -78,4 +78,38 @@ class UserInfoController extends Controller
         return success($data);
     }
 
+    public function judge_status()
+    {
+        $user = auth('api')->user();
+
+        $info = UserInfo::where('user_id', $user->id)->first();
+        $data['nickname_change_times'] = $info->nickname_change_times;
+        $data['nickname'] = $info->nickname;
+        $data['money'] = Config::get_value('nickname_modify_money');
+        return success($data);
+    }
+
+    public function reset_nickname(Request $request)
+    {
+        $new_nickname = $request->new_nickname;
+
+        # 判断该账号是否需要扣费
+        $user = auth('api')->user();
+
+        $info = UserInfo::where('user_id', $user->id)->first();
+        if($info->nickname_change_times == 0){
+            # 不需要扣费
+            $info->nickname = $new_nickname;
+            $info = UserInfo::where('user_id', $user->id)->update(['nickname'=>$new_nickname, 'nickname_change_times'=>$info->nickname_change_times + 1]);
+            return success($info, 200, '修改成功');
+        } else{
+            # 需要扣费
+            $bond = Config::get_value('nickname_modify_money');
+
+            UserInfo::where('user_id', $user->id)->update(['nickname'=>$new_nickname, 'money'=>$info->money - $bond, 'nickname_change_times'=>$info->nickname_change_times + 1]);
+            return success('', 200, '修改成功');
+        }
+
+    }
+
 }

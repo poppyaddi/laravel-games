@@ -8,6 +8,7 @@ use App\Models\Buy;
 use App\Models\Config;
 use App\Models\Fee;
 use App\Models\Store;
+use App\Models\TransFee;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -159,16 +160,21 @@ class AffordController extends Controller
         $info4 = UserInfo::where('user_id', $transfer_user_id)->decrement('fro_money', $bond);
 
         # 3.5 添加求购者手续费日志
+        $order_num = Buy::where('id', $afford->buy_id)->first()->order_num;
         $fee['user_id'] = $transfer_user_id;
         $fee['money'] = $afford->unit_price * count($transfer_store_ids) * $pre_store_fee;
-        $fee['description'] = '用户发布预购，提供凭证时扣除发布者手续费';
-        $info5 = Fee::create($fee);
+        $fee['description'] = '用户发布预购，供货时扣除发布者手续费';
+        $fee['order_num'] = $order_num;
+        $fee['status'] = 2;
+        $info5 = TransFee::create($fee);
 
         # 3.6 提供凭证者添加手续费日志
         $fee['user_id'] = $user->id;
         $fee['money'] = $afford->unit_price * count($transfer_store_ids) * $pre_store_fee;
-        $fee['description'] = '用户发布预购，提供凭证时扣除凭证提供者手续费';
-        $info6 = Fee::create($fee);
+        $fee['description'] = '用户发布预购，供货时扣除凭证提供者手续费';
+        $fee['order_num'] = $order_num;
+        $fee['status'] = 3;
+        $info6 = TransFee::create($fee);
 
         if($info1 && $info2 && $info3 && $info4 && $info5 && $info6){
             DB::commit();

@@ -7,6 +7,7 @@ use App\Models\Config;
 use App\Models\Fee;
 use App\Models\Money;
 use App\Models\UserInfo;
+use App\Models\WithdrawFee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -221,10 +222,13 @@ class MoneyController extends Controller
                 $withdraw_fee = Config::get_value('withdraw_fee');
                 $original_money = $money->fro_money/(1 + $withdraw_fee);
                 $bond = $original_money * $withdraw_fee;  #收取的手续费
+
+
                 $fee['user_id'] = $money->user_id;
                 $fee['money'] = $bond;
+                $fee['money_id'] = $money->id;
                 $fee['description'] = '用户提现通过，手续费用为' . $bond;
-                Fee::create($fee);
+                WithdrawFee::create($fee);
 
             } elseif ($request->status == 3){
                 # 2. 拒绝申请, 将冻结金额还给原账户
@@ -241,8 +245,23 @@ class MoneyController extends Controller
             }
             return success('', 200, '审核成功');
         }
+    }
+
+    public function pic_list()
+    {
+        $wechat     = Config::get_value('pay_wechat');
+
+        $we_path                = 'storage/' . basename($wechat);
+        $data['we_url']         = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $we_path;
+        $data['we_account']     = Config::get_value('we_account');
+
+        $ali                    = Config::get_value('pay_ali');
+        $a_path                 = '/storage/' . basename($ali);
+        $data['a_url']          =  'http://' . $_SERVER['HTTP_HOST'] . '/' . $a_path;
+        $data['ali_account']    = Config::get_value('ali_account');
 
 
+        return success($data);
     }
 
 }

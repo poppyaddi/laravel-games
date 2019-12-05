@@ -105,6 +105,8 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('update', 'UserInfoController@update')->name('info.update');
         Route::post('pay_reset_password', 'UserInfoController@pay_reset_password');
         Route::get('select', 'UserInfoController@select');
+        Route::post('judge_status', 'UserInfoController@judge_status');
+        Route::post('reset_nickname', 'UserInfoController@reset_nickname');
 
     });
 
@@ -173,6 +175,8 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     Route::prefix('log')->group(function(){
         Route::get('user', 'LogController@user');
         Route::get('fee', 'LogController@fee');
+        Route::get('withdraw_fee', 'LogController@withdraw_fee');
+        Route::get('trans_fee', 'LogController@trans_fee');
     });
 
     Route::prefix('money')->group(function(){
@@ -181,6 +185,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('apply', 'MoneyController@apply');
         Route::get('index', 'MoneyController@index');
         Route::post('status', 'MoneyController@status');
+        Route::get('pic_list', 'MoneyController@pic_list');
     });
 
     Route::prefix('sale')->group(function(){
@@ -215,6 +220,8 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('done', 'AffordController@done');
     });
 
+    Route::get('dashboard', 'DashController@index');
+
 
 
 });
@@ -237,3 +244,5 @@ Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function(){
     Route::get('decrypt', 'TestController@decrypt');
     Route::get('gtest', 'GameController@test');
 });
+
+
