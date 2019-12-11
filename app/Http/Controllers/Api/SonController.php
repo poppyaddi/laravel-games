@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Son;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use App\Models\Config;
 
@@ -12,6 +13,8 @@ class SonController extends Controller
     //
     public function store(Request $request)
     {
+
+        $user = auth('api')->user();
         # 获取配置文件中最大的子账户个数
         $max_son_num    = Config::get_value('max_son_num');
         # 获取当前用户的子账户数
@@ -21,8 +24,12 @@ class SonController extends Controller
         }
 
         $data = $request->all();
-        $data['user_id'] = auth('api')->user()->id;
+        $data['user_id'] = $user->id;
         try{
+            # 如果是普通用户只能是入库
+            if(UserInfo::where('user_id', $user->id)->first()->charge_status == '免费用户'){
+                $data['type'] = 1;
+            }
             $info = Son::create($data);
         } catch (\PDOException $e){
             return success('', 400, '子账户名称重复,请更换其他名称');
@@ -39,6 +46,9 @@ class SonController extends Controller
         $name           = $request->name;
         $son            = $request->son;
         $status         = $request->status;
+        $type           = $request->type;
+
+
         $page           = $request->page ?? 1;
         $pagesize       = $request->pageSize ?? 15;
         $offset         = $pagesize * ($page - 1);
@@ -66,6 +76,9 @@ class SonController extends Controller
                                     })
                         ->when($user_id, function($query, $user_id){
                                         return $query->where('sons.user_id', $user_id);
+                        })
+                        ->when($type, function($query, $type){
+                            return $query->where("sons.type", $type);
                         })
                         ->select('sons.id', 'sons.name', 'sons.type', 'sons.status', 'sons.created_at', 'users.name as user')
                         ->withCount(['store'=>function($query){
@@ -113,5 +126,13 @@ class SonController extends Controller
         $info = $son->save();
         return success($info, 200, '修改成功');
 
+    }
+
+    public function tag_data()
+    {
+        $data['start'] = Son::where(['status'=>1])
+            ->count();
+        $data['total'] = Son::count();
+        return success($data, 200);
     }
 }

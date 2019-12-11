@@ -24,7 +24,15 @@ class GameController extends Controller
 
     public function index(Request $request)
     {
-        $name          = $request->name;
+        $name           = $request->name;
+        $product        = $request->productIdentifier;
+        $status         = $request->status;
+        if($status){
+            $status = [$status];
+        } else{
+            $status = [1, 2];
+        }
+
         $page           = $request->page ?? 1;
         $pagesize       = $request->pageSize ?? 15;
         $offset         = $pagesize * ($page - 1);
@@ -33,6 +41,12 @@ class GameController extends Controller
 
         $query          = Game::when($name, function ($query, $name) {
                             return $query->where('name', $name);
+                        })
+                        ->when($product, function($query, $product){
+                            return $query->where('productIdentifier', $product);
+                        })
+                        ->when($status, function($query, $status){
+                            return $query->whereIn('status', $status);
                         });
         $data['total'] = $query->count();
         $data['data']   = $query

@@ -76,7 +76,7 @@ class TransactionController extends Rsa1024Controller
         # 1. 先接受凭证
         $transactionReceipt = $this->param('transactionReceipt'); // 凭证
 
-        $localizedTitle = $this->param('localizedTitle') ?? ''; // 用于判断是否进行内购验证
+        $localizedTitle = $this->param('localizedTitle', true) ?? null; // 用于判断是否进行内购验证
 
         # 只有凭证是必须的
         if (empty($transactionReceipt))
@@ -89,23 +89,12 @@ class TransactionController extends Rsa1024Controller
             $transactionReceipt = $encrypt->token_private_encrypt($transactionReceipt); # 入库使用
         }
 
-        # 2. 验证凭证重复 用md5($receipt)验证
-        $enc = md5($receipt);
-        $info = Store::where('enc', $enc)->first();
-
         # 2.1 错误日志
         $error['receipt'] = $receipt;
         $error['gold'] = $localizedTitle;
         $error['user_id'] = $user->id;  # 子账户id
         $error['parent_id'] = $this->parent()->id;
 
-        if ($info)
-        {
-            $error['description'] = '凭证重复';
-            ErrorStore::create($error);
-
-            return $this->RSA_private_encrypt(err('凭证重复'));
-        }
 
         # 3. 验证凭证, 并获取苹果内购验证
         # 3.1 获取不需验证的面值
@@ -168,12 +157,29 @@ class TransactionController extends Rsa1024Controller
 
          $currency =  $this->param('currency', true) ?? '没有币种';
 
+         # 再次获取面值
+        $localizedTitle = $localizedTitle ? $localizedTitle : $res->receipt->product_id;
+
         # 验证币种
         if(in_array($currency, $this->currency())){
             $error['description'] = '币种不符合要求';
             ErrorStore::create($error);
 
             return $this->RSA_private_encrypt(err('币种不符合要求'));
+        }
+
+        # 2. 验证凭证重复 用md5($receipt)验证
+        $enc = md5($receipt);
+        $info = Store::where('enc', $enc)
+            ->orWhere('identifier', '$transactionIdentifier')
+            ->first();
+
+        if ($info)
+        {
+            $error['description'] = '凭证重复';
+            ErrorStore::create($error);
+
+            return $this->RSA_private_encrypt(err('凭证重复'));
         }
 
         # 验证游戏类型是否支持
@@ -468,12 +474,12 @@ class TransactionController extends Rsa1024Controller
     public function vendre_info_one()
     {
 
-        $user = auth('port')->user();
-
         # 验证账号出库权限
-        if($user->type == '入库'){
+        if($this->check_charge_status() == 1){
             return $this->RSA_private_encrypt(err('没有出库权限'));
         }
+
+        $user = auth('port')->user();
 
         $title = $this->param('title'); // 面值名
 
@@ -599,7 +605,7 @@ class TransactionController extends Rsa1024Controller
     {
 
         # 验证账号出库权限
-        if(auth('port')->user()->type == '入库'){
+        if($this->check_charge_status() == 1){
             return $this->RSA_private_encrypt(err('没有出库权限'));
         }
 
@@ -903,5 +909,16 @@ class TransactionController extends Rsa1024Controller
 
         return $currency ? explode(',', $currency) : [];
 
+    }
+
+    public function check_charge_status()
+    {
+        $user = auth('port')->user();
+
+        if($user->type == '入库' || $this->parent()->userinfo->charge_status == '免费用户'){
+            return 1;
+        } else{
+            return 2;
+        }
     }
 }

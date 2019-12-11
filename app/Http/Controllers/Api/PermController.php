@@ -19,7 +19,8 @@ class PermController extends Controller
 
     public function index(Request $request)
     {
-        $name          = $request->name;
+        $name           = $request->name;
+        $description    = $request->description;
         $page           = $request->page ?? 1;
         $pagesize       = $request->pageSize ?? 15;
         $offset         = $pagesize * ($page - 1);
@@ -28,6 +29,9 @@ class PermController extends Controller
 
         $query =        Perm::when($name, function($query, $name){
                             return $query->where('name', $name);
+                        })
+                        ->when($description, function($query, $description){
+                            return $query->where('description', 'like', '%' . $description . '%');
                         });
 
         $data['total']  = $query->count();

@@ -27,6 +27,7 @@ class StoreController extends Controller
         $user_id        = $request->user_id;
         $start_time     = $request->start_time;
         $end_time       = $request->end_time;
+        $id             = $request->id;
 
         $page           = $request->page ?? 1;
         $pagesize       = $request->pageSize ?? 15;
@@ -81,6 +82,9 @@ class StoreController extends Controller
                 ->when($user_id, function($query, $user_id){
                     return $query->where('owner_user_id', $user_id);
                 })
+                ->when($id, function($query, $id){
+                    return $query->where('id', $id);
+                })
                 ->where('user_type', $user_type)
                 ->when($in, function($query, $in){
                     return $query->whereIn('owner_user_id', $in);
@@ -106,7 +110,7 @@ class StoreController extends Controller
         $apple_verify   = apple_verify($receipt);
 //        return success($apple_verify);
 
-        $data           = ['receipt'=>$receipt, 'buy_time'=>date('Y-m-d H:i:s',     substr($apple_verify->receipt->original_purchase_date_ms, 0, 10))];
+        $data           = ['receipt'=>$receipt, 'buy_time'=>date('Y-m-d H:i:s',     substr($apple_verify->receipt->original_purchase_date_ms, 0, 10)), 'identifier'=>$apple_verify->receipt->transaction_id];
 
 
         return success($data);
@@ -133,6 +137,7 @@ class StoreController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $game_id        = $request->game_id;
+        $price_id       = $request->price_id;
         $son_id         = $request->user_id;
         $start_time     = $request->start_time;
         $end_time       = $request->end_time;
@@ -152,6 +157,9 @@ class StoreController extends Controller
                 })
                 ->when($game_id, function($query, $game_id){
                     return $query->where('stores.game_id', $game_id);
+                })
+                ->when($price_id, function($query, $price_id){
+                    return $query->where('stores.price_id', $price_id);
                 })
                 ->when($son_id, function($query, $son_id){
                     return $query->where('stores.input_user_id', $son_id);
@@ -193,6 +201,7 @@ class StoreController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $game_id        = $request->game_id;
+        $price_id       = $request->price_id;
         $son_id         = $request->user_id;
         $start_time     = $request->start_time;
         $end_time       = $request->end_time;
@@ -216,6 +225,9 @@ class StoreController extends Controller
                 ->whereIn('stores.status', [2, 4, 6])
                 ->when($game_id, function($query, $game_id){
                     return $query->where('stores.game_id', $game_id);
+                })
+                ->when($price_id, function($query, $price_id){
+                    return $query->where('stores.price_id', $price_id);
                 })
                 ->when($son_id, function($query, $son_id){
                     return $query->where('stores.owner_user_id', $son_id);
@@ -635,7 +647,7 @@ class StoreController extends Controller
 
         # 没有选择用户，则可分配数量为0
         if(!$provider_user_id){
-            return success('hello world');
+            return success(0);
         }
 
         # 判断账户类型 user 1 son 2

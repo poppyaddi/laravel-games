@@ -58,6 +58,8 @@ class AuthController extends Controller
         $data['user_id'] = auth('api')->user()->id;
         UserLog::create($data);
 
+
+
         return $this->respondWithToken($token);
     }
 

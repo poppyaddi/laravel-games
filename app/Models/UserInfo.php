@@ -25,6 +25,9 @@ class UserInfo extends Model
             case 2:
                 return '出库收费';
                 break;
+            case 3:
+                return '免费用户';
+                break;
         }
     }
 

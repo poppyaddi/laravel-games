@@ -25,6 +25,16 @@ class PriceController extends Controller
     {
         $game_id        = $request->game_id;
         $gold          = $request->gold;
+        $status         = $request->status;
+        if($status){
+            $status = [$status];
+        }else{
+            $status = [1, 2];
+        }
+
+        $price_id = $request->price_id;
+        $title = $request->title;
+
         $page           = $request->page ?? 1;
         $pagesize       = $request->pageSize ?? 15;
         $offset         = $pagesize * ($page - 1);
@@ -39,7 +49,14 @@ class PriceController extends Controller
                         ->when($gold, function($query, $gold){
                             return $query->where('prices.gold', $gold);
                         })
+            ->when($price_id, function($query, $price_id){
+                return $query->where('prices.id', $price_id);
+            })
+            ->when($title, function($query, $title){
+                return $query->where('prices.title', $title);
+            })
                         ->where('prices.pass', $pass)
+                        ->whereIn('prices.status', $status)
                         ->select('prices.id', 'prices.gold', 'prices.title', 'prices.money', 'prices.status', 'prices.created_at',  'games.name');
         $data['total'] = $query->count();
         $data['data']   = $query

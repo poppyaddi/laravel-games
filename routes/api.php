@@ -118,6 +118,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('update', 'SonController@update')->name('son.update');
         Route::delete('delete', 'SonController@delete')->name('son.delete');
         Route::post('status', 'SonController@status')->name('son.status');
+        Route::get('tag_data', 'SonController@tag_data');
     });
 
     # 游戏路由

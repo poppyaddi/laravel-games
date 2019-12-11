@@ -32,14 +32,15 @@ use Illuminate\Http\Request;
 Route::post('v1/auth/login', 'Api\AuthController@login')->name('auth.login');
 Route::get('v1/auth/refresh', 'Api\AuthController@refresh')->name('auth.refresh');
 
-Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function () {
+Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (){
 
-    Route::prefix('auth')->group(function () {
+    Route::prefix('auth')->group(function(){
         Route::get('me', 'AuthController@me')->name('auth.me');
+        Route::post('logout', 'AuthController@logout')->name('auth.logout');
     });
 
     # 角色路由
-    Route::prefix('role')->group(function () {
+    Route::prefix('role')->group(function() {
         Route::post('store', 'RoleController@store')->name('role.store');
         Route::get('index', 'RoleController@index')->name('role.index');
         Route::post('update', 'RoleController@update')->name('role.update');
@@ -47,7 +48,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 用户路由
-    Route::prefix('user')->group(function () {
+    Route::prefix('user')->group(function() {
         Route::post('store', 'UserController@store')->name('user.store');
         Route::get('index', 'UserController@index')->name('user.index');
         Route::delete('delete', 'UserController@delete')->name('user.delete');
@@ -57,10 +58,13 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('update', 'UserController@update')->name('user.update');
         Route::get('tag_data', 'UserController@tag_data')->name('user.tag_data');
         Route::get('select', 'UserController@select')->name('user.select');
+        Route::get('info', 'UserController@info')->name('user.info');
+        Route::post('user_reset_password', 'UserController@user_reset_password')->name('user.user_reset_password');
+        Route::post('pay_update_password', 'UserController@pay_update_password')->name('user.pay_update_password');
     });
 
     # 菜单路由
-    Route::prefix('menu')->group(function () {
+    Route::prefix('menu')->group(function() {
         Route::post('store', 'MenuController@store')->name('menu.store');
         Route::get('index', 'MenuController@index')->name('menu.index');
         Route::delete('delete', 'MenuController@delete')->name('menu.delete');
@@ -73,13 +77,13 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 角色菜单路由
-    Route::prefix('role_menu')->group(function () {
+    Route::prefix('role_menu')->group(function() {
         Route::post('store', 'RoleMenuController@store')->name('role_menu.store');
         Route::get('index', 'RoleMenuController@index')->name('role_menu.index');
     });
 
     # 权限路由
-    Route::prefix('perm')->group(function () {
+    Route::prefix('perm')->group(function(){
         Route::post('store', 'PermController@store')->name('perm.store');
         Route::get('select', 'PermController@getSelectList')->name('perm.select');
         Route::get('index', 'PermController@index')->name('perm.index');
@@ -92,13 +96,13 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 角色权限路由
-    Route::prefix('role_perm')->group(function () {
+    Route::prefix('role_perm')->group(function(){
         Route::get('index', 'RolePermController@index')->name('role_perm.index');
         Route::post('store', 'RolePermController@store')->name('role_perm.store');
     });
 
     # 配置路由
-    Route::prefix('config')->group(function () {
+    Route::prefix('config')->group(function(){
         Route::post('store', 'ConfigController@store')->name('config.store');
         Route::get('index', 'ConfigController@index')->name('config.index');
         Route::get('detail', 'ConfigController@detail')->name('config.detail');
@@ -107,14 +111,19 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 用户详情
-    Route::prefix('info')->group(function () {
+    Route::prefix('info')->group(function() {
         Route::get('index', 'UserInfoController@index')->name('info.index');
         Route::get('detail', 'UserInfoController@detail')->name('info.detail');
         Route::post('update', 'UserInfoController@update')->name('info.update');
+        Route::post('pay_reset_password', 'UserInfoController@pay_reset_password');
+        Route::get('select', 'UserInfoController@select');
+        Route::post('judge_status', 'UserInfoController@judge_status');
+        Route::post('reset_nickname', 'UserInfoController@reset_nickname');
+
     });
 
     # 子账户路由
-    Route::prefix('son')->group(function () {
+    Route::prefix('son')->group(function(){
         Route::post('store', 'SonController@store')->name('son.store');
         Route::get('index', 'SonController@index')->name('son.store');
         Route::get('detail', 'SonController@detail')->name('son.detail');
@@ -124,7 +133,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 游戏路由
-    Route::prefix('game')->group(function () {
+    Route::prefix('game')->group(function(){
         Route::post('store', 'GameController@store')->name('game.store');
         Route::get('index', 'GameController@index')->name('game.index');
         Route::delete('delete', 'GameController@delete')->name('game.delete');
@@ -135,7 +144,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 面值路由
-    Route::prefix('price')->group(function () {
+    Route::prefix('price')->group(function(){
         Route::post('store', 'PriceController@store')->name('price.store');
         Route::get('index', 'PriceController@index')->name('price.index');
         Route::delete('delete', 'PriceController@delete')->name('price.delete');
@@ -147,7 +156,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 设备路由
-    Route::prefix('device')->group(function () {
+    Route::prefix('device')->group(function(){
         Route::get('index', 'DeviceController@index')->name('device.index');
         Route::delete('delete', 'DeviceController@delete')->name('device.delete');
         Route::post('status', 'DeviceController@status')->name('device.status');
@@ -155,7 +164,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     });
 
     # 库存路由
-    Route::prefix('stock')->group(function () {
+    Route::prefix('stock')->group(function(){
         Route::get('index', 'StoreController@index')->name('stock.index');
         Route::get('detail', 'StoreController@detail')->name('stock.detail');
         Route::post('status', 'StoreController@status')->name('stock.status');
@@ -166,27 +175,66 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('dist', 'StoreController@dist')->name('stock.dist');
         Route::get('son_statistic', 'StoreController@son_statistic')->name('stock.son_statistic');
         Route::post('son_to_user', 'StoreController@son_to_user')->name('stock.son_to_user');
+        Route::post('migration', 'StoreController@migration')->name('stock.migration');
+        Route::post('distribution', 'StoreController@distribution')->name('stock.distribution');
+        Route::delete('delete', 'StoreController@delete')->name('stock.delete');
+        Route::post('migration_dist', 'StoreController@migration_dist')->name('stock.migration_dist');
+        Route::post('get_count', 'StoreController@get_count')->name('stock.get_count');
+        Route::get('store_log', 'StoreController@store_log')->name('stock.store_logst');
 
     });
 
+    Route::prefix('log')->group(function(){
+        Route::get('user', 'LogController@user');
+        Route::get('fee', 'LogController@fee');
+        Route::get('withdraw_fee', 'LogController@withdraw_fee');
+        Route::get('trans_fee', 'LogController@trans_fee');
+    });
 
-});
+    Route::prefix('money')->group(function(){
+        Route::post('upload', 'MoneyController@upload');
+        Route::get('pic', 'MoneyController@pic');
+        Route::post('apply', 'MoneyController@apply');
+        Route::get('index', 'MoneyController@index');
+        Route::post('status', 'MoneyController@status');
+        Route::get('pic_list', 'MoneyController@pic_list');
+    });
 
-Route::post('v1/port/auth/login', 'Port\AuthController@login');
+    Route::prefix('sale')->group(function(){
+        Route::get('index', 'SaleController@index');
+        Route::get('me', 'SaleController@me');
+        Route::post('store', 'SaleController@store');
+        Route::get('remain', 'SaleController@remain');
+        Route::post('down', 'SaleController@down');
+        Route::post('buy', 'SaleController@buy');
+        Route::post('update', 'SaleController@update');
+        Route::get('buy_user', 'SaleController@buy_user');
+        Route::get('buy_me', 'SaleController@buy_me');
+    });
 
-Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function () {
-    Route::post('auth/logout', 'AuthController@logout');
-    Route::post('game/price', 'GameController@price');
-    Route::post('game/addGame', 'GameController@addGame');
-    Route::post('game/support', 'GameController@support');
-    Route::post('transaction/table', 'TransactionController@table');
-    Route::post('transaction/desmise_input', 'TransactionController@desmise_input');
-    Route::post('transaction/vendre_info_one', 'TransactionController@vendre_info_one');
-    Route::post('transaction/vendre_info_one_moling', 'TransactionController@vendre_info_one_moling');
-    Route::post('transaction/consumption', 'TransactionController@consumption');
-    Route::post('transaction/invalid', 'TransactionController@invlid');
+    Route::prefix('buy')->group(function(){
+        Route::post('store', 'BuyController@store');
+        Route::post('update', 'BuyController@update');
+        Route::post('down', 'BuyController@down');
+        Route::post('afford', 'BuyController@afford');
+        Route::get('index', 'BuyController@index');
+        Route::get('qiugou_me', 'BuyController@qiugou_me');
+        Route::get('me_pre', 'BuyController@me_pre');
+        Route::get('afford_user', 'BuyController@afford_user');
+        Route::get('afford_user_prompt', 'BuyController@afford_user_prompt');
+        Route::post('punish', 'BuyController@punish');
+    });
 
-    Route::get('test', 'TestController.bak@test');
-    Route::get('gtest', 'GameController@test');
+    Route::prefix('afford')->group(function(){
+        Route::post('afford', 'AffordController@afford');
+        Route::get('index', 'AffordController@index');
+        Route::post('finish', 'AffordController@finish');
+        Route::post('done', 'AffordController@done');
+    });
+
+    Route::get('dashboard', 'DashController@index');
+
+
+
 });
 

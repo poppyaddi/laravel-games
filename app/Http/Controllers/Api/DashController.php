@@ -72,22 +72,30 @@ class DashController extends Controller
             return success($res);
         } else{
             $son_ids = Son::where('user_id', $user->id)->pluck('id')->toArray();
-            $son_ids = '(' . implode(',', $son_ids) . ')';
+
+
+            $sql = "select sum(if(zh_stores.status=1, 1, 0)) as s1, sum(if(zh_stores.status=2, 1, 0)) as s2, sum(if(zh_stores.status=8, 1, 0)) as s8, sum(if(status, 1, 0)) as total from zh_stores where (owner_user_id = " . $user->id. " and user_type = 1)";
+
+            if($son_ids){
+                $son_ids = '(' . implode(',', $son_ids) . ')';
+                $sql .= " or (owner_user_id in " . $son_ids .  ") and user_type = 2";
+            }
+
 
             # 个人用户需要计算子账户与主账户
-            $store = DB::select("select sum(if(zh_stores.status=1, 1, 0)) as s1, sum(if(zh_stores.status=2, 1, 0)) as s2, sum(if(zh_stores.status=8, 1, 0)) as s8, sum(if(status, 1, 0)) as total from zh_stores where (owner_user_id = " . $user->id. " and user_type = 1) or (owner_user_id in " . $son_ids .  ") and user_type = 2");
+            $store = DB::select($sql);
 
-            $data['s1'] = $store[0]->s1;
-            $data['s2'] = $store[0]->s2;
-            $data['s8'] = $store[0]->s8;
-            $data['total'] = $store[0]->total;
+            $data['s1'] = $store[0]->s1 ?? 0;
+            $data['s2'] = $store[0]->s2 ?? 0;
+            $data['s8'] = $store[0]->s8 ?? 0;
+            $data['total'] = $store[0]->total ?? 0;
 
 
             $data['available_money'] = UserInfo::where('user_id', $user->id)->sum('money');
             $sale_money = DB::select("select sum(unit * price) as sale_money from zh_sale_logs where user_id = :id", ['id'=>$user->id]);
 //            dump($sale_money);die;
 
-            $data['sale_money'] = $sale_money[0]->sale_money;
+            $data['sale_money'] = $sale_money[0]->sale_money ?? 0;
 
             # 总的求购金额为两个加一块
             $want_to_buy_money_prompt = DB::select("select sum(unit * unit_price) as want_to_buy_money_prompt from zh_prompt_afford where user_id = :id", ['id'=>$user->id]);
@@ -114,14 +122,19 @@ class DashController extends Controller
             # 出售手续费 求购手续费 (包括求供双方)
             $sale_fee = DB::select("select sum(if(status=1, money, 0)) as sale_fee, sum(if(status=2 or status=3, money, 0)) as buy_afford_fee from zh_trans_fee where user_id = :id", ['id'=>$user->id]);
 
-            $data['sale_fee'] = $sale_fee[0]->sale_fee;
-            $data['buy_afford_fee'] = $sale_fee[0]->buy_afford_fee;
+            $data['sale_fee'] = $sale_fee[0]->sale_fee ?? 0;
+            $data['buy_afford_fee'] = $sale_fee[0]->buy_afford_fee ?? 0;
 
             # 入库统计
             # 入库统计只统计子账户的
             $son_ids = Son::where('user_id', $user->id)->pluck('id')->toArray();
-            $son_ids = '(' . implode(',', $son_ids) . ')';
-            $table = DB::select("select zh_stores.id, sum(zh_prices.money) as money, count(*) as number, date(zh_stores.created_at) as time  from zh_stores join zh_prices on zh_stores.price_id=zh_prices.id where zh_stores.input_user_id in " . $son_ids .  " group by date(zh_stores.created_at) order by date(zh_stores.created_at) desc limit 10");
+            if(!$son_ids){
+                $table = 0;
+            } else{
+                $son_ids = '(' . implode(',', $son_ids) . ')';
+                $table = DB::select("select zh_stores.id, sum(zh_prices.money) as money, count(*) as number, date(zh_stores.created_at) as time  from zh_stores join zh_prices on zh_stores.price_id=zh_prices.id where zh_stores.input_user_id in " . $son_ids .  " group by date(zh_stores.created_at) order by date(zh_stores.created_at) desc limit 10");
+            }
+
 
             $res['field'] = $data;
             $res['table'] = $table;
