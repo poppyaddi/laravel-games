@@ -107,6 +107,8 @@ class StoreController extends Controller
 
         $receipt        = (new TokenEncController())->token_public_decrypt($receipt);
 
+
+
         $apple_verify   = apple_verify($receipt);
 //        return success($apple_verify);
 

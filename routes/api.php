@@ -221,6 +221,15 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('done', 'AffordController@done');
     });
 
+    Route::prefix('notice')->group(function(){
+        Route::post('store', 'NoticeController@store');
+        Route::get('index', 'NoticeController@index');
+        Route::post('update', 'NoticeController@update');
+        Route::delete('delete', 'NoticeController@delete');
+        Route::get('detail', 'NoticeController@detail');
+        Route::get('display', 'NoticeController@display');
+    });
+
     Route::get('dashboard', 'DashController@index');
 
 
