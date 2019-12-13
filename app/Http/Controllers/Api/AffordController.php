@@ -58,7 +58,7 @@ class AffordController extends Controller
 
     public function afford(Request $request)
     {
-        $unit       = $request->unit;  # 购买数量
+        $unit       = $request->unit;  # 供货数量
         $pay_pass   = $request->password;  # 支付密码
         $id         = $request->id;
         $user       = auth('api')->user();
@@ -175,6 +175,8 @@ class AffordController extends Controller
         $fee['order_num'] = $order_num;
         $fee['status'] = 3;
         $info6 = TransFee::create($fee);
+
+        # 添加供货日志
 
         if($info1 && $info2 && $info3 && $info4 && $info5 && $info6){
             DB::commit();

@@ -116,7 +116,7 @@ class MenuController extends Controller
 
     public function element()
     {
-        # 获取用户角色, 然后获取该角色对应菜单
+        # 获取用户对应的页面元素
         $role_id        = Role::get_role_id();
         $menu_id        = RoleMenu::where('role_id', $role_id)->first()                         ->menu_id;
         $menu_id        = explode(',', $menu_id);

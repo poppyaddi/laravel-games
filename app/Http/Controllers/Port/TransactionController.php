@@ -807,7 +807,7 @@ class TransactionController extends Rsa1024Controller
                 'description'=> '标记凭证出库成功',
                 'user_id'=> auth('port')->user()->id,
                 'store_id'=> $store['id'],
-                'type' => 2
+                'type' => 3
             ];
 
             InoutLog::create($data);

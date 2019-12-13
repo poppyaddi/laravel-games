@@ -181,6 +181,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('migration_dist', 'StoreController@migration_dist')->name('stock.migration_dist');
         Route::post('get_count', 'StoreController@get_count')->name('stock.get_count');
         Route::get('store_log', 'StoreController@store_log')->name('stock.store_logst');
+        Route::get('export_stock', 'StoreController@export_stock');
 
     });
 

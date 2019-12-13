@@ -79,4 +79,6 @@ class NoticeController extends Controller
         return success('');
 
     }
+
+
 }

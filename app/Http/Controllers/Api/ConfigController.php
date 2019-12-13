@@ -51,4 +51,9 @@ class ConfigController extends Controller
         $info = Config::where('id', $request->id)->update($request->all());
         return success($info, 200, '修改成功');
     }
+
+    public function pagesize()
+    {
+        return success(Config::get_value('pagesize'));
+    }
 }

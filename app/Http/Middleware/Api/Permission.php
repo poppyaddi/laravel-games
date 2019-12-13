@@ -28,7 +28,7 @@ class Permission
         $user = auth('api')->user();
 
         $brower = $_SERVER['HTTP_USER_AGENT'];
-        $m_token =  'Bearer ' . $request->header()['authorization'][0];
+        $m_token = $request->header()['authorization'][0];
         $remember_token = sha1($brower . $m_token);
         if($user->remember_token != $remember_token){
             return error('', 403, '身份验证失败');
@@ -36,10 +36,14 @@ class Permission
 
         $flag = true;
         $status = $user->status;
-        $user_info = UserInfo::where('user_id', $user->id)->find();
-        $expire_time = $user_info->expire_time;
-        $charge_status = $user_info->charge_status;
-        // 如果是禁用 $flag=false; 如果charge_status是出库收费，并且时间过期也禁用
+        $user_info = UserInfo::where('user_id', $user->id)->first();
+        if($user_info){
+            # 管理员没有userinfo
+            $expire_time = $user_info->expire_time;
+            $charge_status = $user_info->charge_status;
+            // 如果是禁用 $flag=false; 如果charge_status是出库收费，并且时间过期也禁用
+        }
+
         $path = $request->path();
         $path = array_slice(explode('/', $path),2);
         $path =implode('/',$path);

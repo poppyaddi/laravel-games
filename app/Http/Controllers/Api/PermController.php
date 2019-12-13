@@ -28,7 +28,7 @@ class PermController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $query =        Perm::when($name, function($query, $name){
-                            return $query->where('name', $name);
+                            return $query->where('name', 'like', '%' . $name . '%');
                         })
                         ->when($description, function($query, $description){
                             return $query->where('description', 'like', '%' . $description . '%');

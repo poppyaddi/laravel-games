@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\InStockExport;
+use App\Exports\StatisticExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Port\TokenEncController;
 use App\Http\Controllers\Port\TransactionController;
@@ -11,9 +13,12 @@ use App\Models\Son;
 use App\Models\Store;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-//use Excel;
+
+use App\Exports\StockExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StoreController extends Controller
 {
@@ -272,13 +277,38 @@ class StoreController extends Controller
         $sort_field     = $request->sortField ?? 'id';
         $order          = get_real_order($request->sortOrder);
 
+        $type           = $request->user_type;
+        $user_id        = $request->user_id;
+
         $game_id        = $request->game_id;
         $price_id        = $request->price_id;
         $start_time     = $request->start_time;
         $end_time       = $request->end_time;
 
+        $type = $type ? $type : Config::get_value('default_receipt_type');
+
+        switch ($type){
+            case 'son':
+                $user_type = 2;
+                break;
+            case 'user':
+                $user_type = 1;
+                break;
+            default:
+                $user_type = null;
+        }
+
         # 判断权限
         $user           = auth('api')->user();
+
+        $in = [];
+        if($user->role_id != 1){
+            if($type == 'user'){
+                $in = [$user->id];
+            } elseif ($type == 'son'){
+                $in = Son::where('user_id', $user->id)->pluck('id')->toArray();
+            }
+        }
 
         $cond = null;
         if($user->role_id != 1){
@@ -307,6 +337,12 @@ class StoreController extends Controller
                 })
                 ->when($end_time, function($query, $end_time){
                     return $query->where('stores.created_at', '<', $end_time);
+                })
+                ->when($user_type, function($query, $user_type){
+                    $query->where('user_type', $user_type);
+                })
+                ->when($in, function($query, $in){
+                    return $query->whereIn('owner_user_id', $in);
                 })
                 ->select('stores.id', 'games.name as game_name', 'prices.gold', 'price_id',  'prices.money', DB::raw(
                                 'sum(if(zh_stores.status=1, 1, 0)) as s1,
@@ -735,4 +771,30 @@ class StoreController extends Controller
             ->get();
         return success($data);
     }
+
+    public function export_stock(Request $request)
+    {
+        ini_set('memory_limit','5000M');
+        set_time_limit(0);
+
+        return Excel::download(new StockExport($request), 'users.xlsx');
+    }
+
+    public function in_export(Request $request)
+    {
+        ini_set('memory_limit','5000M');
+        set_time_limit(0);
+
+        return Excel::download(new InStockExport($request), 'users.xlsx');
+    }
+
+    public function statistic_export(Request $request)
+    {
+        ini_set('memory_limit','5000M');
+        set_time_limit(0);
+
+        return Excel::download(new StatisticExport($request), 'users.xlsx');
+    }
+
+
 }

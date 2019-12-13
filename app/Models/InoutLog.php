@@ -29,6 +29,8 @@ class InoutLog extends Model
             case 2:
                 return '出库';
                 break;
+            case 3:
+                return '标记出库成功';
         }
     }
 }
