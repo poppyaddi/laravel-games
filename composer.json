@@ -15,7 +15,8 @@
         "tymon/jwt-auth": "1.*@rc",
         "ext-openssl": "*",
         "ext-json": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
