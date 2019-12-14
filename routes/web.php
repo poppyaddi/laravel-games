@@ -32,7 +32,7 @@ use Illuminate\Http\Request;
 Route::post('v1/auth/login', 'Api\AuthController@login')->name('auth.login');
 Route::get('v1/auth/refresh', 'Api\AuthController@refresh')->name('auth.refresh');
 
-Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (){
+Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->group(function (){
 
     Route::prefix('auth')->group(function(){
         Route::get('me', 'AuthController@me')->name('auth.me');
@@ -68,9 +68,9 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('store', 'MenuController@store')->name('menu.store');
         Route::get('index', 'MenuController@index')->name('menu.index');
         Route::delete('delete', 'MenuController@delete')->name('menu.delete');
-        Route::get('select', 'MenuController@getSelectList')->name('menu.select');
-        Route::get('detail', 'MenuController@detail')->name('menu.detail');
         Route::post('update', 'MenuController@update')->name('menu.update');
+        Route::get('detail', 'MenuController@detail')->name('menu.detail');
+        Route::get('select', 'MenuController@getSelectList')->name('menu.select');
         Route::get('tree', 'MenuController@tree')->name('menu.tree');
         Route::get('user_menu', 'MenuController@user_menu')->name('menu.user_menu');
         Route::get('element', 'MenuController@element')->name('menu.element');
@@ -85,11 +85,12 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     # 权限路由
     Route::prefix('perm')->group(function(){
         Route::post('store', 'PermController@store')->name('perm.store');
-        Route::get('select', 'PermController@getSelectList')->name('perm.select');
-        Route::get('index', 'PermController@index')->name('perm.index');
         Route::delete('delete', 'PermController@delete')->name('perm.delete');
-        Route::get('detail', 'PermController@detail')->name('perm.detail');
         Route::post('update', 'PermController@update')->name('perm.update');
+        Route::get('index', 'PermController@index')->name('perm.index');
+        Route::get('detail', 'PermController@detail')->name('perm.detail');
+        Route::get('select', 'PermController@getSelectList')->name('perm.select');
+
         Route::get('tree', 'PermController@tree')->name('perm.tree');
 
         Route::get('test', 'PermController@test');
@@ -107,6 +108,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::get('index', 'ConfigController@index')->name('config.index');
         Route::get('detail', 'ConfigController@detail')->name('config.detail');
         Route::post('update', 'ConfigController@update')->name('config.update');
+        Route::get('pagesize', 'ConfigController@pagesize');
 
     });
 
@@ -125,11 +127,12 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
     # 子账户路由
     Route::prefix('son')->group(function(){
         Route::post('store', 'SonController@store')->name('son.store');
+        Route::delete('delete', 'SonController@delete')->name('son.delete');
+        Route::post('update', 'SonController@update')->name('son.update');
         Route::get('index', 'SonController@index')->name('son.store');
         Route::get('detail', 'SonController@detail')->name('son.detail');
-        Route::post('update', 'SonController@update')->name('son.update');
-        Route::delete('delete', 'SonController@delete')->name('son.delete');
         Route::post('status', 'SonController@status')->name('son.status');
+        Route::get('tag_data', 'SonController@tag_data');
     });
 
     # 游戏路由
@@ -180,8 +183,11 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::delete('delete', 'StoreController@delete')->name('stock.delete');
         Route::post('migration_dist', 'StoreController@migration_dist')->name('stock.migration_dist');
         Route::post('get_count', 'StoreController@get_count')->name('stock.get_count');
-        Route::get('store_log', 'StoreController@store_log')->name('stock.store_logst');
+        Route::get('store_log', 'StoreController@store_log')->name('stock.store_log');
+
         Route::get('export_stock', 'StoreController@export_stock');
+        Route::get('in_export', 'StoreController@in_export');
+        Route::get('statistic_export', 'StoreController@statistic_export');
 
     });
 
@@ -233,7 +239,17 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh'])->group(function (
         Route::post('done', 'AffordController@done');
     });
 
-    Route::get('dashboard', 'DashController@index');
+    Route::prefix('notice')->group(function(){
+        Route::post('store', 'NoticeController@store');
+        Route::get('index', 'NoticeController@index');
+        Route::post('update', 'NoticeController@update');
+        Route::delete('delete', 'NoticeController@delete');
+        Route::get('detail', 'NoticeController@detail');
+        Route::get('display', 'NoticeController@display');
+        Route::get('test', 'NoticeController@test');
+    });
+
+    Route::get('dashboard/dashboard', 'DashController@index');
 
 
 

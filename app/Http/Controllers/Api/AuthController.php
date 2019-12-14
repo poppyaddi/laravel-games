@@ -36,6 +36,8 @@ class AuthController extends Controller
             'type' => 1
         ];
 
+
+
         if (! $token = auth('api')->attempt($credentials)) {
             # 插入日志
             $data['description'] = '登陆失败, 用户名"' . json_encode($credentials);
@@ -45,6 +47,20 @@ class AuthController extends Controller
         }
 
         $user = User::find(auth('api')->user()->id);
+        $user_info = UserInfo::where('user_id', $user->id)->first();
+        if($user_info){
+            # 管理员没有userinfo
+            if($user_info->charge_status == '月租收费'){
+                # 判断过期时间
+                if(strtotime($user_info->expire_time) < time()){
+                    $data['description'] = '账户过期';
+                    $data['user_id'] = auth('api')->user()->id;
+                    UserLog::create($data);
+                    return error('', 401, '账户过期');
+                }
+            }
+        }
+
         $brower = $_SERVER['HTTP_USER_AGENT'];
         $m_token =  'Bearer ' . $token;
         $user->last_login_ip =request()->getClientIp();

@@ -27,10 +27,10 @@ class Price extends Model
         }
     }
 
-    public function getMoneyAttribute($value)
-    {
-        return $value . '元';
-    }
+//    public function getMoneyAttribute($value)
+//    {
+//        return $value . '元';
+//    }
 
     public static function handleStatus($value){
         switch ($value){

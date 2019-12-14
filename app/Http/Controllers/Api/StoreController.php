@@ -317,42 +317,45 @@ class StoreController extends Controller
         }
 
         $query = Store::join('prices', 'prices.id', '=', 'stores.price_id')
-                ->join('games', 'games.id', '=', 'stores.game_id')
-                # 查询子账户或者主账户所有的凭证
-                ->when($cond, function($query) use ($cond){
-                    return $query->where(function($query) use ($cond){
-                        return $query->whereIn('owner_user_id', $cond['son'])->where('user_type', 2);
-                    })->orWhere(function($query) use ($cond){
-                        return $query->where('owner_user_id', $cond['user'])->where('user_type', 1);
-                    });
-                })
-                ->when($game_id, function($query, $game_id){
-                    return $query->where('stores.game_id', $game_id);
-                })
-                ->when($price_id, function($query, $price_id){
-                    return $query->where('stores.price_id', $price_id);
-                })
-                ->when($start_time, function($query, $start_time){
-                    return $query->where('stores.created_at', '>', $start_time);
-                })
-                ->when($end_time, function($query, $end_time){
-                    return $query->where('stores.created_at', '<', $end_time);
-                })
-                ->when($user_type, function($query, $user_type){
-                    $query->where('user_type', $user_type);
-                })
-                ->when($in, function($query, $in){
-                    return $query->whereIn('owner_user_id', $in);
-                })
-                ->select('stores.id', 'games.name as game_name', 'prices.gold', 'price_id',  'prices.money', DB::raw(
-                                'sum(if(zh_stores.status=1, 1, 0)) as s1,
-                                        sum(if(zh_stores.status=2, 1, 0)) as s2,
-                                        sum(if(zh_stores.status=4, 1, 0)) as s4,
-                                        sum(if(zh_stores.status=5, 1, 0)) as s5,
-                                        sum(if(zh_stores.status=6, 1, 0)) as s6,
-                                        sum(if(zh_stores.status=7, 1, 0)) as s7,
-                                        sum(if(zh_stores.status=8, 1, 0)) as s8,
-                                        count(concat(price_id, owner_user_id)) as total'));
+                        ->join('games', 'games.id', '=', 'stores.game_id')
+                        # 查询子账户或者主账户所有的凭证
+                        ->when($cond, function($query) use ($cond){
+                            return $query->where(function($query) use ($cond){
+                                return $query->whereIn('owner_user_id', $cond['son'])->where('user_type', 2);
+                            })->orWhere(function($query) use ($cond){
+                                return $query->where('owner_user_id', $cond['user'])->where('user_type', 1);
+                            });
+                        })
+                        ->when($game_id, function($query, $game_id){
+                            return $query->where('stores.game_id', $game_id);
+                        })
+                        ->when($price_id, function($query, $price_id){
+                            return $query->where('stores.price_id', $price_id);
+                        })
+                        ->when($start_time, function($query, $start_time){
+                            return $query->where('stores.created_at', '>', $start_time);
+                        })
+                        ->when($end_time, function($query, $end_time){
+                            return $query->where('stores.created_at', '<', $end_time);
+                        })
+                        ->when($user_type, function($query, $user_type){
+                            $query->where('user_type', $user_type);
+                        })
+                        ->when($user_id, function($query, $user_id){
+                            return $query->where('owner_user_id', $user_id);
+                        })
+                        ->when($in, function($query, $in){
+                            return $query->whereIn('owner_user_id', $in);
+                        })
+                        ->select('stores.id', 'games.name as game_name', 'prices.gold', 'price_id',  'prices.money', DB::raw(
+                                        'sum(if(zh_stores.status=1, 1, 0)) as s1,
+                                                sum(if(zh_stores.status=2, 1, 0)) as s2,
+                                                sum(if(zh_stores.status=4, 1, 0)) as s4,
+                                                sum(if(zh_stores.status=5, 1, 0)) as s5,
+                                                sum(if(zh_stores.status=6, 1, 0)) as s6,
+                                                sum(if(zh_stores.status=7, 1, 0)) as s7,
+                                                sum(if(zh_stores.status=8, 1, 0)) as s8,
+                                                count(concat(price_id, owner_user_id)) as total'));
 
 
         $data['totalMoney'] = $query->sum('prices.money');
@@ -522,7 +525,7 @@ class StoreController extends Controller
     public function son_to_user(Request $request)
     {
         $son_id     = $request->son_id;
-        $pay_pass   = $request->pay_pass;
+//        $pay_pass   = $request->pay_pass;
         $user = auth('api')->user();
 
         # 查看$son_id是不是该账户的子账户
@@ -532,11 +535,11 @@ class StoreController extends Controller
         }
 
         # 查看支付密码是否正确
-        $user_info = UserInfo::where('user_id', $user->id)->first();
-
-        if(sha1($pay_pass) != $user_info->pay_pass){
-            return error('', 400, '支付密码错误');
-        }
+//        $user_info = UserInfo::where('user_id', $user->id)->first();
+//
+//        if(sha1($pay_pass) != $user_info->pay_pass){
+//            return error('', 400, '支付密码错误');
+//        }
 
         $map = [
             ['user_type', '=', '2'],

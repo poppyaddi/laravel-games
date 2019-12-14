@@ -59,7 +59,7 @@ class UserInfoController extends Controller
         $data = UserInfo::handleAdmin($data);
         $data = UserInfo::handlePassStore($data);
         $data = UserInfo::handleSaveDevice($data);
-        $data['expire_time'] = date('Y-m-d', strtotime($data['expire_time']) + 8*3600);
+        $data['expire_time'] = $data['charge_status'] == 1 ? date('Y-m-d', strtotime($data['expire_time']) + 8*3600) : '2060-12-31';
         Arr::pull($data, 'name');
         $info = UserInfo::where('id', $data['id'])->update($data);
         return success($info, 200, '修改成功');

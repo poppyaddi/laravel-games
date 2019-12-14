@@ -34,18 +34,29 @@ class Permission
             return error('', 403, '身份验证失败');
         }
 
-        $flag = true;
-        $status = $user->status;
+        # 用户禁用或者月租用户过期，禁止登录 如果$flag为false禁止登录
+
+        $flag = $user->status == 1 ? true : false;
         $user_info = UserInfo::where('user_id', $user->id)->first();
         if($user_info){
             # 管理员没有userinfo
-            $expire_time = $user_info->expire_time;
-            $charge_status = $user_info->charge_status;
-            // 如果是禁用 $flag=false; 如果charge_status是出库收费，并且时间过期也禁用
+            if($user_info->charge_status == '月租收费'){
+                # 判断过期时间
+                if(strtotime($user_info->expire_time) < time()){
+                    $flag = false;
+                }
+            }
+            # $flag为false则禁止再次访问，返回登录界面
+            if(!$flag){
+                return error('', 403, '账户失效');
+            }
         }
 
         $path = $request->path();
-        $path = array_slice(explode('/', $path),2);
+        # api略过2，web略过1
+        $start = substr($path, 0, 3);
+        $offset = $start == 'api' ? 2 : 1;
+        $path = array_slice(explode('/', $path),$offset);
         $path =implode('/',$path);
         $role_id = Role::get_role_id();
 

@@ -130,9 +130,22 @@ class SonController extends Controller
 
     public function tag_data()
     {
+        # 判断是不是管理员
+        $user = auth('api')->user();
+        $user_id = null;
+        if($user->role_id != 1){
+            $user_id = $user->id;
+        }
         $data['start'] = Son::where(['status'=>1])
-            ->count();
-        $data['total'] = Son::count();
+                        ->when($user_id, function($query, $user_id){
+                            return $query->where('user_id', $user_id);
+                        })
+                        ->count();
+        $data['total'] = Son::
+                        when($user_id, function($query, $user_id){
+                            return $query->where('user_id', $user_id);
+                        })
+                        ->count();
         return success($data, 200);
     }
 }

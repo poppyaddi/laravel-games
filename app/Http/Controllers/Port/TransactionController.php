@@ -91,9 +91,23 @@ class TransactionController extends Rsa1024Controller
 
         # 2.1 错误日志
         $error['receipt'] = $receipt;
-        $error['gold'] = $localizedTitle;
+        $error['gold'] = $localizedTitle ?? '未获取';
         $error['user_id'] = $user->id;  # 子账户id
         $error['parent_id'] = $this->parent()->id;
+
+
+        # 入库开始先验证凭证是否重复
+        # 2.2 验证凭证重复 用md5($receipt)验证
+        $enc = md5($receipt);
+        $info = Store::where('enc', $enc)->first();
+
+        if ($info)
+        {
+            $error['description'] = '凭证重复';
+            ErrorStore::create($error);
+
+            return $this->RSA_private_encrypt(err('凭证重复'));
+        }
 
 
         # 3. 验证凭证, 并获取苹果内购验证
@@ -168,15 +182,11 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('币种不符合要求'));
         }
 
-        # 2. 验证凭证重复 用md5($receipt)验证
-        $enc = md5($receipt);
-        $info = Store::where('enc', $enc)
-            ->orWhere('identifier', '$transactionIdentifier')
-            ->first();
-
+        # 2. 验证订单号重复
+        $info = Store::where('identifier', '$transactionIdentifier')->first();
         if ($info)
         {
-            $error['description'] = '凭证重复';
+            $error['description'] = '订单号重复';
             ErrorStore::create($error);
 
             return $this->RSA_private_encrypt(err('凭证重复'));
@@ -222,7 +232,7 @@ class TransactionController extends Rsa1024Controller
             'input_user_id' => $user->id,
             'owner_user_id' => $user->id,
             'currency'      => $currency,
-            'enc'           => $enc,
+            'enc'           => $enc,  # 对原始凭证进行的加密
             'created_at'    => now(),
             'input_parent_id' => $this->parent()->id # 入库账号的父账号id
 

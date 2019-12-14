@@ -62,6 +62,9 @@ class UserInfo extends Model
             case '出库收费':
                 $data['charge_status'] = 2;
                 break;
+            case '免费用户':
+                $data['charge_status'] = 3;
+                break;
         }
         return $data;
     }

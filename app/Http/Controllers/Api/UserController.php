@@ -26,14 +26,15 @@ class UserController extends Controller
         $data['role_id']            = $request->role_id;
         $data['created_at']         = now();
         $configs                    = Config::pluck('value', 'key');
-        $data['password']           = sha1($configs['password']);
+        $data['password']           = bcrypt($configs['password']);
         $userInfo['pay_pass']       = $configs['pay_pass'];
-        $t                          = time() + $configs['expire_time'] * 3600 * 24;
+        $userInfo['charge_status']  = $configs['charge_status'];
+        $t                          = $configs['charge_status'] == 1 ? time() + $configs['expire_time'] * 3600 * 24 : '1700000000';
         $userInfo['expire_time'] = date('Y-m-d H:i:s', $t);
         $userInfo['save_device']    = $configs['save_device'];
         $userInfo['admin']          = $configs['admin'];
         $userInfo['pass_store']     = $configs['pass_store'];
-        $userInfo['charge_status']  = $configs['charge_status'];
+
         $userInfo['nickname']       = $configs['nickname_prefix'] . random_int(1, 999999);
 //        return $userInfo;
 //
