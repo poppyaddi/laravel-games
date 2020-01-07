@@ -50,6 +50,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
         Route::get('info', 'UserController@info')->name('user.info');
         Route::post('user_reset_password', 'UserController@user_reset_password')->name('user.user_reset_password');
         Route::post('pay_update_password', 'UserController@pay_update_password')->name('user.pay_update_password');
+        Route::get('start_member_description', 'UserController@start_member_description');
     });
 
     # 菜单路由
@@ -110,6 +111,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
         Route::get('select', 'UserInfoController@select');
         Route::post('judge_status', 'UserInfoController@judge_status');
         Route::post('reset_nickname', 'UserInfoController@reset_nickname');
+        Route::post('member', 'UserInfoController@member');
 
     });
 
@@ -175,8 +177,10 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
         Route::get('store_log', 'StoreController@store_log')->name('stock.store_log');
 
         Route::get('export_stock', 'StoreController@export_stock');
+        Route::get('export_compat_stock', 'StoreController@export_compat_stock');
         Route::get('in_export', 'StoreController@in_export');
         Route::get('statistic_export', 'StoreController@statistic_export');
+        Route::post('import_stock', 'StoreController@import_stock');
 
     });
 
@@ -256,11 +260,14 @@ Route::namespace('Port')->prefix('v1/port')->middleware([])->group(function(){
     Route::post('transaction/vendre_info_one', 'TransactionController@vendre_info_one');
     Route::post('transaction/vendre_info_one_moling', 'TransactionController@vendre_info_one_moling');
     Route::post('transaction/consumption', 'TransactionController@consumption');
-    Route::post('transaction/invalid', 'TransactionController@invlid');
+    Route::post('transaction/invalid', 'TransactionController@invalid');
 
     Route::post('support', 'TestController@support');
     Route::get('decrypt', 'TestController@decrypt');
     Route::get('gtest', 'GameController@test');
 });
+
+Route::get('sync_game', 'Api\TestController@sync_game');
+Route::get('sync_store', 'Api\TestController@sync_store');
 
 

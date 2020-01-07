@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ErrorStore extends Model
 {
     //
-    protected $table = 'error_log';
+    protected $table = 'error_store';
     protected $guarded = [];
 }

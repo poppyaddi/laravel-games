@@ -26,7 +26,7 @@ class ConfigController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $query =        Config::when($key, function($query, $key){
-                            return $query->where('key', $key);
+                            return $query->where('key', 'like', '%' . $key . '%');
                         });
 
         $data['total']  = $query->count();

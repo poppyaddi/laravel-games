@@ -23,7 +23,7 @@ class DeviceController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $query = Device::when($device, function($query, $device){
-                    return $query->where('devices.device', $device);
+                    return $query->where('devices.device', 'like', '%' . $device . '%');
                 })->join('sons', 'sons.id', '=', 'devices.son_id')
                 ->when($son_id, function ($query, $son_id){
                     return $query->where('sons.id', $son_id);

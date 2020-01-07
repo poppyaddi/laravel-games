@@ -26,10 +26,10 @@ class UserInfoController extends Controller
 
         $query =        UserInfo::join('users', 'users.id', '=', 'userinfo.user_id')
                         ->when($name, function($query, $name){
-                            return $query->where('users.name', $name);
+                            return $query->where('users.name', 'like', '%' . $name . '%');
                         })
                         ->when($nickname, function($query, $nickname){
-                            return $query->where('userinfo.nickname', $nickname);
+                            return $query->where('userinfo.nickname', 'like', '%' . $nickname . '%');
                         })
                         ->whereIn('status', $status);
 
@@ -105,11 +105,71 @@ class UserInfoController extends Controller
         } else{
             # 需要扣费
             $bond = Config::get_value('nickname_modify_money');
+            # 判断账户余额是否足够
+            if($info->money - $bond < 0){
+                return error('', 400, '余额不足');
+            }
 
             UserInfo::where('user_id', $user->id)->update(['nickname'=>$new_nickname, 'money'=>$info->money - $bond, 'nickname_change_times'=>$info->nickname_change_times + 1]);
             return success('', 200, '修改成功');
         }
 
     }
+
+    public function member(Request $request)
+    {
+        $user = auth('api')->user();
+        # 月租用户则续费
+        $time = $request->time;
+        # 判断用户当前套餐状态
+        $info = UserInfo::where('user_id', $user->id)->first();
+        # 扣除月租费用
+        $fee = Config::get_value('base_member_price');
+
+        # 不管什么用户，首先判断余额是否充足
+        switch ($time){
+            case 2:
+                $times = Config::get_value('two_month_discount');
+                break;
+            case 3:
+                $times = Config::get_value('three_month_discount');
+                break;
+            case 6:
+                $times = Config::get_value('six_month_discount');
+                break;
+            default:
+                $times = 1;
+        }
+
+        $fee = $fee * $time * $times;
+        # 查看用户账户余额是否足够
+        if($info->money - $fee < 0){
+            return error('', 400, '账户可用余额不足, 请联系管理员充值');
+        }
+
+        if($info->charge_status != "月租收费"){
+            # 不是月租用户首先修改月租状态
+
+            $data = ['charge_status' => 1, 'expire_time' => date('Y-m-d H:i:s', strtotime('+ ' . $time .  ' month')), 'money' => $info->money - $fee];
+            try{
+                $flag = UserInfo::where('user_id', $user->id)->update($data);
+            } catch (\PDOException $e){
+                return error('', 400, '购买失败');
+            }
+            return success('', 200, '购买成功');
+
+        }
+        # 如果是月租用户则是续费
+        try{
+
+            $data = ['money' => $info->money - $fee, 'expire_time' => date('Y-m-d H:i:s', strtotime("$info->expire_time + $time month "))];
+            $flag = UserInfo::where('user_id', $user->id)->update($data);
+            return success($flag, 200, '套餐购买成功');
+        } catch (\PDOException $e){
+            return error('', 400, '套餐购买失败');
+        }
+    }
+
+
 
 }

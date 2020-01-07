@@ -114,6 +114,8 @@ class TestController extends Controller
 //            ->get();
 //        $info = date('Y-m-d H:i:s');
 //        return $info;
+//        return $info;
+//        return $info;
 
 //        Cache::set('')
 //        $data = DB::connection("encrypt")->table("ciphertext")->where('key_name', 'private_key')->first();

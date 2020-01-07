@@ -56,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function userinfo()
     {
-        return $this->hasOne('App\Models\UserInfo');
+        return $this->hasOne('App\Models\UserInfo', 'user_id', 'id');
     }
 
     public static function status($status)

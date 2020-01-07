@@ -161,7 +161,7 @@ class MoneyController extends Controller
                             return $query->where('user_id', $user_id);
                         })
                         ->when($real_name, function($query, $real_name){
-                            return $query->where('real_name', $real_name);
+                            return $query->where('real_name', 'like', '%' . $real_name . '%');
                         })
                         ->when($status, function($query, $status){
                             return $query->where('status', $status);
@@ -170,7 +170,7 @@ class MoneyController extends Controller
                             return $query->where('type', $type);
                         })
                         ->when($account, function($query, $account){
-                            return $query->where('account', $account);
+                            return $query->where('account', 'like', '%' . $account . '%');
                         })
                         ->when($start_time, function($query, $start_time){
                             return $query->where('created_at', '>', $start_time);

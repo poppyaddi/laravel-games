@@ -9,6 +9,7 @@ use App\Models\Game;
 use App\Models\InoutLog;
 use App\Models\Price;
 use App\Models\Store;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Port\Rsa1024Controller;
 
@@ -91,7 +92,6 @@ class TransactionController extends Rsa1024Controller
 
         # 2.1 错误日志
         $error['receipt'] = $receipt;
-        $error['gold'] = $localizedTitle ?? '未获取';
         $error['user_id'] = $user->id;  # 子账户id
         $error['parent_id'] = $this->parent()->id;
 
@@ -490,6 +490,7 @@ class TransactionController extends Rsa1024Controller
         }
 
         $user = auth('port')->user();
+        $parent = $this->parent();
 
         $title = $this->param('title'); // 面值名
 
@@ -517,7 +518,9 @@ class TransactionController extends Rsa1024Controller
         ];
 
         // 是否跳过使用过的凭证
-        $in = $this->parent()->userinfo->pass_store == 1 ? [1, 5] : [1, 5, 6];
+        # 在配制文件统一生效
+        $in = Config::get_value('pass_store') == 1 ? [1, 5] : [1, 5, 6];
+//        $in = $this->parent()->userinfo->pass_store == 1 ? [1, 5] : [1, 5, 6];
 
         $store = Store::whereIn('status', $in)->where($map)->orderBy('id', 'asc')->first();
 
@@ -526,28 +529,21 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('凭证不存在'));
         }
 
-//        $store = $store[0];
-
         //扣除手续费
-        # 如果已经出库一次，则不在扣除手续费
-        // 查询凭证的价格
-//        $money = db('games_price')->where(['id'=>$store['price_id']])->find()['money'];
-//        $percent = db('config')->where(['key'=>'info_one'])->find()['value'];
-//        $fee = $money * $percent;
-//
-//        $son_id = $this->user_id;
-//        $pid = db('user')->where(['id'=>$son_id])->find()['pid'];
-//        $p_user = db('user')->where(['id'=>$pid])->find();
-//        if($p_user['money'] - $fee < 0){
-//            return $this->RSA_private_encrypt(error('余额不足'));
-//        }
-//
-//        //db()->startTrans();
-//        $info = db('user')->where(['id'=>$pid])->update(['money'=>$p_user['money']-$fee]);
-//        $money_total = db('config')->where(['key'=>'money'])->find()['value'];
-//        $info2 = db('config')->where(['key'=>'money'])->update(['value'=>$money_total+$fee]);
-//
-//        $info3 = $this->store_model->where(['id'=> $store['id']])->update(['status'=> 6, 'use_time'=> $this->date]);
+        # 如果已经出库一次，或者用户收费状态为出库收费，则不在扣除手续费
+        $consump_num = $store['consump_num'];
+        if($consump_num == 0 || $parent->userinfo->charge_status == '出库收费'){
+            #
+            $export_fee = Config::get_value('export_fee');
+            $fee = $price['money'] * $export_fee;
+
+            if($parent->userinfo->money - $fee < 0){
+                return $this->RSA_private_encrypt(err('用户余额不足，无法扣除出库手续费'));
+            }
+
+            # 扣除手续费
+            $flag = UserInfo::where('user_id', $parent->id)->update(['money'=>$parent->userinfo->money - $fee]);
+        }
 
         // 标记凭证已经使用
 
@@ -614,6 +610,8 @@ class TransactionController extends Rsa1024Controller
     public function vendre_info_one_moling()
     {
 
+        $parent = $this->parent();
+
         # 验证账号出库权限
         if($this->check_charge_status() == 1){
             return $this->RSA_private_encrypt(err('没有出库权限'));
@@ -671,28 +669,21 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('凭证不存在'));
         }
 
-//        $store = $store[0];
-
         //扣除手续费
-        # 如果已经出库一次，则不在扣除手续费
-        // 查询凭证的价格
-//        $money = db('games_price')->where(['id'=>$store['price_id']])->find()['money'];
-//        $percent = db('config')->where(['key'=>'info_one'])->find()['value'];
-//        $fee = $money * $percent;
-//
-//        $son_id = $this->user_id;
-//        $pid = db('user')->where(['id'=>$son_id])->find()['pid'];
-//        $p_user = db('user')->where(['id'=>$pid])->find();
-//        if($p_user['money'] - $fee < 0){
-//            return $this->RSA_private_encrypt(err('余额不足'));
-//        }
-//
-//        //db()->startTrans();
-//        $info = db('user')->where(['id'=>$pid])->update(['money'=>$p_user['money']-$fee]);
-//        $money_total = db('config')->where(['key'=>'money'])->find()['value'];
-//        $info2 = db('config')->where(['key'=>'money'])->update(['value'=>$money_total+$fee]);
-//
-//        $info3 = $this->store_model->where(['id'=> $store['id']])->update(['status'=> 6, 'use_time'=> $this->date]);
+        # 如果已经出库一次，或者用户收费状态为出库收费，则不在扣除手续费
+        $consump_num = $store['consump_num'];
+        if($consump_num == 0 || $parent->userinfo->charge_status == '出库收费'){
+            #
+            $export_fee = Config::get_value('export_fee');
+            $fee = $price['money'] * $export_fee;
+
+            if($parent->userinfo->money - $fee < 0){
+                return $this->RSA_private_encrypt(err('用户余额不足，无法扣除出库手续费'));
+            }
+
+            # 扣除手续费
+            $flag = UserInfo::where('user_id', $parent->id)->update(['money'=>$parent->userinfo->money - $fee]);
+        }
 
         # 标记凭证出库
         Store::where('id', $store['id'])->update(['status'=>6, 'use_time'=>now(), 'consump_num'=>$store['consump_num'] + 1]);
@@ -763,12 +754,6 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('id length is 0'));
         }
 
-        // 验证凭证是否未使用
-//        $map = [
-//            'id'=> $id,
-//            'user_id'=> $this->user_id,
-//        ];
-
         # 只根据凭证id就可以找到该凭证
         $map = [
             ['id', '=', $id],
@@ -783,10 +768,6 @@ class TransactionController extends Rsa1024Controller
             return $this->RSA_private_encrypt(err('凭证状态错误'));
         }
 
-//        if ($store['is_goods'])
-//        {
-//            return $this->RSA_private_encrypt(err('凭证已经发布到交易市场，无法出库'));
-//        }
 
         // 修改凭证状态
         $data = [
@@ -797,12 +778,6 @@ class TransactionController extends Rsa1024Controller
         if (Store::where($map)->update($data))
         {
             // 获取有效同类型凭证数量
-//            $map = [
-////                'is_goods'=> 0,
-//                'status'=> ['in', [1, 5]],
-//                'price_id'=> $store['price_id'],
-//                'owner_user_id'=> auth('port')->user()->id,
-//            ];
 
             $map = [
                 ['price_id', '=', $store['price_id']],
@@ -837,38 +812,24 @@ class TransactionController extends Rsa1024Controller
     public function invalid()
     {
         $id = $this->param('id'); // 凭证ID
-//        $err_code = $this->param('err_code'); // 凭证ID
-//        $err_msg = $this->param('err_msg'); // 凭证ID
 
         if (empty($id))
         {
             return $this->RSA_private_encrypt(err('id length is 0'));
         }
 
-        // 验证凭证是否未使用
-//        $map = [
-//            'id'=> $id,
-//            'user_id'=> $this->user_id,
-//        ];
-
         # 只需要id就可以找到凭证
         $map = [
             ['id', '=', $id],
-//            ['user_id', '=', auth('port')->user()->id]
         ];
 
         $store = Store::where($map)->first();
 
         # 只有状态5, 手机端已获取的才可以标记
-        if ($store['status'] != 1 && $store['status'] != 5 && $store['status'] != 6)
+        if ($store['status'] != '正常有效' && $store['status'] != '后台恢复' && $store['status'] != '手机端已获取')
         {
             return $this->RSA_private_encrypt(err('凭证状态错误'));
         }
-
-//        if ($store['is_goods'])
-//        {
-//            return $this->RSA_private_encrypt(error('凭证已经发布到交易市场，无法出库'));
-//        }
 
         // 修改凭证状态
         $data = [
@@ -883,7 +844,7 @@ class TransactionController extends Rsa1024Controller
                 'description'=> '标记凭证出库失败',
                 'user_id'=> auth('port')->user()->id,
                 'store_id'=> $store['id'],
-                'type' => 2
+                'type' => 3
             ];
 
             InoutLog::create($data);

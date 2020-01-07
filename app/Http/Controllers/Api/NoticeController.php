@@ -65,6 +65,10 @@ class NoticeController extends Controller
         $user = auth('api')->user();
         $notice = Notice::orderBy('id', 'desc')->first();
 
+        if(!$notice){
+            return success('');
+        }
+
         $user_ids = explode(',', $notice->user_ids) ?? [];
 
         if(!in_array($user->id, $user_ids)){

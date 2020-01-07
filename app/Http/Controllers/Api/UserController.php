@@ -27,7 +27,7 @@ class UserController extends Controller
         $data['created_at']         = now();
         $configs                    = Config::pluck('value', 'key');
         $data['password']           = bcrypt($configs['password']);
-        $userInfo['pay_pass']       = $configs['pay_pass'];
+        $userInfo['pay_pass']       = bcrypt($configs['pay_pass']);
         $userInfo['charge_status']  = $configs['charge_status'];
         $t                          = $configs['charge_status'] == 1 ? time() + $configs['expire_time'] * 3600 * 24 : '1700000000';
         $userInfo['expire_time'] = date('Y-m-d H:i:s', $t);
@@ -75,7 +75,7 @@ class UserController extends Controller
                             return $query->select('id', 'name');
                         }])
                         ->when($name, function($query, $name){
-                            $query->where('name', $name);
+                            $query->where('name', 'like', '%' . $name . '%');
                         })
                         ->whereIn('status', $status);
         $data['total']  =$query->count();
@@ -177,7 +177,7 @@ class UserController extends Controller
 
         $data = User::where('id', auth('api')->user()->id)
                 ->with(['userinfo'=>function($query){
-                    return $query->select('user_id', 'nickname', 'money', 'fro_money', 'charge_status');
+                    return $query->select('id','user_id', 'nickname', 'money', 'fro_money', 'expire_time', 'charge_status');
                 }])
                 ->with(['role'=>function($query){
                     return $query->select('id', 'name');
@@ -224,5 +224,16 @@ class UserController extends Controller
         $info = UserInfo::where('user_id', $user->id)->update(['pay_pass'=>sha1($new_password)]);
 
         return success($info, 200, '修改成功');
+    }
+
+    public function start_member_description(Request $request)
+    {
+        $description = Config::get_value('start_member_description');
+        $base_price = Config::get_value('base_member_price');
+        $one_month = ['duration' => '一月', 'price' => (int) $base_price];
+        $two_month = ['duration' => '两月', 'price' => $base_price * 2 * Config::get_value('two_month_discount')];
+        $three_month = ['duration' => '三月', 'price' => $base_price * 3 * Config::get_value('three_month_discount')];
+        $six_month = ['duration' => '六月', 'price' => $base_price * 6 * Config::get_value('six_month_discount')];
+        return success(['description' => $description, 'money' => ['one_month' => $one_month, 'two_month' => $two_month, 'three_month' => $three_month, 'six_month' => $six_month]]);
     }
 }

@@ -65,11 +65,11 @@ class SonController extends Controller
         $status         = !$status ? null : [$status];
 
         $query          = Son::when($son, function ($query, $son) {
-                            return $query->where('sons.name', $son);
+                            return $query->where('sons.name', 'like', '%' .  $son . '%');
                         })
                         ->join('users', 'users.id', '=', 'sons.user_id')
                         ->when($name, function($query, $name){
-                                        return $query->where('users.name', $name);
+                                        return $query->where('users.name',  'like', '%' .  $name . '%');
                                     })
                         ->when($status, function ($query, $status){
                                         return $query->whereIn('sons.status', $status);

@@ -129,11 +129,11 @@ class DashController extends Controller
             # 入库统计只统计子账户的
             $son_ids = Son::where('user_id', $user->id)->pluck('id')->toArray();
             if(!$son_ids){
-                $table = 0;
+                $son_ids = '(-1)';
             } else{
                 $son_ids = '(' . implode(',', $son_ids) . ')';
-                $table = DB::select("select zh_stores.id, sum(zh_prices.money) as money, count(*) as number, date(zh_stores.created_at) as time  from zh_stores join zh_prices on zh_stores.price_id=zh_prices.id where zh_stores.input_user_id in " . $son_ids .  " group by date(zh_stores.created_at) order by date(zh_stores.created_at) desc limit 10");
             }
+            $table = DB::select("select zh_stores.id, sum(zh_prices.money) as money, count(*) as number, date(zh_stores.created_at) as time  from zh_stores join zh_prices on zh_stores.price_id=zh_prices.id where zh_stores.input_user_id in " . $son_ids .  " group by date(zh_stores.created_at) order by date(zh_stores.created_at) desc limit 10");
 
 
             $res['field'] = $data;

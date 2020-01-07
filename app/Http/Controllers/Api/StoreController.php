@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Exports\InStockExport;
 use App\Exports\StatisticExport;
+use App\Exports\StockCompatExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Port\TokenEncController;
 use App\Http\Controllers\Port\TransactionController;
+use App\Imports\StockImport;
 use App\Models\Config;
 use App\Models\InoutLog;
 use App\Models\Son;
@@ -114,8 +116,6 @@ class StoreController extends Controller
 
         $receipt        = (new TokenEncController())->token_public_decrypt($receipt);
 
-
-
         $apple_verify   = apple_verify($receipt);
 //        return success($apple_verify);
 
@@ -127,6 +127,11 @@ class StoreController extends Controller
 
     public function status(Request $request)
     {
+        $store = Store::find($request->id);
+        if($store->status == '上架'){
+            return error('', 400, '上架中, 不可操作');
+        }
+//        return success($store);
 
         $info = Store::where('id', $request->id)->update(['status'=>$request->status]);
         return success($info, 200, '状态修改成功');
@@ -311,9 +316,11 @@ class StoreController extends Controller
         }
 
         $cond = null;
+        $groupBy = null;
         if($user->role_id != 1){
             $cond['son']    =  Son::where('user_id', $user->id)->pluck('id')->toArray();
             $cond['user']   = auth('api')->user()->id;
+            $groupBy = true;
         }
 
         $query = Store::join('prices', 'prices.id', '=', 'stores.price_id')
@@ -360,10 +367,23 @@ class StoreController extends Controller
 
         $data['totalMoney'] = $query->sum('prices.money');
 
-        $data['total']      = $query->distinct('stores.price_id', 'stores.owner_user_id')->count();
+        if($user->role_id == 1){
+            $data['total']      = $query->distinct('stores.price_id', 'stores.owner_user_id')->count();
+
+        } else{
+            $data['total']      = $query->distinct('stores.price_id', 'stores.owner_user_id')->count();
+
+        }
+
 
         $data['data']       = $query
-                            ->groupBy('price_id', 'owner_user_id')
+                            ->when($groupBy, function($query){
+                                return $query->groupBy('price_id', 'owner_user_id');
+
+                            }, function($query){
+                                return $query->groupBy('price_id');
+                            })
+//                            ->groupBy('price_id', 'owner_user_id')
                             ->orderBy('stores.' . $sort_field, $order)
                             ->offset($offset)
                             ->limit($pagesize)
@@ -783,6 +803,14 @@ class StoreController extends Controller
         return Excel::download(new StockExport($request), 'users.xlsx');
     }
 
+    public function export_compat_stock(Request $request)
+    {
+        ini_set('memory_limit','5000M');
+        set_time_limit(0);
+
+        return Excel::download(new StockCompatExport($request), 'users.xlsx');
+    }
+
     public function in_export(Request $request)
     {
         ini_set('memory_limit','5000M');
@@ -798,6 +826,21 @@ class StoreController extends Controller
 
         return Excel::download(new StatisticExport($request), 'users.xlsx');
     }
+
+    public function import_stock(Request $request)
+    {
+        set_time_limit(0);
+        $file = $request->file('file');
+
+       try{
+            Excel::import(new StockImport(), $request->file('file'));
+            return success('', 200, '导入成功');
+       } catch (\Exception $e){
+           return error('', 400, '导入失败');
+       }
+
+    }
+
 
 
 }

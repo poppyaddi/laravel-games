@@ -47,13 +47,13 @@ class PriceController extends Controller
                             return $query->where('games.id', $game_id);
                         })
                         ->when($gold, function($query, $gold){
-                            return $query->where('prices.gold', $gold);
+                            return $query->where('prices.gold',  'like', '%' .  $gold . '%');
                         })
             ->when($price_id, function($query, $price_id){
                 return $query->where('prices.id', $price_id);
             })
             ->when($title, function($query, $title){
-                return $query->where('prices.title', $title);
+                return $query->where('prices.title',   'like', '%' .  $title . '%');
             })
                         ->where('prices.pass', $pass)
                         ->whereIn('prices.status', $status)

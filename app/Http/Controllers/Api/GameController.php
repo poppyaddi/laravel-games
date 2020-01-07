@@ -40,10 +40,10 @@ class GameController extends Controller
         $order          = get_real_order($request->sortOrder);
 
         $query          = Game::when($name, function ($query, $name) {
-                            return $query->where('name', $name);
+                            return $query->where('name', 'like', '%' .  $name . '%');
                         })
                         ->when($product, function($query, $product){
-                            return $query->where('productIdentifier', $product);
+                            return $query->where('productIdentifier',  'like', '%' .  $product . '%');
                         })
                         ->when($status, function($query, $status){
                             return $query->whereIn('status', $status);

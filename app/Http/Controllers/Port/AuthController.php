@@ -94,21 +94,23 @@ class AuthController extends Rsa1024Controller
 
         $device = Device::where($map)->first();
 
+        $device_data = [
+            'device' => $device_id,
+            'son_id' => auth('port')->user()->id,
+        ];
+
         if (!$device) {
             # 如果设备不存在则添加设备到数据库
-            $data = [
-                'device' => $device_id,
-                'son_id' => auth('port')->user()->id,
-            ];
+
 
             # 判断该子账户的主账户是否需要在后台启用设备
             $save_device = $this->parent()->userinfo->save_device;
 
             if($save_device == '无需启用'){
-                $data['status'] = 2; # 1无效2启用3禁用
+                $device_data['status'] = 2; # 1无效2启用3禁用
             }
 
-            $device = Device::create($data);
+            $device = Device::create($device_data);
         }
         #
         if($this->parent()->userinfo->save_device == '需启用' && $device['status'] != '启用'){
@@ -116,7 +118,7 @@ class AuthController extends Rsa1024Controller
         }
 
         $data['description'] = '子账户登陆成功, 用户名"' . json_encode($credentials);
-        $data['user_id'] = auth('api')->user()->id;
+        $data['user_id'] = auth('port')->user()->id;
         UserLog::create($data);
 
         # 中间件中检查账户是否过期(月租用户永不过期)

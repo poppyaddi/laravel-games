@@ -57,33 +57,8 @@ class LogController extends Controller
             }
         }
 
-
-//        # 管理员显示所有人
-//        $in = [];
-//
-//
-//
-//        $with = $type ?? 'son';
-//        if($user->role_id != 1){
-//            # 非管理员显示自己的登陆日志
-//            if($type == 'user'){
-//                # 主账户日志
-//                $in = [$user->id];
-//            } elseif ($type == 'son'){
-//                # 显示子账户日志
-//                # 只显示自己主账户下的子账户日志
-//                $in = Son::where('user_id', $user->id)->pluck('id')->toArray();
-//            }
-//        }
-//
-//        if($type == 'son'){
-//            $type = 2;
-//        } else{
-//            $type = 1;
-//        }
-
         $query = UserLog::when($in, function($query, $in){
-                return $query->whereIn('id', $in);
+                return $query->whereIn('user_id', $in);
             })
             ->when($user_id, function($query, $user_id){
                 return $query->where('user_id', $user_id);
