@@ -112,14 +112,17 @@ class StoreController extends Controller
 
     public function detail(Request $request)
     {
-        $receipt        = Store::find($request->id)->receipt;
+        $store        = Store::find($request->id);
+        $receipt        = $store->receipt;
+        $new_receipt = $store->new_receipt;
 
         $receipt        = (new TokenEncController())->token_public_decrypt($receipt);
+        $new_receipt        = (new TokenEncController())->token_public_decrypt($new_receipt);
 
         $apple_verify   = apple_verify($receipt);
 //        return success($apple_verify);
 
-        $data           = ['receipt'=>$receipt, 'buy_time'=>date('Y-m-d H:i:s',     substr($apple_verify->receipt->original_purchase_date_ms, 0, 10)), 'identifier'=>$apple_verify->receipt->transaction_id];
+        $data           = ['receipt'=>$receipt, 'buy_time'=>date('Y-m-d H:i:s',     substr($apple_verify->receipt->original_purchase_date_ms, 0, 10)), 'identifier'=>$apple_verify->receipt->transaction_id, 'new_receipt'=>$new_receipt];
 
 
         return success($data);
@@ -223,12 +226,14 @@ class StoreController extends Controller
         # 判断权限
         $user           = auth('api')->user();
         $in             = null;
+        $groupBy = null;
         if($user->role_id != 1){
             $in =  Son::where('user_id', $user->id)->pluck('id')->toArray();
+            $groupBy = true;
         }
 
-        $query = InoutLog::where('inout_logs.type', 2)
-                ->join('stores', 'stores.id', '=', 'inout_logs.store_id')
+        $query = Store::where('stores.status', 2)
+//                ->join('stores', 'stores.id', '=', 'inout_logs.store_id')
                 ->join('prices', 'prices.id', '=', 'stores.price_id')
                 ->join('games', 'games.id', '=', 'stores.game_id')
                 ->join('sons', 'sons.id', '=', 'stores.owner_user_id')
@@ -252,14 +257,20 @@ class StoreController extends Controller
                 ->when($end_time, function($query, $end_time){
                     return $query->where('stores.created_at', '<', $end_time);
                 })
-                ->select('inout_logs.id', 'games.name as game_name', 'prices.gold', 'price_id',  'prices.money', 'sons.name as son_name', 'stores.status', DB::raw('count(concat(price_id, owner_user_id)) as total'));
+                ->select('games.name as game_name', 'prices.gold', 'price_id',  'prices.money', 'sons.name as son_name', 'stores.status', DB::raw('count(concat(price_id, owner_user_id)) as total'));
 
         $data['totalMoney'] = $query->sum('prices.money');
 
         $data['total']      = $query->distinct('price_id', 'owner_user_id')->count();
 
         $data['data']       = $query
-                            ->groupBy('price_id', 'owner_user_id')
+                            ->when($groupBy, function($query){
+                                return $query->groupBy('price_id', 'owner_user_id');
+
+                            }, function($query){
+                                return $query->groupBy('price_id');
+                            })
+//                            ->groupBy('price_id', 'owner_user_id')
                             ->orderBy('stores.' . $sort_field, $order)
                             ->offset($offset)
                             ->limit($pagesize)
@@ -372,7 +383,6 @@ class StoreController extends Controller
 
         } else{
             $data['total']      = $query->distinct('stores.price_id', 'stores.owner_user_id')->count();
-
         }
 
 

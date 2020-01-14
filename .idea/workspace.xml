@@ -2,266 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="917c7854-436d-4d0a-8248-70b07f54d653" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Exports/StockCompatExport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/StockImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/css/app.df29528cd4e8af289980330d2a9f791a.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/css/app.df29528cd4e8af289980330d2a9f791a.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/imgs/back_beauty.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/0.9b4b73b03cfe052555ec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/0.9b4b73b03cfe052555ec.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/1.ebcf85715370a54afb3b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/1.ebcf85715370a54afb3b.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/11.b528087f858cabe2e7e5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/11.b528087f858cabe2e7e5.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/12.3e8690764e8238612233.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/12.3e8690764e8238612233.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/13.d57c458483c0c3f86338.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/13.d57c458483c0c3f86338.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/14.75aba1a03bcbc4d2e841.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/14.75aba1a03bcbc4d2e841.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/15.c2aba2ca5b7059d37ac8.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/15.c2aba2ca5b7059d37ac8.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/16.9bc0645e2277208eca6d.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/16.9bc0645e2277208eca6d.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/17.77dc24f7efe1b6ed5720.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/17.77dc24f7efe1b6ed5720.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/18.86c69b713b647ecce048.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/18.86c69b713b647ecce048.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/2.bb786b6c20f7994a749f.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/2.bb786b6c20f7994a749f.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/22.436269e940ca104c4eff.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/22.436269e940ca104c4eff.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/24.1d2ba22f049bfcc26085.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/24.1d2ba22f049bfcc26085.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/25.e9a9e912cf8abac10a38.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/25.e9a9e912cf8abac10a38.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/26.ad5f794e9a9cf374a462.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/26.ad5f794e9a9cf374a462.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/27.4ec1dfb14771c6f38858.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/28.8cf968fd7ca8da4d2c38.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/28.8cf968fd7ca8da4d2c38.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/29.ca2f459ffa06e45ef99d.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/29.ca2f459ffa06e45ef99d.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/3.61512c58c0a8680e76ce.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/3.61512c58c0a8680e76ce.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/34.87cf5fd130528b9ce110.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/34.87cf5fd130528b9ce110.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/35.cb548dcbb2f76752f62a.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/35.cb548dcbb2f76752f62a.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/37.271b08c1fd55f5b655cd.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/37.271b08c1fd55f5b655cd.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/38.5a4908380ebe0b55ef33.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/38.5a4908380ebe0b55ef33.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/39.4b95a150bad695aa34fd.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/39.4b95a150bad695aa34fd.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/4.c8cfda19e6f4e533c943.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/4.c8cfda19e6f4e533c943.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/40.972d3dc9a9404b0f445d.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/40.972d3dc9a9404b0f445d.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/42.5f75292acfbc3a1df6f1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/43.390fd5f24aefef4ab206.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/44.2556fcb5f486625a4324.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/47.863379f6d0cf5da3ba25.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/47.863379f6d0cf5da3ba25.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/48.7ea6a771b8a036eecae4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/48.7ea6a771b8a036eecae4.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/49.bf342adc1e86b29f9b47.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/49.bf342adc1e86b29f9b47.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/5.33c81e482ceb62d92e1a.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/5.33c81e482ceb62d92e1a.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/50.08a889817fdd01e49c08.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/50.08a889817fdd01e49c08.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/51.5c0ea0a1020dc0db2b9e.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/51.5c0ea0a1020dc0db2b9e.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/52.9fde156e0201e881c9bf.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/52.9fde156e0201e881c9bf.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/53.69a6863d6545a486bb66.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/53.69a6863d6545a486bb66.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/54.791385c1af309bbf1aac.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/54.791385c1af309bbf1aac.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/55.ab5806ee6b888abf56bc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/55.ab5806ee6b888abf56bc.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/57.389626563f3cc48ab194.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/57.389626563f3cc48ab194.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/58.b62f88b9f460c69ef681.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/59.c0417bb58226ae8c2a91.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/59.c0417bb58226ae8c2a91.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/6.f7f26819e127e08c9f77.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/6.f7f26819e127e08c9f77.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/60.ffe7974b351e60e8fcb2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/60.ffe7974b351e60e8fcb2.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/61.b32834bf82a884c23cce.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/61.b32834bf82a884c23cce.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/62.ae46a6574dc13b55c9ec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/62.ae46a6574dc13b55c9ec.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/66.601dda7c9d83d941549b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/66.601dda7c9d83d941549b.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/71.5683a7a49f7d7277bbd7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/71.5683a7a49f7d7277bbd7.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/72.cb4128fb471ae2d75f2f.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/72.cb4128fb471ae2d75f2f.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/73.4aeb20a5995fb7f2a896.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/73.4aeb20a5995fb7f2a896.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/8.3d306ab4334d76ea096f.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/8.3d306ab4334d76ea096f.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/87.71c376484a8c49582b19.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/87.71c376484a8c49582b19.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/9.f18d9afbe7556a85ed8b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/9.f18d9afbe7556a85ed8b.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/92.a1c3086c3226a1ca3eba.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/92.a1c3086c3226a1ca3eba.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/93.47fddbcbb271e4a3aee7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/93.47fddbcbb271e4a3aee7.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/94.aa269fbb455b829b3c6f.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/94.aa269fbb455b829b3c6f.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/95.9e97d30f4b69423e580e.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/95.9e97d30f4b69423e580e.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/96.938b0eadfe782a04c829.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/96.938b0eadfe782a04c829.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/app.0da51f60c583f4953b42.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/app.0da51f60c583f4953b42.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/manifest.f461b08b3d92b964b64f.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/js/manifest.f461b08b3d92b964b64f.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/.access.log.swp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ConfigController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ConfigController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/DashController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/DashController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/DeviceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/DeviceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GameController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/LogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/LogController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/MoneyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/MoneyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/NoticeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/NoticeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PriceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/PriceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SonController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SonController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/StoreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/StoreController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/UserInfoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Port/TransactionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ErrorStore.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ErrorStore.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/app.f37f7b9cef16ff8b5b0360203e298569.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/css/app.f37f7b9cef16ff8b5b0360203e298569.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/0.0a237f3b826d8bd0114d.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/0.0a237f3b826d8bd0114d.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/11.8a43f06d7d8e42067ccb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/11.8a43f06d7d8e42067ccb.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/12.a2bd6c5f906025a5bdb1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/12.a2bd6c5f906025a5bdb1.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/13.bc6fd1ab9a86f3d8b965.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/13.bc6fd1ab9a86f3d8b965.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/14.fffb05b63ace6f07ddbd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/14.fffb05b63ace6f07ddbd.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/15.3789277cf045118d70bd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/15.3789277cf045118d70bd.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/16.f5a6051edb242b77005d.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/16.f5a6051edb242b77005d.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/17.c32c38d01a7ba65ae8db.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/17.c32c38d01a7ba65ae8db.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/18.5c74270ce78567947933.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/18.5c74270ce78567947933.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/2.4f699975aeb200fb9d69.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/2.4f699975aeb200fb9d69.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/22.50329af3c3c694f34c33.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/22.50329af3c3c694f34c33.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/24.01c3768a28b5e0e23bd4.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/24.01c3768a28b5e0e23bd4.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/25.1a826c380b79fa027a01.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/25.1a826c380b79fa027a01.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/26.108490ec8be03e9ba36a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/26.108490ec8be03e9ba36a.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/27.47de3e7ea6244c925c74.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/27.47de3e7ea6244c925c74.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/27.4ec1dfb14771c6f38858.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/28.705195dbab9f1d870ecf.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/28.705195dbab9f1d870ecf.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/29.37cb9b6fcf2089221896.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/29.37cb9b6fcf2089221896.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/31.837715c10ed626928dda.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/31.66b6aabd3528137871a0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/31.837715c10ed626928dda.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/31.66b6aabd3528137871a0.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/34.287837048b5bb3209b6c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/34.287837048b5bb3209b6c.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/35.e0d8d6369f9665497306.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/35.e0d8d6369f9665497306.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/37.4ce6e671f25e519b386e.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/37.4ce6e671f25e519b386e.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/38.599781728e9162fc06ef.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/38.599781728e9162fc06ef.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/39.ffb3949bfbfc9fbdd92a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/39.ffb3949bfbfc9fbdd92a.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/4.7c674ebf2185809849b5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/4.7c674ebf2185809849b5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/40.74a8ba3e27407f78f8c6.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/40.74a8ba3e27407f78f8c6.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/42.5c3befe3fa3e220dafff.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/42.5c3befe3fa3e220dafff.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/43.fc5d7edd77ea8565e96f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/43.fc5d7edd77ea8565e96f.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/42.5f75292acfbc3a1df6f1.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/44.6e7da059c0a6f4618112.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/44.6e7da059c0a6f4618112.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/43.390fd5f24aefef4ab206.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/48.47bbc34e9ebd1aaf67e5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/48.47bbc34e9ebd1aaf67e5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/49.717aba2f40cea8ae7f01.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/49.717aba2f40cea8ae7f01.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/5.0bb2bed527ed051927d9.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/5.0bb2bed527ed051927d9.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/50.ffea0ca29a7b975bf90e.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/50.ffea0ca29a7b975bf90e.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/51.b29fc631512979c438d8.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/51.b29fc631512979c438d8.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/52.793b7ed2c721dfdf3d37.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/52.793b7ed2c721dfdf3d37.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/53.6a7315422eac69627120.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/53.6a7315422eac69627120.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/54.f6a7b7024414fb396c6a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/54.f6a7b7024414fb396c6a.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/55.6c8176423bb2f1a35ab9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/56.853c14bb489b83b3913d.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/55.6c8176423bb2f1a35ab9.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/56.853c14bb489b83b3913d.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/56.85f7300756def0d2bd22.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/56.85f7300756def0d2bd22.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/58.b62f88b9f460c69ef681.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/57.53bc706ca1d770ecef57.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/57.53bc706ca1d770ecef57.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/58.ebf6a42f9965eed43a4d.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/58.ebf6a42f9965eed43a4d.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/59.4c7e24ff72382863192f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/59.4c7e24ff72382863192f.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/6.500db5e97c1b105c67a1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/6.500db5e97c1b105c67a1.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/60.c86ab84a1db3c57bd612.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/44.2556fcb5f486625a4324.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/60.c86ab84a1db3c57bd612.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/61.92e4e21250f03ab99a13.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/61.92e4e21250f03ab99a13.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/62.513e6ac71a385eac2588.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/62.513e6ac71a385eac2588.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/66.42bf1505a476f1197306.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/66.42bf1505a476f1197306.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/71.1e1eeeb38bc5cc0f80be.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/71.1e1eeeb38bc5cc0f80be.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/72.d5090909cbd01068656f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/72.d5090909cbd01068656f.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/73.a32b0a17917c07ac1632.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/73.a32b0a17917c07ac1632.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/8.6b40494272dc1695c127.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/8.6b40494272dc1695c127.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/87.25e7e2304d9359f66a48.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/87.25e7e2304d9359f66a48.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/9.76783812447b4cdefa0b.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/9.76783812447b4cdefa0b.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/92.a52af07c198f04e0041b.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/92.a52af07c198f04e0041b.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/93.884710676859d18d90f7.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/93.884710676859d18d90f7.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/94.6669de48d8b1a98a1a52.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/94.6669de48d8b1a98a1a52.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/app.badc1d93f170dc69765d.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/app.badc1d93f170dc69765d.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/manifest.4820c7566a2ab5a36e31.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/manifest.4820c7566a2ab5a36e31.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -387,7 +132,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/code" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -499,7 +244,18 @@
       <workItem from="1578206440294" duration="23171000" />
       <workItem from="1578309440140" duration="11801000" />
       <workItem from="1578333168094" duration="219000" />
-      <workItem from="1578384535748" duration="10379000" />
+      <workItem from="1578384535748" duration="14999000" />
+      <workItem from="1578832096589" duration="352000" />
+      <workItem from="1578832477210" duration="125000" />
+      <workItem from="1578832631481" duration="75000" />
+      <workItem from="1578833468847" duration="13000" />
+      <workItem from="1578833736022" duration="7000" />
+      <workItem from="1578833785117" duration="435000" />
+      <workItem from="1578836251844" duration="27000" />
+      <workItem from="1578836300428" duration="1581000" />
+      <workItem from="1578848344735" duration="23000" />
+      <workItem from="1578939250936" duration="1275000" />
+      <workItem from="1579042382901" duration="1344000" />
     </task>
     <servers />
   </component>
