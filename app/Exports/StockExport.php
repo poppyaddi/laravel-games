@@ -119,7 +119,7 @@ class StockExport implements FromCollection
             $res[$i+1][2] = $data[$i]->price->gold;
             $res[$i+1][3] = $data[$i]->price->money;
             $res[$i+1][4] = (string) $data[$i]->identifier;
-            $res[$i+1][5] = $data[$i]->user->name;
+            $res[$i+1][5] = $data[$i]->user->name ?? '已删除';
             $res[$i+1][6] = $data[$i]->status;
             $res[$i+1][7] = $decrypt->token_public_decrypt($data[$i]->receipt);
             $res[$i+1][8] = $decrypt->token_public_decrypt($data[$i]->new_receipt);

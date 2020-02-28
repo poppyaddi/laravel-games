@@ -13,6 +13,7 @@ use App\Models\Config;
 use App\Models\InoutLog;
 use App\Models\Son;
 use App\Models\Store;
+use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -846,9 +847,46 @@ class StoreController extends Controller
             Excel::import(new StockImport(), $request->file('file'));
             return success('', 200, '导入成功');
        } catch (\Exception $e){
-           return error('', 400, '导入失败');
+           return error('', 400, $e);
        }
 
+    }
+
+
+    public function owner_less_stock(Request $request)
+    {
+        $page           = $request->page ?? 1;
+        $pagesize       = $request->pageSize ?? 15;
+        $offset         = $pagesize * ($page - 1);
+        $sort_field     = $request->sortField ?? 'id';
+        $order          = get_real_order($request->sortOrder);
+
+        # 所有的子账户id
+        $son_ids = Son::pluck('id');
+        $user_ids = User::pluck('id');
+
+        # 所有账户不存在的凭证
+            $query = Store::with(['price'=>function($query){
+                return $query->with(['game'=>function($query){
+                    return $query->select('id', 'name');
+                }])
+                    ->select('id', 'game_id', 'gold', 'money');
+                }])
+                ->where(function($query) use ($son_ids){
+                $query->where('user_type', 2)
+                    ->whereNotIn('owner_user_id', $son_ids);
+                })->orWhere(function($query) use ($user_ids){
+                    $query->where('user_type', 1)
+                        ->whereNotIn('owner_user_id', $user_ids);
+                });
+
+        $data['total']  = $query->count();
+        $data['data']   = $query
+                        ->orderBy($sort_field, $order)
+                        ->offset($offset)
+                        ->limit($pagesize)
+                        ->get();
+        return success($data);
     }
 
 

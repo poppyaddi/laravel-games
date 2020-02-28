@@ -61,8 +61,13 @@ class GameController extends Controller
 
     public function delete(Request $request)
     {
-        $info = Game::destroy($request->id);
-        return success($info, 200, '删除成功');
+        try{
+            $info = Game::destroy($request->id);
+            return success($info, 200, '删除成功');
+        } catch (\PDOException $e){
+            return success('', 200, '删除失败!!!先删除该游戏下的所有标识');
+        }
+
     }
 
     public function detail(Request $request)

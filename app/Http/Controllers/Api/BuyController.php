@@ -82,6 +82,7 @@ class BuyController extends Controller
         $price_id       = $request->price_id;
         $user_id        = $request->user_id;
         $status         = $request->status;
+        $order_num      = $request->order_num;
 
         $page           = $request->page ?? 1;
         $pagesize       = $request->pageSize ?? 15;
@@ -98,6 +99,9 @@ class BuyController extends Controller
                         })
                         ->when($user_id, function($query, $user_id){
                             return $query->where('user_id', $user_id);
+                        })
+                        ->when($order_num, function($query, $order_num){
+                            return $query->where('order_num', $order_num);
                         })
                         ->when($status, function($query, $status){
                             return $query->where('status', $status);

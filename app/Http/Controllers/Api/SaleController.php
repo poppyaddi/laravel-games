@@ -445,4 +445,56 @@ class SaleController extends Controller
 
         return success($data, 200);
     }
+
+    public function remove_all(Request $request)
+    {
+        $user = auth('api')->user();
+        if($user->role_id == 1){
+            $user_id = null;
+        } else{
+            $user_id = $user->id;
+        }
+
+
+        # 获取所有在架的订单id
+        $query = Sale::when($user_id, function ($query, $user_id) {
+            return $query->where('user_id', $user_id);
+        })->where(function($query){
+            $query->where('status', 2)->orWhere('status', 1);
+        });
+
+        $sale_ids = $query->pluck('id')->toArray();
+//        dump($sale_ids);
+
+        if(!$sale_ids){
+            return success('', 200, '无商品在架');
+        }
+
+        $store_array = $query->pluck('store_id');
+//        return $sale_ids;
+
+        $store_ids = [];
+        foreach ($store_array as $val){
+            $ids = explode(',', $val);
+            $store_ids = array_merge($store_ids, $ids);
+        }
+//        dump($store_ids);
+
+//        DB::beginTransaction();
+
+        # 修改所有订单的状态为下架(status = 4)
+        $flag1 = Sale::whereIn('id', $sale_ids)->update(['status'=>4]);
+
+        # 修改所有凭证的状态为正常使用
+        $flag2 = Store::whereIn('id', $store_ids)->update(['status'=>1]);
+
+        if($flag1 && $flag2){
+            DB::commit();
+            return success('', 200, '下架成功');
+        } else{
+            DB::rollBack();
+            return success('', 200, '下架失败');
+        }
+
+    }
 }

@@ -182,6 +182,8 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
         Route::get('statistic_export', 'StoreController@statistic_export');
         Route::post('import_stock', 'StoreController@import_stock');
 
+        Route::get('owner_less_stock', 'StoreController@owner_less_stock');
+
     });
 
     Route::prefix('log')->group(function(){
@@ -210,6 +212,7 @@ Route::namespace('Api')->prefix('v1')->middleware(['refresh', 'permission'])->gr
         Route::post('update', 'SaleController@update');
         Route::get('buy_user', 'SaleController@buy_user');
         Route::get('buy_me', 'SaleController@buy_me');
+        route::post('remove_all', 'SaleController@remove_all');
     });
 
     Route::prefix('buy')->group(function(){
